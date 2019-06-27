@@ -1,11 +1,7 @@
-### OSX ###
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon must end with two \r
-Icon
-
+#local pycs and other things
+*.pyc*
+__pycache__/*
+migrations/*
 
 # Thumbnails
 ._*
