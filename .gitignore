@@ -1,6 +1,7 @@
 #local pycs and other things
 *.pyc*
 __pycache__/*
+__pycache__/*.pyc
 migrations/*
 
 # Thumbnails

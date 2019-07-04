@@ -8,3 +8,8 @@ def start_screen(request):
 @login_required
 def create_world_01(request):
     return render(request, 'game/create_world01.html')
+
+@login_required
+def show_world_01(request):
+    return render(request, 'game/show_world01.html')
+
