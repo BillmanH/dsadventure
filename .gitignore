@@ -1,8 +1,11 @@
 #local pycs and other things
 *.pyc*
 __pycache__/*
+__pycache__/
 __pycache__/*.pyc
 migrations/*
+notebooks/Untitled.ipynb
+
 
 # Thumbnails
 ._*
@@ -88,4 +91,5 @@ db.sqlite3
 *.swp
 *.map
 .ipynb_checkpoints
+notebooks/.ipynb_checkpoints
 

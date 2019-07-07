@@ -7,21 +7,30 @@
     <link rel="stylesheet" type="text/css" href="{% static 'game/createworld.css' %}">
     </head>
     <body>
+        <form action='showworld01'  method='post' id='newCharacter'>
+            {% csrf_token %}
         <div class="slidecontainer">
             <p>How many mountain ranges:</p>
-            <input type="range" min="1" max="10" value="5" class="earth slider" id="drop_iter">
+            <input type="range" min="1" max="10" value="5" class="earth slider" id="drop_iter" oninput="sliderChange(this.id,this.value)">
             <p>How long should the ranges be:</p>
-            <input type="range" min="30" max="100" value="80" class="earth slider" id="spread_iter">
+            <input type="range" min="30" max="100" value="80" class="earth slider" id="spread_iter" oninput="sliderChange(this.id,this.value)">
             <p>How high should the peaks be:</p>
-            <input type="range" min="1" max="10" value="5" class="earth slider" id="peak_height">
+            <input type="range" min="1" max="10" value="5" class="earth slider" id="peak_height" oninput="sliderChange(this.id,this.value)">
             <p>----------------------</p>
             <p>How high the water level:</p>
-            <input type="range" min="0" max="100" value="0" class="water slider" id="water_level">
+            <input type="range" min="0" max="100" value="0" class="water slider" id="water_level" oninput="sliderChange(this.id,this.value)">
             <p>How strong the rainfall:</p>
-            <input type="range" min="1" max="10" value="5" class="water slider" id="rain_iter">
+            <input type="range" min="1" max="10" value="5" class="water slider" id="rain_iter" oninput="sliderChange(this.id,this.value)">
+            <button id="create" type='submit' value='submit'>Forge this world!</button>
         </div>
+        </form>
         <div>
-            <a class="button" href="showworld01">Begin the age of elements</a>
         </div>
     </body>
+    <script>
+        var landscape = {};
+        function sliderChange(n,v){
+            landscape[n]=v
+        }
+    </script>
 </html>
