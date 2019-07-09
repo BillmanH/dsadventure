@@ -19,7 +19,8 @@ class Landscape:
     def __init__(self, params=default_params):
         #overal size of the world
         self.grid = params.get('grid',[40,40]) 
-
+        #determinte the number and spread of mountain ranges
+        self.drop_iter = params.get('drop_iter',5)
         #other params that aren't used as variables
         self.N_loc = params.get('N_loc',0)
         self.N_std = params.get('N_std',1)
@@ -37,6 +38,15 @@ class World:
         for i in range(height - 1, 0, -1):
             a = np.pad(a, ((1, 1), (1, 1)), 'constant', constant_values=i)
         return pd.DataFrame(a)
+
+    def get_random_direction(self):
+        direction = [1,0,-1]
+        return np.array([np.random.choice(direction),
+            np.random.choice(direction)])
+
+    def get_next_coord(self,coord):
+        nextcoord = np.add(coord,get_random_direction())
+        return nextcoord
 
     def get_random_chord(self):
         df = self.grid_elevation
@@ -60,6 +70,24 @@ class World:
                     )
           )
         return m
+
+    def brownian_land(self,landscape):
+        df_new = self.grid_elevation
+        for n in range(landscape['drop_iter']):
+            coord = get_random_chord(df_new)
+            landscape['peaks'].append(coord)
+            for m in range(landscape['spread_iter']):
+                try:
+                    coord = get_next_coord(coord)
+                    m = getMountain(height=abs(
+                                    int(np.round(
+                                        np.random.normal(landscape['mt_avg'], landscape['mt_std']))
+                                      )))
+                   mdf = reindexMountain(coord,m)
+                    df_new = df_new.add(mdf.reindex_like(df_new).fillna(0))
+                except:
+                    continue
+        return df_new
 
     # the world starts here with a blank canvas
     def build_blank_grid(self,landscape):
