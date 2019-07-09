@@ -21,6 +21,13 @@ class Landscape:
         self.grid = params.get('grid',[40,40]) 
         #determinte the number and spread of mountain ranges
         self.drop_iter = params.get('drop_iter',5)
+        self.spread_iter = params.get('spread_iter',80)
+        self.mt_avg = params.get('mt_avg',2)
+        self.mt_std = params.get('mt_std',3)
+        self.peak_height = params.get('peak_height',5)
+        self.mountain_level = params.get('mountain_level',25)
+        #oceans
+        self.water_level = params.get('water_level',0)
         #other params that aren't used as variables
         self.N_loc = params.get('N_loc',0)
         self.N_std = params.get('N_std',1)
@@ -29,6 +36,7 @@ class World:
     def __init__(self,landscape):
         self.landscape = landscape
         self.land_shifts = []
+        self.peaks = []
 
         self.grid_elevation = self.build_blank_grid(landscape) 
 
@@ -45,7 +53,7 @@ class World:
             np.random.choice(direction)])
 
     def get_next_coord(self,coord):
-        nextcoord = np.add(coord,get_random_direction())
+        nextcoord = np.add(coord,self.get_random_direction())
         return nextcoord
 
     def get_random_chord(self):
@@ -71,23 +79,24 @@ class World:
           )
         return m
 
-    def brownian_land(self,landscape):
+    def brownian_land(self):
         df_new = self.grid_elevation
-        for n in range(landscape['drop_iter']):
-            coord = get_random_chord(df_new)
-            landscape['peaks'].append(coord)
-            for m in range(landscape['spread_iter']):
+        for n in range(self.landscape.drop_iter):
+            coord = self.get_random_chord()
+            self.peaks.append(coord)
+            for m in range(self.landscape.spread_iter):
                 try:
-                    coord = get_next_coord(coord)
-                    m = getMountain(height=abs(
+                    coord = self.get_next_coord(coord)
+                    m = self.getMountain(height=abs(
                                     int(np.round(
-                                        np.random.normal(landscape['mt_avg'], landscape['mt_std']))
+                                        np.random.normal(self.landscape.mt_avg, self.landscape.mt_std))
                                       )))
-                   mdf = reindexMountain(coord,m)
+                    mdf = self.reindexMountain(coord,m)
                     df_new = df_new.add(mdf.reindex_like(df_new).fillna(0))
+                    # TODO: add dfnew to dict in an array for visualization
                 except:
                     continue
-        return df_new
+        self.grid_elevation = df_new
 
     # the world starts here with a blank canvas
     def build_blank_grid(self,landscape):
