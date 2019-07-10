@@ -28,6 +28,8 @@ class Landscape:
         self.mountain_level = params.get('mountain_level',25)
         #oceans
         self.water_level = params.get('water_level',0)
+        self.rain_iter = params.get('rain_iter',8)
+        self.rain_spread = params.get('rain_spread',1000)
         #other params that aren't used as variables
         self.N_loc = params.get('N_loc',0)
         self.N_std = params.get('N_std',1)
@@ -39,6 +41,7 @@ class World:
         self.peaks = []
 
         self.grid_elevation = self.build_blank_grid(landscape) 
+        self.grid_rainfall = self.build_blank_grid(landscape) 
 
     #little builders (like mountains)
     def getMountain(self,height=2):
@@ -79,12 +82,14 @@ class World:
           )
         return m
 
+    # drunkards walk that sets a mountain in a place, then drags it randomly across the map
     def brownian_land(self):
         df_new = self.grid_elevation
         for n in range(self.landscape.drop_iter):
             coord = self.get_random_chord()
             self.peaks.append(coord)
             for m in range(self.landscape.spread_iter):
+                # if moutain goes off the map, it is ignored. 
                 try:
                     coord = self.get_next_coord(coord)
                     m = self.getMountain(height=abs(
@@ -97,6 +102,23 @@ class World:
                 except:
                     continue
         self.grid_elevation = df_new
+
+    def brownian_rainfall(self):
+        df_new = self.grid_elevation
+        for n in range(self.landscape.rain_iter):
+            coord = self.get_random_chord()
+            for m in range(self.landscape.rain_spread):
+                try:
+                    coord = self.get_next_coord(coord)
+                    m = self.getMountain(height=abs(
+                                            int(np.round(
+                                                np.random.normal(self.landscape.mt_avg, self.landscape.mt_std))
+                                                  )))
+                    mdf = self.reindexMountain(coord,m)
+                    df_new = df_new.add(mdf.reindex_like(df_new).fillna(0))
+                except:
+                    continue
+        self.grid_rainfall = df_new
 
     # the world starts here with a blank canvas
     def build_blank_grid(self,landscape):

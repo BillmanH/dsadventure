@@ -37,21 +37,6 @@ def drawTerrain(df,cities=None):
     )
     return world
 
-def drawTerrain2(df):
-    df['key'] = df.index
-    df['x'] = df['key'].apply(lambda x: int(str(x).split(":")[0]))
-    df['y'] = df['key'].apply(lambda x: int(str(x).split(":")[1]))
-    world = alt.Chart(df).mark_rect().encode(
-        x='x:O',
-        y='y:O',
-        color=alt.Color('terrain',
-                       scale=alt.Scale(
-                domain=['land','mountain', 'ocean'],
-                range=['green','brown', 'blue'])
-                       )
-    )
-    return world
-
 
 def drawRainFall(df):
     mapdata = meltMap(df)
@@ -63,9 +48,9 @@ def drawRainFall(df):
     return world
 
 def landTypes(x,landscape):
-    if x<=landscape['water_level']:
+    if x<=landscape.water_level:
         return 'ocean'
-    if x>=landscape['mountain_level']:
+    if x>=landscape.mountain_level:
         return 'mountain'
     else:
         return 'land'
