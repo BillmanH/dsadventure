@@ -1,5 +1,7 @@
 # Adventures in Data Science: an RPG built from the data science toolkit
 **always a work in progress**
+I'm still migrating a lot from my old flaskapp so I don't have a working demo online yet. I'll post the link here when I have it. 
+
 ## Django
 The core app is written using Django. You can clone this app directly into your functioning Django app by:
 ```
