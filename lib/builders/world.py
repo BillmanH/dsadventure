@@ -129,6 +129,18 @@ class World:
         df['elevation'] = self.meltMap(self.grid_elevation)['value']
         df['terrain'] = df['elevation'].apply(lambda x: self.landTypes(x))
         self.df_features = df
+        
+    #  Adding towns and to features map
+    def add_features(self,features):
+        """
+        all features require both a key and a name in order to be placed on the map
+        at this time only one feature per location is allowed
+        existing feature is autmatcially overwritten
+        """
+        df = self.df_features
+        for f in features:
+            df.loc[f.key,'feature'] = f.name
+            df.loc[f.key,'terrain'] = f.type
 
     # the surface is shifted by a small random variable. 
     def shift_terrain(self):

@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as pd
 
-class town:
+
+class Town:
     def townNameGenerator(self,names):
         """
         requires names.py module
@@ -31,3 +32,32 @@ class town:
     def haveDiplomacy(self,towns):
         for i in towns:
             print(town.nation)
+
+def keyChord(key):
+    '''
+    takes a key "1,1", returns a coord [1,1]
+    '''
+    coord = key.split(":")
+    return [int(coord[0]),int(coord[1])]
+
+def build_towns(world,culture,names):
+    df = world.df_features
+    towns = []
+    for i in range(culture.eons):
+        for s in range(int(np.round(np.random.normal(2, 1)))):
+            key = np.random.choice(df[df['terrain']!='ocean'].index)
+            towns.append(Town(keyChord(key),i,names))
+
+        for t in towns:
+            t.population_growth(culture.town_birthrate)
+    return towns
+
+def get_town(towns,name):
+    t = [town for town in towns if town.name == name]
+    if len(t) == 0:
+        return None
+    if len(t) == 1:
+        return t[0]
+    else:
+        return t
+

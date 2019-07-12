@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 
+
 class nation:
     def __init__(self,name):
         self.name = name
