@@ -35,12 +35,12 @@ def predict_nations(k_means,world):
     df['nation'] = df['nation number'].apply(lambda x: assignNation(x,world))
     return world.df_features
 
-class nation:
-    def __init__(self,name):
+class Nation:
+    def __init__(self,name,world):
         self.name = name
-        self.towns = []
-        self.diplomacy = {}
-        self.ruler = 'none'
+        self.towns = self.addTowns(world.towns)
+        self.diplomacy = self.addDiplomacy(world.nations)
+        self.ruler = self.appointRuler()
         
     def __repr__(self):
         return f"nation of {self.name}"
@@ -49,8 +49,8 @@ class nation:
         self.towns = [town for town in towns 
                          if town.diplomacy.get('nation','none')==self.name]
         
-    def getCapitol_str(self):
-        c = [t.name for t in self.towns if t.type == 'capitol']
+    def getCapitol_str(self,towns):
+        c = [t.name for t in towns if t.type == 'capitol']
         return c[0]
 
     def getRuler_str(self):
@@ -60,12 +60,13 @@ class nation:
         return self.ruler
     
     def addDiplomacy(self,nations):
+        self.diplomacy = {}
         otherNations = [n for n in nations.values() if n != self.name]
         for o in otherNations:
             self.diplomacy[o] = {'favor':0,'stance':'neutral'} 
             
-    def appointRuler(self):
-        t = self.getCapitol_str()
+    def appointRuler(self,person):
+        t = self.getCapitol_str(self.towns)
         self.ruler = person(f'ruler of {self.name}',t)
         
     def getRandomCity(self):

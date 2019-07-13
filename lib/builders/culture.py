@@ -9,6 +9,7 @@ class Names:
         self.prefixes = pd.read_excel('../lib/Datasets/townNames.xlsx',sheet_name='prefix')['Settlement name (part 1)'].tolist()
         self.suffixes = pd.read_excel('../lib/Datasets/townNames.xlsx',sheet_name='suffix')['Settlement name (part 2)'].tolist()
 
+        
 default_params = {}
 
 class Culture:
@@ -39,3 +40,9 @@ class Culture:
         return (np.random.choice(self.names.prefixes) + \
                 np.random.choice(self.names.suffixes)
                ).capitalize().replace("\''","")
+    
+    def personNameGenerator(self):
+        return (np.random.choice(self.names.nameparts['1']) + \
+                np.random.choice(self.names.nameparts['2']) + \
+                np.random.choice(self.names.nameparts['3'])
+               ).capitalize()

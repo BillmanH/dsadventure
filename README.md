@@ -2,6 +2,7 @@
 **always a work in progress**
 I'm still migrating a lot from my old flaskapp so I don't have a working demo online yet. I'll post the link here when I have it. 
 
+# Infrastructure
 ## Django
 The core app is written using Django. You can clone this app directly into your functioning Django app by:
 ```
@@ -26,3 +27,12 @@ This is used to:
 ## D3.js
 Visuals in notebooks are done using Altair, however the core web UI is all built in D3.js. 
 
+# generation parameters
+The world is generated randomly based on a number of features that the user dicides such as mountain height, average rainfall, number of nation or cities. Then everythign is spun up each time a new game begins. 
+
+### parameters that shape the world
+Each of these takes an optional argument `params` which customizes the world. Default parameters are defined in the `__init__` function of each module.  
+* landscape = contains everything about the natural features of the world.
+* culture = contains everyting relating to the things built by civilizations such as people and towns. 
+
+There are specific modules for `nations`, `towns`, and `people` that all take imput from either `landscape` or `culture`. All outputs should end up in the **`world`** object. 
