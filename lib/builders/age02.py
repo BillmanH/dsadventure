@@ -13,7 +13,7 @@ def assignNation(x,landscape):
     nationName = landscape['nations'].get(x,np.nan)
     return nationName
 
-class person:
+class Person:
     def __init__(self,role,location):
         self.name = self.personNameGenerator()
         self.role = role

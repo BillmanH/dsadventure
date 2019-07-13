@@ -15,7 +15,9 @@ class World:
     def __init__(self,landscape):
         self.landscape = landscape
         #geopolitics is set in the second eara
-        self.geopolitics = None
+        self.culture = None
+        self.towns = None
+        self.nations = None
         self.land_shifts = []
         self.peaks = []
 

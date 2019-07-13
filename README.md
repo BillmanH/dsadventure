@@ -14,6 +14,9 @@ Note you'll need the standard login forms to authenticate the user where require
 
 ## Jupyter Notebooks
 Notebooks can be served via ssh forwarding. This allows me to test and tinker with the actual deployed code without disrupting the live server. All functions run out of those notebooks are the same as they are in the live app.
+
+Notebooks also serve as tests for the logic in the apps. When making changes you can run all of the notebooks to ensure that they complete. 
+
 ## Scikit Learn
 This is used to:
 * Calculate the area of nation states

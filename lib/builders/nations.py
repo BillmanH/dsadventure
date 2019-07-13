@@ -1,6 +1,39 @@
 import numpy as np
 import pandas as pd
 
+#ML Libraries
+from sklearn.cluster import KMeans
+
+def assignNation(x,world):
+    nationName = world.nations.get(x,np.nan)
+    return nationName
+
+def labelNations(k,culture):
+    """
+    lables a list of nations from a k-means cluster
+    """
+    nations = {}
+    for n in np.unique(k.labels_):
+        nations[n] = culture.townNameGenerator()
+    return nations,k
+
+def cluster_nations(world):
+    cities = world.df_features[world.df_features['terrain']=='town']
+    k_means = KMeans(init='k-means++', n_clusters=world.culture.n_nations, n_init=10)
+    k_means.fit(cities[['x','y']])
+    #once the labels are ready you can fetch the nation names:
+    nations = labelNations(k_means,world.culture)
+    return nations
+
+def predict_nations(k_means,world):
+    df = world.df_features
+    predicted_nations = k_means.predict(df.loc[(df['terrain']!='ocean')]
+                                        [['x','y']]
+                                       )
+    df.loc[(df['terrain']!='ocean'),'nation number'] = predicted_nations
+    
+    df['nation'] = df['nation number'].apply(lambda x: assignNation(x,world))
+    return world.df_features
 
 class nation:
     def __init__(self,name):
@@ -11,7 +44,7 @@ class nation:
         
     def __repr__(self):
         return f"nation of {self.name}"
-    
+       
     def addTowns(self,towns):
         self.towns = [town for town in towns 
                          if town.diplomacy.get('nation','none')==self.name]

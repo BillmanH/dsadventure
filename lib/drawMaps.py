@@ -90,9 +90,9 @@ def drawCities(df):
     world = alt.Chart(df).mark_rect().encode(
         x='x:O',
         y='y:O',
-        color=alt.Color('feature',
+        color=alt.Color('terrain',
                        scale=alt.Scale(
-                domain=['land','mountain', 'ocean','city'],
+                domain=['land','mountain', 'ocean','town'],
                 range=['green','brown', 'blue','black'])
                        )
     )
@@ -102,9 +102,17 @@ def drawboarders(df):
     df['key'] = df.index
     df['x'] = df['key'].apply(lambda x: int(str(x).split(":")[0]))
     df['y'] = df['key'].apply(lambda x: int(str(x).split(":")[1]))
+    def nation_or_town(x):
+        if x.terrain == 'town':
+            return 'City'
+        else:
+            return x.nation
+    
+    df['z'] = df.apply(nation_or_town,axis=1)
     world = alt.Chart(df.dropna(subset=['nation'])).mark_rect().encode(
         x='x:O',
         y='y:O',
-        color=alt.Color('nation', scale=alt.Scale(scheme='category20b'))
+        color=alt.Color('z', scale=alt.Scale(scheme='category20b')),
+        tooltip=['terrain','feature','nation']
     )
     return world

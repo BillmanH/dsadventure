@@ -11,12 +11,12 @@ class Town:
                 np.random.choice(names.suffixes)
                ).capitalize().replace("\''","")
                 
-    def __init__(self,coord,year,names):
+    def __init__(self,coord,year,culture):
         self.x = coord[0]
         self.y = coord[1]
         self.key = f"{str(coord[0])}:{str(coord[1])}"
         self.pop = 1
-        self.name = self.townNameGenerator(names)
+        self.name = culture.townNameGenerator()
         self.founded = year
         self.diplomacy = {}
         self.nation = self.name
@@ -32,6 +32,10 @@ class Town:
     def haveDiplomacy(self,towns):
         for i in towns:
             print(town.nation)
+            
+    def set_starting_fielty(self,world):
+                self.diplomacy['nation'] = world.df_features.loc[world.df_features['feature']==self.name,'nation'].values[0]
+                self.diplomacy['national fealty'] = world.culture.town_national_fielty
 
 def keyChord(key):
     '''
@@ -40,16 +44,16 @@ def keyChord(key):
     coord = key.split(":")
     return [int(coord[0]),int(coord[1])]
 
-def build_towns(world,culture,names):
+def build_towns(world):
     df = world.df_features
     towns = []
-    for i in range(culture.eons):
+    for i in range(world.culture.eons):
         for s in range(int(np.round(np.random.normal(2, 1)))):
             key = np.random.choice(df[df['terrain']!='ocean'].index)
-            towns.append(Town(keyChord(key),i,names))
+            towns.append(Town(keyChord(key),i,world.culture))
 
         for t in towns:
-            t.population_growth(culture.town_birthrate)
+            t.population_growth(world.culture.town_birthrate)
     return towns
 
 def get_town(towns,name):
@@ -60,4 +64,3 @@ def get_town(towns,name):
         return t[0]
     else:
         return t
-
