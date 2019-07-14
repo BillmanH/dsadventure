@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as np
 
 class Person:
-    def __init__(self,role,location):
-        self.name = self.personNameGenerator()
+    def __init__(self,culture,role='peon',location=None):
+        self.name = culture.personNameGenerator()
         self.role = role
         self.nation = location
         self.location = location
@@ -20,4 +20,3 @@ class Person:
         if 'ruler' in self.role:
             self.loyalty = 1
             
-    

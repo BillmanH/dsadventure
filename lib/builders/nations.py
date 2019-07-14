@@ -4,6 +4,9 @@ import pandas as pd
 #ML Libraries
 from sklearn.cluster import KMeans
 
+def getNation(nations,a):
+    return [n for n in nations if n.name ==a][0]
+
 def assignNation(x,world):
     nationName = world.nations.get(x,np.nan)
     return nationName
@@ -36,22 +39,26 @@ def predict_nations(k_means,world):
     return world.df_features
 
 class Nation:
-    def __init__(self,name,world):
+    def __init__(self,name,world,culture,people):
         self.name = name
         self.towns = self.addTowns(world.towns)
         self.diplomacy = self.addDiplomacy(world.nations)
-        self.ruler = self.appointRuler()
+        self.ruler = people.Person(culture,role=f'Ruler of the nation of {self.name}',location=self.get_capitol().name)
         
     def __repr__(self):
-        return f"nation of {self.name}"
+        return f"Nation of {self.name}"
        
     def addTowns(self,towns):
-        self.towns = [town for town in towns 
-                         if town.diplomacy.get('nation','none')==self.name]
+        towns = [town for town in towns 
+                 if town.diplomacy.get('nation','none')==self.name]
+        return towns
         
-    def getCapitol_str(self,towns):
-        c = [t.name for t in towns if t.type == 'capitol']
-        return c[0]
+    def get_capitol(self):
+        c = [t for t in self.towns if t.type == 'capitol'][0]
+        return c
+    
+    def get_random_town(self):
+        return np.random.choice(self.towns)
 
     def getRuler_str(self):
         return self.ruler.name
@@ -69,5 +76,3 @@ class Nation:
         t = self.getCapitol_str(self.towns)
         self.ruler = person(f'ruler of {self.name}',t)
         
-    def getRandomCity(self):
-        return np.random.choice(self.towns)

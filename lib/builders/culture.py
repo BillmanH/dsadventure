@@ -42,7 +42,7 @@ class Culture:
                ).capitalize().replace("\''","")
     
     def personNameGenerator(self):
-        return (np.random.choice(self.names.nameparts['1']) + \
-                np.random.choice(self.names.nameparts['2']) + \
-                np.random.choice(self.names.nameparts['3'])
+        return (str(np.random.choice(self.names.nameparts['1'])) + \
+                str(np.random.choice(self.names.nameparts['2'])) + \
+                str(np.random.choice(self.names.nameparts['3']))
                ).capitalize()

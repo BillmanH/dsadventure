@@ -11,7 +11,7 @@ class Town:
                 np.random.choice(names.suffixes)
                ).capitalize().replace("\''","")
                 
-    def __init__(self,coord,year,culture):
+    def __init__(self,coord,year,culture,people):
         self.x = coord[0]
         self.y = coord[1]
         self.key = f"{str(coord[0])}:{str(coord[1])}"
@@ -21,10 +21,11 @@ class Town:
         self.diplomacy = {}
         self.nation = self.name
         self.type = 'town'
+        self.speaker =  people.Person(culture,role=f'Speaker of {self.name}',location=self.name)
         
     def __repr__(self):
         return f"{self.type} of {self.name}: population: {self.pop} location: [{self.x},{self.y}] founded {self.founded}"
-    
+        
     def population_growth(self, birthrate):
         if np.random.uniform()<birthrate:
             self.pop += 1
@@ -45,13 +46,13 @@ def keyChord(key):
     coord = key.split(":")
     return [int(coord[0]),int(coord[1])]
 
-def build_towns(world):
+def build_towns(world,people):
     df = world.df_features
     towns = []
     for i in range(world.culture.eons):
         for s in range(int(np.round(np.random.normal(2, 1)))):
             key = np.random.choice(df[df['terrain']!='ocean'].index)
-            towns.append(Town(keyChord(key),i,world.culture))
+            towns.append(Town(keyChord(key),i,world.culture,people))
 
         for t in towns:
             t.population_growth(world.culture.town_birthrate)
