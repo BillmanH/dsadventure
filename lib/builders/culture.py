@@ -6,8 +6,9 @@ import pandas as pd
 class Names:
     def __init__(self):
         self.nameparts = pd.read_csv('../lib/Datasets/namegen.csv')
-        self.prefixes = pd.read_excel('../lib/Datasets/townNames.xlsx',sheet_name='prefix')['Settlement name (part 1)'].tolist()
-        self.suffixes = pd.read_excel('../lib/Datasets/townNames.xlsx',sheet_name='suffix')['Settlement name (part 2)'].tolist()
+        self.townnameparts = pd.read_csv('../lib/Datasets/townnameparts.csv')
+        self.prefixes = self.townnameparts['prefix'].tolist()
+        self.suffixes = self.townnameparts['suffix'].tolist()
 
         
 default_params = {}
@@ -30,6 +31,9 @@ class Culture:
         
         #names are hard cast at the moment
         self.names = Names()
+        
+        #divine forces
+        self.chaos = params.get('chaos',.6)
     
     #  Name generation is used by many objects, so it is included in cluture.
     def townNameGenerator(self):

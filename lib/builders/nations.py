@@ -67,12 +67,51 @@ class Nation:
         return self.ruler
     
     def addDiplomacy(self,nations):
-        self.diplomacy = {}
+        diplomacy = {}
         otherNations = [n for n in nations.values() if n != self.name]
         for o in otherNations:
-            self.diplomacy[o] = {'favor':0,'stance':'neutral'} 
+            diplomacy[o] = {'favor':.8,'stance':'peace'}
+        return diplomacy 
             
     def appointRuler(self,person):
         t = self.getCapitol_str(self.towns)
         self.ruler = person(f'ruler of {self.name}',t)
-        
+
+# Politics !!
+
+treaties = pd.DataFrame([['sworn enemies',0],
+           ['war',.1],
+           ['tense',.3],
+           ['peace',.6],
+           ['allies',.9]], columns = ['stance','favor'])
+
+def set_treaties(f):
+    return treaties.loc[treaties[treaties['favor']<f]['favor'].idxmax()].stance
+    
+    
+def alter_favor(s,o,a):
+    """
+    s = the target nation(s) (obj or list). s will not change. O's favor of s will change.
+    o = the nation(s) (obj or list) who's favor is change. O's favor of s will change
+    
+    Examples:
+    (a,[o]) each nation in o's favor of a is changed by s
+    (a,o) o's favor of a is changed by s
+    ([a],o) o's favor of each nation in a is changed by s
+    s = amount of change (int)
+    
+    national relationship with itself doesn't decay, but town and person loyalty can.
+    """
+    if type(o) != list:
+        o = [o]       
+    for i in o:
+        if type(s)!=list:
+            s = [s]
+        for j in s:
+            if i!=j:   
+                i.diplomacy[j.name]['favor'] += a
+                if i.diplomacy[j.name]['favor'] < 0:
+                    i.diplomacy[j.name]['favor'] = .01
+                if i.diplomacy[j.name]['favor'] > 1:
+                    i.diplomacy[j.name]['favor'] = 1
+                i.diplomacy[j.name]['stance'] = set_treaties(i.diplomacy[j.name]['favor'])
