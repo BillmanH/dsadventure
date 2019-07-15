@@ -21,6 +21,7 @@
             <input type="range" min="0" max="100" value="0" class="water slider" id="water_level" oninput="sliderChange(this.id,this.value)">
             <p>How strong the rainfall:</p>
             <input type="range" min="1" max="10" value="5" class="water slider" id="rain_iter" oninput="sliderChange(this.id,this.value)">
+            <input class='formData' id="formData" type='hidden' name='formData' value='{}'>
             <button id="create" type='submit' value='submit'>Forge this world!</button>
         </div>
         </form>
@@ -30,7 +31,8 @@
     <script>
         var landscape = {};
         function sliderChange(n,v){
-            landscape[n]=v
+            landscape[n]=parseInt(v)
+            document.getElementById("formData").value = JSON.stringify(landscape);
         }
     </script>
 </html>

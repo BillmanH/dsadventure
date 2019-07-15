@@ -8,9 +8,6 @@ def keyChord(key):
     coord = key.split(":")
     return [int(coord[0]),int(coord[1])]
 
-#TODO: Namegen has bug that can't convert blank values to str. Change to import as STR not NaN.
-nameparts = pd.read_csv('../lib/Datasets/namegen.csv')
-
 class World:
     def __init__(self,landscape):
         self.landscape = landscape
