@@ -1,8 +1,9 @@
 <script>
-   //adding global variables, for troubleshooting and access within various scripts
-   var charData = {}
-   var mapData = {{ df_features | safe}};
-   
+var charData = {}
+var elevation = {{ elevation|safe }} 
+var rainfall = {{ rainfall|safe }} 
+var terrain = {{ terrain|safe }} 
+
 </script>
 <style>
    rect.bordered {
@@ -34,42 +35,41 @@
    z-index: 5070;
    }
 </style>
-<button type="button" id="DangerLevel">Danger Level</button>
-<button type="button" id="CreatureProbability">Creature Probability</button>
+<button type="button" id="elevation">elevation</button>
+<button type="button" id="rainfall">rainfall</button>
 <script type="text/javascript">
-   var margin = { top: 50, right: 0, bottom: 100, left: 30 },
-       width = 960 - margin.left - margin.right,
-       height = 1500 - margin.top - margin.bottom,
-       gridSize = Math.floor(width / 25),
-       legendWidth = (gridSize/2 + 4),
-       buckets = 40;
-   
-   var svg = d3.select("body").append("svg")
-           .attr("width", width + margin.left + margin.right)
-           .attr("height", height + margin.top + margin.bottom)
-           .append("g")
-           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-   
    var data = []
-   var dims = Object.entries(mapData)
+   var dims = Object.entries(df_features)
    var dim_1 = []
    var dim_2 = []
    for (i in dims){
-   if (dim_1.indexOf(parseInt(Object.entries(mapData)[i][0].split(":")[0]))<0) {dim_1.push(parseInt(Object.entries(mapData)[i][0].split(":")[0]))}
-   if (dim_2.indexOf(parseInt(Object.entries(mapData)[i][0].split(":")[1]))<0) {dim_2.push(parseInt(Object.entries(mapData)[i][0].split(":")[1]))}
-   data.push(mapData[Object.entries(mapData)[i][0]]);
-   }
-   dim_1 = dim_1.sort()
-   dim_2 = dim_2.sort()
+        if (dim_1.indexOf(parseInt(Object.entries(df_features)[i][0].split(":")[0]))<0)
+            {dim_1.push(parseInt(Object.entries(df_features)[i][0].split(":")[0]))}
+        if (dim_2.indexOf(parseInt(Object.entries(df_features)[i][0].split(":")[1]))<0) 
+            {dim_2.push(parseInt(Object.entries(df_features)[i][0].split(":")[1]))}
+        data.push(df_features[Object.entries(df_features)[i][0]]);
+    }
+    console.log("sorting ended")
+    dim_1 = dim_1.sort()
+    dim_2 = dim_2.sort()
+        
+    var maxNum = dim_1.length
+    var buckets = dim_1.length
+    
+        var margin = { top: 50, right: 0, bottom: 100, left: 30 },
+            width = 960 - margin.left - margin.right,
+            height = 1500 - margin.top - margin.bottom,
+            gridSize = Math.floor(width / buckets),
+            legendWidth = (gridSize/2 + 4)
    
-       var maxNum = dim_1.length
-   
-       var colors = ['#f7fcfd','#e5f5f9','#ccece6','#66c2a4','#238b45','#006d2c','#00441b','#000000'] 
-   
-       var colorScale = d3.scaleQuantile()
-           .domain([0, buckets - 1, maxNum])
-           .range(colors);
-   
+        var svg = d3.select("body").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        var mountainColors = ['#ecca96','#e9b97a','#e4a865','#dc9856','#d18954','#c7784c','#c0673f','#b85536','#ad4433'] 
+        var waterColors = ['#bed8ec','#a8cee5','#8fc1de','#74b2d7','#5ba3cf','#4592c6','#3181bd','#206fb2','#125ca4'] 
+        
        var dim1Labels = svg.selectAll(".dim1Label")
            .data(dim_1)
            .enter().append("text")
@@ -104,7 +104,7 @@
            .attr("class", "square")
    
        heatMap.transition()
-           .style("fill", function(d) { return colorScale(d['Danger Level']); });
+           .style("fill", function(d) { return colorScale(d['elevation']); });
    
        heatMap.append("title").text(function(d) { return d['Type Name']; });
            
@@ -114,7 +114,7 @@
            .attr("class", "legend");
    
        legend.append("rect")
-         .attr("x", function(d, i) { return gridSize * 11; })
+         .attr("x", function(d, i) { return gridSize * buckets; })
          .attr("y", function(d, i) { return (i * legendWidth + 7); })
          .attr("width", gridSize/2)
          .attr("height", gridSize/2)
@@ -140,17 +140,22 @@
    .attr("r",4)
    .attr("fill","#00000")
    
-   d3.select("#DangerLevel").on("click", 
+   d3.select("#elevation").on("click", 
    function (d) {
+       var mountainScale = d3.scaleLinear().range(mountainColors).domain([d3.min(elevation),d3.max(elevation)]); 
    heatMap.transition()
-   .style("fill", function(d) { return colorScale(d['Danger Level']) })
-   }
-   );       
+           .style("fill", function(d) { 
+                    if(d['elevation']<0)
+                {return "#0077be"}
+                    else{return colorScale(d['elevation'])} })
+            }
+        );       
    
-   d3.select("#CreatureProbability").on("click", 
+   d3.select("#rainfall").on("click", 
    function (d) {
+       var mountainScale = d3.scaleLinear().range(waterColors).domain([d3.min(rainfall),d3.max(rainfall)]); 
    heatMap.transition()
-   .style("fill", function(d) { return colorScale(d['Creature Probability']*10) })
+   .style("fill", function(d) { return colorScale(d['rainfall']*10) })
    }
    );
    
