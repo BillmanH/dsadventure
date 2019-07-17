@@ -28,7 +28,9 @@ def show_world_01(request):
         context['elevation'] = world.df_features['elevation'].to_list()
         context['rainfall'] = world.df_features['rainfall'].to_list()
         context['terrain'] = world.df_features['terrain'].to_list()
-
+        #building a dictionairy in the format that d3.js will prefer
+        wd = world.df_features.T.to_dict()
+        context['worldData'] = [{m:wd[m]} for m in wd.keys()]
         return render(request,'game/show_world01.html',context)
     else:
         return render(request, 'game/show_world01.html')
