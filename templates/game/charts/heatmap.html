@@ -104,13 +104,6 @@ var featureColors =
            .style("fill", function(d) { return featureColors[d['terrain']]; });
    
        heatMap.append("title").text(function(d) { return d['terrain']; });
-           
-       var title = svg.append("text")
-             .attr("class", "mono")
-             .attr("x", gridSize * 11)
-             .attr("y", - 6)         
-             .style("font-size", "14px")
-             .text("Legend");
    
    d3.select("#elevation").on("click", 
    function (d) {
