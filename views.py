@@ -22,15 +22,11 @@ def show_world_01(request):
         context = {}
         context['formData']  = yaml.load(request.POST.get("formData","No data found"),yaml.SafeLoader)
         world = the_first_age(context['formData'])
-        #individual items are cast into lists (easier than parsing a dataframe.to_dict() in json
-        context['df_features'] = world.df_features.T.to_dict()
-        context['keys'] = world.df_features['key'].to_list()
-        context['elevation'] = world.df_features['elevation'].to_list()
-        context['rainfall'] = world.df_features['rainfall'].to_list()
-        context['terrain'] = world.df_features['terrain'].to_list()
         #building a dictionairy in the format that d3.js will prefer
-        wd = world.df_features.T.to_dict()
-        context['worldData'] = [{m:wd[m]} for m in wd.keys()]
+        wa = [world.df_features.loc[m].to_dict() for m in world.df_features.index]
+        context['df_features'] = wa
+        context['dim_1'] = np.unique(world.df_features['x']).tolist() 
+        context['dim_2'] = np.unique(world.df_features['y']).tolist()
         return render(request,'game/show_world01.html',context)
     else:
         return render(request, 'game/show_world01.html')
