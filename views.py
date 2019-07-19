@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 from .lib.create_world import *
+from .lib.boto import s3Transfer as b
 import yaml
 
 @login_required
@@ -22,6 +23,9 @@ def show_world_01(request):
         context = {}
         context['formData']  = yaml.load(request.POST.get("formData","No data found"),yaml.SafeLoader)
         world = the_first_age(context['formData'])
+        #post the `world` to an s3 bucket, using the username as the key
+        user = request.user.get_username()
+        b.save_world(world,user)
         #building a dictionairy in the format that d3.js will prefer
         wa = [world.df_features.loc[m].to_dict() for m in world.df_features.index]
         context['df_features'] = wa

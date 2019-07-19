@@ -1,3 +1,6 @@
+#local world caches
+pickles/*
+
 #local pycs and other things
 *.pyc*
 __pycache__/*
