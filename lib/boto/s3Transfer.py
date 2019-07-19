@@ -1,9 +1,10 @@
 from boto.s3.connection import S3Connection
 import boto
 import yaml
+#note to self, use the Loader=SafeLoader 
 import numpy as np
 import pandas as pd
-import datetime
+import pickle
 
 #conn = boto.connect_s3()
 
@@ -18,8 +19,12 @@ except:
 def save_world(world,user):
     conn = S3Connection()
     mybucket = conn.get_bucket('dsadventure')
-    myKey = mybucket.get_key("world/" + user + "world.p")
+    #save the bucket locally 
+    pickled_world = open('pickles/'+ user + 'world.pkl', 'w')
+    pickle.dump(world, pickled_world)
+    myKey = mybucket.get_key('world/' + user + 'world.pkl')
     
+
 def get_world(user):
     return world
 
