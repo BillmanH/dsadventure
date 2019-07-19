@@ -1,4 +1,4 @@
-#local world caches
+#local world caches and other saved files
 pickles/*
 
 #local pycs and other things

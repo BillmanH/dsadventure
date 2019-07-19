@@ -5,6 +5,8 @@ import yaml
 import numpy as np
 import pandas as pd
 import pickle
+import os
+
 
 #conn = boto.connect_s3()
 
@@ -20,9 +22,10 @@ def save_world(world,user):
     conn = S3Connection()
     mybucket = conn.get_bucket('dsadventure')
     #save the bucket locally 
-    pickled_world = open('pickles/'+ user + 'world.pkl', 'w')
+    place = os.listdir()
+    pickled_world = open('game/pickles/'+ user + 'world.pkl', 'wb')
     pickle.dump(world, pickled_world)
-    myKey = mybucket.get_key('world/' + user + 'world.pkl')
+    #myKey = mybucket.get_key('world/' + user + 'world.pkl')
     
 
 def get_world(user):
