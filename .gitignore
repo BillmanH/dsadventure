@@ -1,5 +1,5 @@
 #local world caches and other saved files
-pickles/*
+pickles/*.pkl
 
 #local pycs and other things
 *.pyc*
