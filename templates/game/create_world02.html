@@ -2,7 +2,7 @@
 
 <html>
     <head>
-    <title>1: The age of elements</title>
+    <title>2: The age of mortals</title>
     {% include "prodweb/gatag.html" %}
     <link rel="stylesheet" type="text/css" href="{% static 'game/createworld.css' %}">
     </head>
@@ -10,19 +10,16 @@
         <form action='showworld01'  method='post' id='newCharacter'>
             {% csrf_token %}
         <div class="slidecontainer">
-            <p>How many mountain ranges:</p>
-            <input type="range" min="1" max="10" value="5" class="earth slider" id="drop_iter" oninput="sliderChange(this.id,this.value)">
-            <p>How long should the ranges be:</p>
-            <input type="range" min="30" max="100" value="80" class="earth slider" id="spread_iter" oninput="sliderChange(this.id,this.value)">
-            <p>How high should the peaks be:</p>
-            <input type="range" min="1" max="10" value="5" class="earth slider" id="peak_height" oninput="sliderChange(this.id,this.value)">
-            <p>----------------------</p>
-            <p>How high the water level:</p>
-            <input type="range" min="0" max="100" value="0" class="water slider" id="water_level" oninput="sliderChange(this.id,this.value)">
-            <p>How strong the rainfall:</p>
-            <input type="range" min="1" max="10" value="5" class="water slider" id="rain_iter" oninput="sliderChange(this.id,this.value)">
+            <p>How many eons of population growth?</p>
+            <input type="range" min="1" max="30" value="10" class="culure slider" id="eons" oninput="sliderChange(this.id,this.value)">
+            <p>How likely a new town is formed?</p>
+            <input type="range" min="3" max="10" value="3" class="culture slider" id="town_spawn" oninput="sliderChange_pct(this.id,this.value)">
+            <p>How likely that a population will grow?</p>
+            <input type="range" min="1" max="10" value="3" class="culture slider" id="town_birthrate" oninput="sliderChange_pct(this.id,this.value)">
+            <p>Each nation should have how many cities?</p>
+            <input type="range" min="1" max="10" value="4" class="culture slider" id="n_nations" oninput="sliderChange(this.id,this.value)">
             <input class='formData' id="formData" type='hidden' name='formData' value='{}'>
-            <button id="create" type='submit' value='submit'>Forge this world!</button>
+            <button id="create" type='submit' value='submit'>Begin the age of mortals!</button>
         </div>
         </form>
         <div>
@@ -34,5 +31,11 @@
             landscape[n]=parseInt(v)
             document.getElementById("formData").value = JSON.stringify(landscape);
         }
+        function sliderChange_pct(n,v){
+            landscape[n]=parseInt(v)
+            document.getElementById("formData").value = JSON.stringify(landscape)/10;
+        }
+
+
     </script>
 </html>
