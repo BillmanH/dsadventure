@@ -1,3 +1,6 @@
+#local world caches and other saved files
+pickles/*.pkl
+
 #local pycs and other things
 *.pyc*
 __pycache__/*

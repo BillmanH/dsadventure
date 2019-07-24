@@ -20,6 +20,10 @@
     background: #a394f5;
 }
 
+.culture{
+    background: #f0e7e1;
+}
+
 .slider:hover {
     opacity: 1;
 }
