@@ -7,11 +7,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'game/createworld.css' %}">
     </head>
     <body>
-        <form action='showworld01'  method='post' id='newCharacter'>
+        <form action='showworld02'  method='post' id='newCharacter'>
             {% csrf_token %}
         <div class="slidecontainer">
             <p>How many eons of population growth?</p>
-            <input type="range" min="1" max="30" value="10" class="culure slider" id="eons" oninput="sliderChange(this.id,this.value)">
+            <input type="range" min="1" max="30" value="10" class="culture slider" id="eons" oninput="sliderChange(this.id,this.value)">
             <p>How likely a new town is formed?</p>
             <input type="range" min="3" max="10" value="3" class="culture slider" id="town_spawn" oninput="sliderChange_pct(this.id,this.value)">
             <p>How likely that a population will grow?</p>
@@ -32,8 +32,8 @@
             document.getElementById("formData").value = JSON.stringify(landscape);
         }
         function sliderChange_pct(n,v){
-            landscape[n]=parseInt(v)
-            document.getElementById("formData").value = JSON.stringify(landscape)/10;
+            landscape[n]=parseInt(v)/10
+            document.getElementById("formData").value = JSON.stringify(landscape);
         }
 
 

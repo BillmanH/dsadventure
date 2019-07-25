@@ -13,6 +13,7 @@ import os
 try:
     conn = S3Connection()
 except:
+    #for local loading, probably removed in production
     myKeys = yaml.load(open(r'C:\Users\willi\OneDrive\Documents\keyfile.txt', 'r'))
     AWSSecretKey=myKeys['AWSSecretKey']
     AWSAccessKeyId=myKeys['AWSAccessKeyId']
@@ -27,7 +28,8 @@ def save_world(world,user):
     pickle.dump(world, pickled_world)
     #myKey = mybucket.get_key('world/' + user + 'world.pkl')
     
-
 def get_world(user):
+    with (open('game/pickles/'+ user + 'world.pkl', 'rb')) as pickle_file:
+        world = pickle.load(pickle_file)
     return world
 

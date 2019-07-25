@@ -4,9 +4,13 @@ import pandas as pd
 #TODO: Namegen has bug that can't convert blank values to str. Change to import as STR not NaN.
 
 class Names:
-    def __init__(self):
-        self.nameparts = pd.read_csv('../lib/Datasets/namegen.csv')
-        self.townnameparts = pd.read_csv('../lib/Datasets/townnameparts.csv')
+    def __init__(self,paths=None):
+        if paths == "notebooks":
+            self.nameparts = pd.read_csv('../lib/Datasets/namegen.csv')
+            self.townnameparts = pd.read_csv('../lib/Datasets/townnameparts.csv')
+        else:
+            self.nameparts = pd.read_csv('game/lib/Datasets/namegen.csv')
+            self.townnameparts = pd.read_csv('game/lib/Datasets/townnameparts.csv')
         self.prefixes = self.townnameparts['prefix'].tolist()
         self.suffixes = self.townnameparts['suffix'].tolist()
 
@@ -17,7 +21,7 @@ class Culture:
     """
     Culture are the parameters for everything that affects people, cities, nations and politics.
     """
-    def __init__(self, params=default_params, ):
+    def __init__(self, params=default_params, paths=None):
         #the number of nations
         self.n_nations = params.get('n_nations',8)
         #overal age of the 'civilized era' (age of unconflicted growth)
@@ -30,7 +34,7 @@ class Culture:
         self.town_national_fielty = 1
         
         #names are hard cast at the moment
-        self.names = Names()
+        self.names = Names(paths)
         
         #divine forces
         self.chaos = params.get('chaos',.6)

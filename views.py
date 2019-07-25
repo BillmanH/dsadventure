@@ -35,7 +35,6 @@ def show_world_01(request):
     else:
         return render(request, 'game/show_world01.html')
 
-
 @login_required
 def create_world_02(request):
     return render(request, 'game/create_world02.html')
@@ -45,7 +44,8 @@ def show_world_02(request):
     if "POST" == request.method:
         context = {}
         context['formData']  = yaml.load(request.POST.get("formData","No data found"),yaml.SafeLoader)
-        world = the_first_age(context['formData'])
+        world = b.get_world(request.user.get_username())
+        world = the_second_age(world,context['formData'])
         #building a dictionairy in the format that d3.js will prefer
         wa = [world.df_features.loc[m].to_dict() for m in world.df_features.index]
         context['df_features'] = wa
@@ -54,4 +54,3 @@ def show_world_02(request):
         return render(request,'game/show_world02.html',context)
     else:
         return render(request, 'game/create_world02.html')
-
