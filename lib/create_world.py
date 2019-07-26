@@ -17,7 +17,6 @@ def the_first_age(default_params):
 
 #the second age (and after) require a world object and modify it
 def the_second_age(world,default_params,c=c):
-    path = os.listdir()
     world.culture = c.Culture(params=default_params)
     all_towns = towns.build_towns(world,people)
     world.add_features(all_towns)
@@ -35,11 +34,38 @@ def the_second_age(world,default_params,c=c):
         c = world.df_features[(world.df_features['nation']==n)& \
               (world.df_features['terrain']=='town')]['feature'].tolist()
         #getting the town objects
-        ts = [t for t in all_towns if t.name in c]
+        ts = [ti for ti in all_towns if ti.name in c]
         #get population(p)
-        p = [t.pop for t in ts]
+        p = [tii.pop for tii in ts]
         #getting the first town that has the max population, make that the capitol
         ts[np.argmax(p)].type='capitol'
     world.nations = [nations.Nation(n,world,world.culture,people) for n in world.nations.values()]
     world.towns = all_towns
     return world
+
+#params for culture and world should be set. the only thing here is to unravle the events that create the people, buildings and adventure.
+def the_third_age(world):
+    path = os.listdir()
+    events = pd.read_csv('game/lib/Datasets/events.csv',index_col=0)
+    def event_results(events,nations,verbose=False):
+        """
+        TODO: This should likely be in a module, but I can't figure out where to put it. 
+        """
+        choice = np.random.choice(events.index)
+        event = events.loc[choice]
+        a = np.random.choice(world.nations,event.n_subjects,replace=False).tolist()
+        o = np.random.choice(world.nations,event.n_objects,replace=False).tolist()
+        if event.effect_var == 'favor':
+            nations.alter_favor(a,o,float(event.effect))
+        text = (event.event.replace('{o}',str(o)).replace('{a}',str(a))) 
+        return text
+
+    all_events = []
+    for e in range(world.culture.eons):
+        if np.random.random_sample()<world.culture.chaos:
+            all_events.append(event_results(events,nations))
+        else:
+            all_events.append(f'{e}: nothing happend during this period.')
+    return world,all_events
+
+
