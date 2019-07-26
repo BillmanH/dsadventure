@@ -53,8 +53,14 @@ def the_third_age(world):
         """
         choice = np.random.choice(events.index)
         event = events.loc[choice]
-        a = np.random.choice(world.nations,event.n_subjects,replace=False).tolist()
-        o = np.random.choice(world.nations,event.n_objects,replace=False).tolist()
+        n_sub = event.n_subjects
+        if n_sub > len(world.nations):
+            n_sub = len(world.nations)
+        n_obj = event.n_objects
+        if n_obj > len(world.nations):
+            n_obj = len(world.nations)
+        a = np.random.choice(world.nations,n_sub,replace=False).tolist()
+        o = np.random.choice(world.nations,n_obj,replace=False).tolist()
         if event.effect_var == 'favor':
             nations.alter_favor(a,o,float(event.effect))
         text = (event.event.replace('{o}',str(o)).replace('{a}',str(a))) 

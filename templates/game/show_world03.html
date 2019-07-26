@@ -12,11 +12,14 @@
         <script>
             
         </script>
+        <h1>These are the events that happened before you began your quest</h1>
     <div class="infobox">
+
     {% for event in events %}
         <p class="nation events">{{ event }}</p>
     {% endfor %}
     </div>
+    <h1>These are the rulers of the realms</h1>
     <div>
         {% for person in rulers %}
             <p class="nation person">{{ person }}</p>
