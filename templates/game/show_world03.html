@@ -6,13 +6,22 @@
     <script type="text/javascript" src="{% static 'prodweb/d3.js' %}"></script>
     </head>
     <body>
-        <p>Behold the world you have created</p>
-        <a class='button-stack' href='/game/createworld02'>delete and go back to the age of elements</a>
-        <a class='button-stack' href='/game/showworld03'>save and witness the age of conflict</a>
+        <p>An age of prosperity was followed by an age of chaos and transformation</p>
+        <a class='button-stack' href=''>And yet, we know little about you. Tell us about yourself.</a>
+        <a class='button-stack' href='/game/createworld01'>discard this world and return to the forge</a>
         <script>
-            var formData = {{ formData|safe }};
+            
         </script>
-    {% include "game/charts/heatmap.html" %}
+    <div class="infobox">
+    {% for event in events %}
+        <p class="nation events">{{ event }}</p>
+    {% endfor %}
+    </div>
+    <div>
+        {% for person in rulers %}
+            <p class="nation person">{{ person }}</p>
+        {% endfor %}
+    </div>
     </body>
 </html>
 

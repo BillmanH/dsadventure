@@ -63,14 +63,14 @@ def show_world_02(request):
 
 @login_required
 def show_world_03(request):
-    if "POST" == request.method:
         context = {'phase':3}
         world = b.get_world(request.user.get_username())
-        world = the_third_age(world)
+        world,events = the_third_age(world)
         #post the `world` to an s3 bucket, using the username as the key
         user = request.user.get_username()
         b.save_world(world,user)
         #building a dictionairy in the format that d3.js will prefer
+        context['events'] = events
+        context['rulers'] = [str(n.ruler) for n in world.nations]
+        context['loyalty'] = [str(n) for n in world.nations]
         return render(request,'game/show_world03.html',context)
-    else:
-        return render(request, 'game/show_world02.html')
