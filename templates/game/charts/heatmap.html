@@ -44,6 +44,11 @@ var featureColors =
 <button type="button" id="elevation">elevation</button>
 <button type="button" id="rainfall">rainfall</button>
 <button type="button" id="terrain">terrain</button>
+   {% if phase == 2 %}
+<button type="button" id="nations">nations</button>
+   {% endif %}
+ 
+
 <script type="text/javascript">
     var maxNum = dim_1.length
     var buckets = dim_1.length
@@ -108,10 +113,7 @@ var featureColors =
    d3.select("#elevation").on("click", 
    function (d) {
    heatMap.transition()
-           .style("fill", function(d) { 
-                    if(d['elevation']<0)
-                {return "#0077be"}
-                    else{return mountainScale(d['elevation']*10)} })
+           .style("fill", function(d) { return mountainScale(d['elevation']*10)})
             }
         );       
    
@@ -129,6 +131,9 @@ var featureColors =
             .style("fill", function(d) { return featureColors[d['terrain']]; })
         }
    );
-   
+    {% if phase == 2 %}
+        {% include "game/charts/nationmaps.js" %}
+    {% endif %}
+ 
 </script>
 
