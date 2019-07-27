@@ -1,0 +1,35 @@
+{% load static %}
+<html>
+    <head>
+    {% include "prodweb/gatag.html" %}
+    <link rel="stylesheet" type="text/css" href="{% static 'game/forms.css' %}">
+    <script type="text/javascript" src="{% static 'prodweb/d3.js' %}"></script>
+    </head>
+    <body>
+        <h1>Create a new character</h1>
+
+        {{ form.non_field_errors }}
+<div class="fieldWrapper">
+    {{ form.name.errors }}
+    <label for="{{ form.name.id_for_label }}">Your character's name?</label>
+    {{ form.name }}
+</div>
+<div class="fieldWrapper">
+    {{ form.message.errors }}
+    <label for="{{ form.message.id_for_label }}">Your message:</label>
+    {{ form.message }}
+</div>
+<div class="fieldWrapper">
+    {{ form.sender.errors }}
+    <label for="{{ form.sender.id_for_label }}">Your email address:</label>
+    {{ form.sender }}
+</div>
+<div class="fieldWrapper">
+    {{ form.cc_myself.errors }}
+    <label for="{{ form.cc_myself.id_for_label }}">CC yourself?</label>
+    {{ form.cc_myself }}
+</div>
+
+    </body>
+</html>
+

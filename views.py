@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+
+from .forms import playerCharacterForm
 
 from .lib.create_world import *
 from .lib.boto import s3Transfer as b
@@ -8,6 +11,16 @@ import yaml
 @login_required
 def start_screen(request):
     return render(request,'game/start_screen.html')
+
+@login_required
+def create_character(request):
+    if request.method == 'POST':
+        form = playerCharacterForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('/thanks/')
+    else:
+        form = playerCharacterForm()
+        return render(request, 'game/player/create.html', {'form': form})
 
 @login_required
 def create_world_01(request):
