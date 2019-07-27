@@ -3,7 +3,7 @@ import numpy as np
 import os
 
 from .builders import world as w, landscape as l, culture as c
-from .builders import people,towns,nations
+from .builders import people,towns,nations,events
 
 #the first age creates the world object from scratch
 def the_first_age(default_params):
@@ -46,32 +46,8 @@ def the_second_age(world,default_params,c=c):
 #params for culture and world should be set. the only thing here is to unravle the events that create the people, buildings and adventure.
 def the_third_age(world):
     path = os.listdir()
-    events = pd.read_csv('game/lib/Datasets/events.csv',index_col=0)
-    def event_results(events,nations,verbose=False):
-        """
-        TODO: This should likely be in a module, but I can't figure out where to put it. 
-        """
-        choice = np.random.choice(events.index)
-        event = events.loc[choice]
-        n_sub = event.n_subjects
-        if n_sub > len(world.nations):
-            n_sub = len(world.nations)
-        n_obj = event.n_objects
-        if n_obj > len(world.nations):
-            n_obj = len(world.nations)
-        a = np.random.choice(world.nations,n_sub,replace=False).tolist()
-        o = np.random.choice(world.nations,n_obj,replace=False).tolist()
-        if event.effect_var == 'favor':
-            nations.alter_favor(a,o,float(event.effect))
-        text = (event.event.replace('{o}',str(o)).replace('{a}',str(a))) 
-        return text
-
-    all_events = []
-    for e in range(world.culture.eons):
-        if np.random.random_sample()<world.culture.chaos:
-            all_events.append(event_results(events,nations))
-        else:
-            all_events.append(f'{e}: nothing happend during this period.')
+    e = events.Events()
+    all_events = events.pass_through_time(world,e.events_df,nations)
     return world,all_events
 
 
