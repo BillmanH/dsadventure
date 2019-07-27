@@ -78,7 +78,6 @@ class Nation:
         self.ruler = person(f'ruler of {self.name}',t)
 
 # Politics !!
-
 treaties = pd.DataFrame([['sworn enemies',0],
            ['war',.1],
            ['tense',.3],
