@@ -18,7 +18,7 @@ def core_view(request):
             'mapData':{},
             'terrData':{}}
     
-    return render(request, 'core_view.html',context)
+    return render(request, 'game/core_view.html',context)
 
 @login_required
 def create_character(request):

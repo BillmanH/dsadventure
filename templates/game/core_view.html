@@ -25,22 +25,21 @@ var terrData = {{terrData | safe}}
 {% include "game/core/activity_map_boarder.html" %}
 
 <!- Objects that have complex interaction ->
-{% if 'm' in mapData['monsters'].keys() %}
+{% if "monsters" in  mapData %}
     {% include "game/monsters/monster_render.html" %}
 {% endif %}	
-{% include "game/player/character.html" %}
+{% include "game/player/core_character.html" %}
 
-{% if 'equipment' in charData.keys() %}
+{% if "equipment" in charData %}
     {% include "game/player/charequipment.html" %}
 {% endif %}
 
-{% include "game/terrain_textures.html" %}
+{% include "game/core/terrain_textures.html" %}
 
 <!- Scripts that govern interaction between objects->
-{% include "game/interactions/terrain_char_interaction.html" %}
+{% include "game/core/terrain_char_interaction.html" %}
 
 <!- Finally, the inevitable death of the character->
 
-{% include "game/charModifiers/chardeath.html" %}
 </body>
 </html>
