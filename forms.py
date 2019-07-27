@@ -20,5 +20,5 @@ class playerCharacterForm(forms.Form):
             ('2','desert survival'),
             ('3','hunting'),
             ('4','additional language')]
-    coreskills = forms.ChoiceField(widget=forms.SelectMultiple, choices=secondarySkillsChoices)
+    secondaryskills = forms.ChoiceField(widget=forms.RadioSelect, choices=secondarySkillsChoices)
 
