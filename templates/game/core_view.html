@@ -1,0 +1,46 @@
+{% load static %}
+<html>
+<head>
+    <title>Adventure</title>
+    {% include "prodweb/gatag.html" %}
+    <script type="text/javascript" src="{% static 'prodweb/d3.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'game/forms.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+<body>
+<script>
+// charData is all of the info relevant to the character
+var charData = {{charData | safe}};
+// mapData contains everything for this area and the neighboring four
+var mapData = {{mapData | safe}};
+// terrData is everything relevant to rendering this area
+var terrData = {{terrData | safe}}
+</script>
+
+<!- Simple Objects and Core Functionality ->
+
+{% include "game/core/home_screen.html" %}
+
+{% include "game/core/text_window.html" %}
+{% include "game/core/activity_map_boarder.html" %}
+
+<!- Objects that have complex interaction ->
+{% if 'm' in mapData['monsters'].keys() %}
+    {% include "game/monsters/monster_render.html" %}
+{% endif %}	
+{% include "game/player/character.html" %}
+
+{% if 'equipment' in charData.keys() %}
+    {% include "game/player/charequipment.html" %}
+{% endif %}
+
+{% include "game/terrain_textures.html" %}
+
+<!- Scripts that govern interaction between objects->
+{% include "game/interactions/terrain_char_interaction.html" %}
+
+<!- Finally, the inevitable death of the character->
+
+{% include "game/charModifiers/chardeath.html" %}
+</body>
+</html>
