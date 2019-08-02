@@ -9,26 +9,17 @@
 </head>
 <body>
 <script>
-// charData is all of the info relevant to the character
-var charData = {{charData | safe}};
-// mapData contains everything for this area and the neighboring four
-var mapData = {{mapData | safe}};
-// terrData is everything relevant to rendering this area
-var terrData = {{terrData | safe}}
-</script>
 
-<!- Simple Objects and Core Functionality ->
+    {% include "game/core/dataLayer.js" %}
+    {% include "game/core/home_screen.js" %}
+    {% include "game/core/globalFunctions.js" %}
+    {% include "game/core/text_window.js" %}
 
-{% include "game/core/home_screen.html" %}
-
-{% include "game/core/text_window.html" %}
-{% include "game/core/activity_map_boarder.html" %}
-
-<!- Objects that have complex interaction ->
+//<!- Objects that have complex interaction ->
 {% if "monsters" in  mapData %}
     {% include "game/monsters/monster_render.html" %}
 {% endif %}	
-{% include "game/player/core_character.html" %}
+//{% include "game/player/core_character.html" %}
 
 {% if "equipment" in charData %}
     {% include "game/player/charequipment.html" %}
@@ -36,8 +27,8 @@ var terrData = {{terrData | safe}}
 
 {% include "game/core/terrain_textures.html" %}
 
-<!- Scripts that govern interaction between objects->
-{% include "game/core/terrain_char_interaction.html" %}
+//<!- Scripts that govern interaction between objects->
+//{% include "game/core/terrain_char_interaction.html" %}
 
 <!- Finally, the inevitable death of the character->
 

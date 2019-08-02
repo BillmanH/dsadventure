@@ -31,14 +31,18 @@ def the_second_age(world,default_params,c=c):
         except:
             continue
     for n in np.unique(world.df_features['nation'].dropna()):
-        c = world.df_features[(world.df_features['nation']==n)& \
-              (world.df_features['terrain']=='town')]['feature'].tolist()
-        #getting the town objects
-        ts = [ti for ti in all_towns if ti.name in c]
-        #get population(p)
-        p = [tii.pop for tii in ts]
-        #getting the first town that has the max population, make that the capitol
-        ts[np.argmax(p)].type='capitol'
+        #TODO: having an error where sometimes a nation contains no cities
+        try:
+            c = world.df_features[(world.df_features['nation']==n)& \
+                (world.df_features['terrain']=='town')]['feature'].tolist()
+            #getting the town objects
+            ts = [ti for ti in all_towns if ti.name in c]
+            #get population(p)
+            p = [tii.pop for tii in ts]
+            #getting the first town that has the max population, make that the capitol
+            ts[np.argmax(p)].type='capitol'
+        except:
+            continue
     world.nations = [nations.Nation(n,world,world.culture,people) for n in world.nations.values()]
     world.towns = all_towns
     return world

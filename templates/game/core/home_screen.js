@@ -1,4 +1,3 @@
-<script id="main-svg">
 var widthPadding = 200
 if(window.innerWidth <= 800){
      widthPadding=15;
@@ -14,7 +13,3 @@ if(window.innerWidth <= 800){
         .attr("id","screen")
         .attr("z-index","1")
         .style("border", "1px solid black");
-    function charclick() {
-            //bring up the inventory window
-            }
- </script> 

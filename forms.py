@@ -4,10 +4,10 @@ from django import forms
 class playerCharacterForm(forms.Form):
     name = forms.CharField(label='Your character\'s name', max_length=100)
     #background
-    backgroundChoices = [('1', 'Noble family'), 
-            ('2', 'Pesant family'),
-            ('3', 'Temple orphan'),
-            ('3','Nomad family')]
+    backgroundChoices = [('1','Noble family'), 
+            ('2','Pesant family'),
+            ('3','Temple orphan'),
+            ('4','Nomad family')]
     background = forms.ChoiceField(widget=forms.RadioSelect, choices=backgroundChoices)
     #skills
     coreSkillsChoices = [('1','fencing'),

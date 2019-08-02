@@ -38,12 +38,25 @@ class World:
         nextcoord = np.add(coord,self.get_random_direction())
         return nextcoord
 
-    def get_random_chord(self):
+    def get_random_chord(self,t=None):
         df = self.grid_elevation
         x = np.random.choice(df.index.tolist(),1)[0]
         y = np.random.choice(df.columns.tolist(),1)[0]
         coord = [x,y]
         return np.array(coord)
+    
+    def get_filtered_chord(self,t=None):
+        """
+        t must be an list of acceptable land types
+        will return a coord that meets filtered criteria 
+        """
+        if t:
+            df = self.df_features[self.df_features['terrain'].isin(t)]
+        else:
+            df = self.df_features
+        key = np.random.choice(df.index.tolist())
+        l = df.loc[key]
+        return [l.x,l.y]
 
     def reindexMountain(self,c,m):
         m.index = np.pad([c[0]],(round(len(m.index)/2)

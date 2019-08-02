@@ -5,6 +5,8 @@ from django.http import HttpResponseRedirect
 from .forms import playerCharacterForm
 
 from .lib.create_world import *
+from .lib.modify_character import *
+
 from .lib.boto import s3Transfer as b
 import yaml
 
@@ -17,7 +19,7 @@ def core_view(request):
     context = {'charData':{},
             'mapData':{},
             'terrData':{}}
-    
+    world = b.get_world(request.user.get_username()) 
     return render(request, 'game/core_view.html',context)
 
 @login_required
@@ -26,7 +28,16 @@ def create_character(request):
         form = playerCharacterForm(request.POST)
         if form.is_valid():
             #here is where all of the character creation will take place
-            return HttpResponseRedirect('coreview')
+            world = b.get_world(request.user.get_username()) 
+            f = request.POST.dict()
+            character_dict = {
+                'name': f['name'],
+                'background': dict(playerCharacterForm.backgroundChoices)[f['background']],
+                'coreskills': dict(playerCharacterForm.coreSkillsChoices)[f['coreskills']],
+                'secondaryskills': dict(playerCharacterForm.secondarySkillsChoices)[f['secondaryskills']]
+            }
+            world = create_character(character_dict,world)
+        return HttpResponseRedirect('coreview')
     else:
         form = playerCharacterForm()
         return render(request, 'game/player/create.html', {'form': form})
