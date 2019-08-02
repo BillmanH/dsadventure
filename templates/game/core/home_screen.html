@@ -1,0 +1,20 @@
+<script id="main-svg">
+var widthPadding = 200
+if(window.innerWidth <= 800){
+     widthPadding=15;
+   }
+    var width = screen.width-widthPadding,
+        height = window.innerHeight-100,
+        char_x = screen.width/2,
+        char_y = screen.height / 2;
+    var canvas = d3.select("body")
+        .append("svg")
+        .attr("width",width)
+        .attr("height",height)
+        .attr("id","screen")
+        .attr("z-index","1")
+        .style("border", "1px solid black");
+    function charclick() {
+            //bring up the inventory window
+            }
+ </script> 

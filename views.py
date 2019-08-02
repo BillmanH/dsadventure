@@ -13,11 +13,20 @@ def start_screen(request):
     return render(request,'game/start_screen.html')
 
 @login_required
+def core_view(request):
+    context = {'charData':{},
+            'mapData':{},
+            'terrData':{}}
+    
+    return render(request, 'game/core_view.html',context)
+
+@login_required
 def create_character(request):
     if request.method == 'POST':
         form = playerCharacterForm(request.POST)
         if form.is_valid():
-            return HttpResponseRedirect('/thanks/')
+            #here is where all of the character creation will take place
+            return HttpResponseRedirect('coreview')
     else:
         form = playerCharacterForm()
         return render(request, 'game/player/create.html', {'form': form})
