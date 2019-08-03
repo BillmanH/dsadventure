@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from .forms import playerCharacterForm
 
 from .lib.create_world import *
-from .lib.modify_character import *
+from .lib import modify_character 
 
 from .lib.boto import s3Transfer as b
 import yaml
@@ -19,7 +19,9 @@ def core_view(request):
     context = {'charData':{},
             'mapData':{},
             'terrData':{}}
-    world = b.get_world(request.user.get_username()) 
+    world = b.get_world(request.user.get_username())
+    context['charData'] = world.Character.get_charData()
+    context['terrData'] = world.df_features.loc[world.Character.get_location_key()].to_dict()
     return render(request, 'game/core_view.html',context)
 
 @login_required
@@ -36,7 +38,8 @@ def create_character(request):
                 'coreskills': dict(playerCharacterForm.coreSkillsChoices)[f['coreskills']],
                 'secondaryskills': dict(playerCharacterForm.secondarySkillsChoices)[f['secondaryskills']]
             }
-            world = create_character(character_dict,world)
+            world = modify_character.create_character(character_dict,world)
+            b.save_world(world,request.user.get_username())
         return HttpResponseRedirect('coreview')
     else:
         form = playerCharacterForm()
