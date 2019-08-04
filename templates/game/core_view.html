@@ -14,13 +14,16 @@
     {% include "game/core/home_screen.js" %}
     {% include "game/core/globalFunctions.js" %}
     {% include "game/core/text_window.js" %}
+    {% include "game/sprites/base.js" %}
 
 //<!- Objects that have complex interaction ->
 {% if "monsters" in  mapData %}
-    {% include "game/monsters/monster_render.html" %}
-{% endif %}	
-//{% include "game/player/core_character.html" %}
+    {% include "game/sprites/monsters/render.js" %}
+{% endif %}
 
+{% include "game/player/core_character.js" %}
+
+</script>
 {% if "equipment" in charData %}
     {% include "game/player/charequipment.html" %}
 {% endif %}
