@@ -10,6 +10,8 @@ from .lib import modify_character
 from .lib.boto import s3Transfer as b
 import yaml
 
+from .models import bestiary,terrain_details,terrain_items
+
 @login_required
 def start_screen(request):
     return render(request,'game/start_screen.html')
