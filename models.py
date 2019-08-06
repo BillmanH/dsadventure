@@ -14,13 +14,13 @@ class terrain_details(models.Model):
    name = models.CharField(max_length=50,primary_key=True)
    land_type = models.CharField(max_length=50)
    description = models.CharField(max_length=250)
-   creatures = models.Charfield(max_length=250)
-   terrain_textures = models.Charfield(max_length=500)
+   creatures = models.CharField(max_length=250)
+   terrain_textures = models.CharField(max_length=500)
 
 
 class bestiary(models.Model):
     key = models.CharField(max_length=100,primary_key=True)
-    name = models.CharField(max_length=100,primary_key=True)
+    name = models.CharField(max_length=100)
     health = models.IntegerField()
     healthMaxVariance = models.IntegerField()
     move = models.IntegerField()
@@ -31,7 +31,7 @@ class bestiary(models.Model):
     group_max = models.IntegerField()
     color = models.CharField(max_length=50)
     perception = models.IntegerField()
-    attack_type = models.Charfield(max_length=250)
+    attack_type = models.CharField(max_length=250)
     damage = models.IntegerField()
 
 

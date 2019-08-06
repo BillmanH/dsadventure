@@ -5,7 +5,10 @@
     Additional text 'textWindow' is at the bottom of the screen and is piped in from the server. You should be able to get it in 'textWindow' from     from the server'
     */
 
-textWindow = d3.select("body").append("div").attr("id","text-window").html(charData["name"] + " is standing in " + mapData["terrain"])
+textWindow = d3.select("body")
+    .append("div")
+    .attr("id","text-window")
+    .html(charData["name"] + " is standing in " + mapData["terrain"] +".</br>"+ charData['message'])
 
 //noteDirection is a global that controlls the rolloff of the text (the direction)
 noteDirection = 1
