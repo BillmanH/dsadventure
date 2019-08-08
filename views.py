@@ -19,7 +19,7 @@ def start_screen(request):
 @login_required
 def core_view(request):
     context = {'charData':{},
-            'mapData':{},
+            'mapData':{'area':{}},
             'terrData':{}}
     #world objects come from pickles, loaded from s3
     world = b.get_world(request.user.get_username())

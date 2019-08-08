@@ -10,6 +10,7 @@ class Character():
         self.secondaryskills = [f['secondaryskills']]
         self.message = "game start" 
         self.equipment = {'gold':1}
+        self.size = 5
 
     def __repr__(self):
         return f"{self.name} the adventurer"
@@ -18,7 +19,8 @@ class Character():
         #try to pass more on the server side. Don't pass info to the client unless there is .js that needs it. 
         return {
             'name':self.name,
-            'message':self.message
+            'message':self.message,
+            'size':self.size
         }
     
     def get_location_key(self):
