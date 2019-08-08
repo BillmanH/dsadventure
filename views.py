@@ -28,8 +28,9 @@ def core_view(request):
     #terrain details come from Azure SQL
     td = terrain_details.objects.values().get(name=context['terrData']['terrain'])
     context['terrData']['terrain details'] = td
-    terrain_items = [t['name'] for t in yaml.load(td['terrain_textures'],Loader=yaml.SafeLoader)]
-    context['terrData']['Terrain Textures'] = terrain_details.objects.values().filter(name__in=terrain_items)
+    ti = [t['name'] for t in yaml.load(td['terrain_textures'],Loader=yaml.SafeLoader)]
+    tt = terrain_items.objects.values().filter(pk__in=ti)
+    context['terrData']['Terrain Textures'] = list(tt)
     return render(request, 'game/core_view.html',context)
 
 @login_required
