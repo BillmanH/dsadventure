@@ -1,9 +1,10 @@
+// The root object on the core view is a sprite
 var Sprite = {
     init: function(width=null,height=null){
         if(width!=null&height!=null){
             this.coord = this.getRandomChoord(width,height)
         }
-    }
+    },
 
     getRandomChoord : function (width,height){  
         x = Math.floor(Math.random() * width) + 1;
@@ -11,7 +12,11 @@ var Sprite = {
         return [x,y]
     },
 
-    randBetween function (min, max) {
+    randBetween : function (min, max) {
         return Math.random() * (max - min) + min;
     }
+}
+
+var Inanimate = {
+  
 }

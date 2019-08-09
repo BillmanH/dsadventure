@@ -1,4 +1,3 @@
-<script id="character">
 // Tooltip, hover over character to see some stats
         var char_tooltip = d3.select("body")
                 .append("div")
@@ -74,7 +73,6 @@ function charDeath(){
     d3.select("#chardeathbutton").html(charData["name"] + " has died...")
 }
 
-{% include "game/core/charModifiers/char_attack.js" %}
+{% include "game/player/charattack.js" %}
 
-</script>
 

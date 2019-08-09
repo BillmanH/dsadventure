@@ -1,0 +1,72 @@
+//tool tip should work for all terrain objects
+var monster_tooltip = d3.select("body")
+    .append("div")
+    .attr("id", "monster-info")                
+    .style("position", "absolute")
+    .style("z-index", "10")
+    .style("visibility", "hidden")
+    .html("<p>Default Text</p>");
+//spin through the list of big objects and create
+mapData['monsters']['meta']['cord'] = get_rnd_coord()
+//TODO: monster render types go here, I need to come back and add different spread types for monsters
+data = []
+for (var i=0;i < mapData['monsters']['m'].length;i++) {
+        cord = Math.floor(Math.random() * 6) - 6
+        //TODO: changes in mapData["monsters"]["meta"]["render type"] should 
+        //take affect here.  
+        mapData['monsters']['m'][i]['spawnOrigin_x'] = mapData['monsters']['meta']['cord'][0] + cord
+        mapData['monsters']['m'][i]['spawnOrigin_y'] = mapData['monsters']['meta']['cord'][1] + cord
+}
+var mons = canvas.selectAll(mapData['monsters']['meta']['name'])
+    .data(mapData['monsters']['m'])
+    .enter()
+    .append('circle')
+    .style('z-index',9)
+    .attr("cx",function(d){return d.spawnOrigin_x})
+    .attr("cy",function(d){return d.spawnOrigin_y})
+    .attr("r",function(d){return d.size})
+    .attr("id",function(d,i){return qaID(d.name+"-"+parseInt(i))})
+    .attr("name",function(d){return d.name})
+    .attr("move", function(d){return d.move})
+    .classed("monster", true)
+    .style("fill",function(d){return d.color})
+    .on("mouseover", function(d){
+        return monster_tooltip.style("visibility", "visible")
+            .html("<p>"+d.name+"</p>"+"<p>health: "+d.health+"</p>");
+        })
+    .on("mousemove", function(d){
+        return monster_tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px")
+            .html("<p>"+d.name+"</p>"+"<p>health: "+d.health+"</p>");
+        })
+    .on("mouseout", function(){
+        return monster_tooltip.style("visibility", "hidden");
+        });
+
+// This is where the monster attack happens
+var damage = randBetween(0,mapData["monsters"]["meta"]["damage"])*-1;
+    damage = Math.round(damage*100)/100
+
+//send an alert to the screen about the attack
+objectAlerts("#"+d3.select(this).attr("id"),
+        damage.toString() + ": " + d3.select(this).attr("name")+" "+mapData["monsters"]["meta"]["attackType"],
+        color="#8b0000")
+
+//subtract the damage from the health of the player
+charData["health"] = charData["health"]+damage
+
+//action if the characterhas died
+if(charData["health"]<0){
+    objectAlerts("#character",charData["name"] + " has died")
+    charDeath()
+} else {charattack(this)} //the character automatically attacks back if able
+
+console.log("monster_death","#"+target.id)
+    d3.select("#"+target.id)
+    //d3.select(target)
+        .transition()
+        .attr('r',3)
+        .style("stroke", "black")
+        .style("fill", "none");
+
+    d3.select("#Goblin-3").transition().attr('r',3)
+

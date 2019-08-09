@@ -5,8 +5,12 @@ from django.http import HttpResponseRedirect
 from .forms import playerCharacterForm
 
 from .lib.create_world import *
+from .lib import modify_character 
+
 from .lib.boto import s3Transfer as b
 import yaml
+
+from .models import bestiary,terrain_details,terrain_items
 
 @login_required
 def start_screen(request):
@@ -15,9 +19,18 @@ def start_screen(request):
 @login_required
 def core_view(request):
     context = {'charData':{},
-            'mapData':{},
+            'mapData':{'area':{}},
             'terrData':{}}
-    
+    #world objects come from pickles, loaded from s3
+    world = b.get_world(request.user.get_username())
+    context['charData'] = world.Character.get_charData()
+    context['terrData'] = world.df_features.loc[world.Character.get_location_key()].to_dict()
+    #terrain details come from Azure SQL
+    td = terrain_details.objects.values().get(name=context['terrData']['terrain'])
+    context['terrData']['terrain details'] = td
+    ti = [t['name'] for t in yaml.load(td['terrain_textures'],Loader=yaml.SafeLoader)]
+    tt = terrain_items.objects.values().filter(pk__in=ti)
+    context['terrData']['Terrain Textures'] = list(tt)
     return render(request, 'game/core_view.html',context)
 
 @login_required
@@ -26,7 +39,17 @@ def create_character(request):
         form = playerCharacterForm(request.POST)
         if form.is_valid():
             #here is where all of the character creation will take place
-            return HttpResponseRedirect('coreview')
+            world = b.get_world(request.user.get_username()) 
+            f = request.POST.dict()
+            character_dict = {
+                'name': f['name'],
+                'background': dict(playerCharacterForm.backgroundChoices)[f['background']],
+                'coreskills': dict(playerCharacterForm.coreSkillsChoices)[f['coreskills']],
+                'secondaryskills': dict(playerCharacterForm.secondarySkillsChoices)[f['secondaryskills']]
+            }
+            world = modify_character.create_character(character_dict,world)
+            b.save_world(world,request.user.get_username())
+        return HttpResponseRedirect('coreview')
     else:
         form = playerCharacterForm()
         return render(request, 'game/player/create.html', {'form': form})
