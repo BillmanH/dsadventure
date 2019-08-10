@@ -11,6 +11,7 @@ class Character():
         self.message = "game start" 
         self.equipment = {'gold':1}
         self.size = 5
+        self.speed = 5
 
     def __repr__(self):
         return f"{self.name} the adventurer"
@@ -20,7 +21,8 @@ class Character():
         return {
             'name':self.name,
             'message':self.message,
-            'size':self.size
+            'size':self.size,
+            'speed':self.speed
         }
     
     def get_location_key(self):
