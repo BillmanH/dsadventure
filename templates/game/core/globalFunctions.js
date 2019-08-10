@@ -32,3 +32,19 @@ function get_distance_vector(Xa,Ya,Xb,Yb,speed){
     var coord = [du[0]*speed,du[1]*speed]
     return coord
 }
+
+function move_towards_obj(Xa,Ya,Xb,Yb,speed){
+    // produces new coordinates that are in the direction of the character, using the speed
+    // in this order (object that would like to move [x,y], then the object you would like to move towards [x,y]
+    // where x,y are the current coordinates of the object that you would like to move.
+    speed=parseInt(speed);
+    console.log('move-towards-object',Xa,Ya,Xb,Yb,speed)
+    shift = get_distance_vector(Math.round(Xa),
+                Math.round(Ya),
+                Math.round(Xb),
+                Math.round(Yb),
+                speed)
+    a = Xa+shift[0]
+    b = Ya+shift[1]
+    return [a,b]
+}
