@@ -11,8 +11,10 @@ class Character():
         self.message = "game start" 
         self.equipment = {'gold':1}
         self.size = 5
-        self.speed = 5
+        self.speed = 15
+        self.composure = 10
         self.attributes = ['started']
+        self.location = None
 
     def __repr__(self):
         return f"{self.name} the adventurer"
@@ -24,7 +26,10 @@ class Character():
             'message':self.message,
             'size':self.size,
             'speed':self.speed,
-            'attributes':self.attributes
+            'attributes':self.attributes,
+            'location':self.get_location_key(),
+            'title':self.title,
+            'composure':self.composure
         }
     
     def get_location_key(self):
@@ -38,32 +43,32 @@ class Character():
 def set_char_origin(c,world):
     # a noble is born and raised in a capitol
     if c.background == 'Noble family':
-        c.caste = "noble"
         t = np.random.choice([t for t in world.towns if 'capitol' in str(t)])
         c.birthplace = t.name
+        c.title = f"Honerable court of {t.speaker}"
         c.location = [t.x,t.y]
         c.equipment['gold'] += 100
         c.message = f"You begin your adventure in {str(t)} </br> Your nobile family has ties with {t.speaker}. "
 
     if c.background == 'Pesant family':
-        c.caste = "pesant"
         t = np.random.choice([t for t in world.towns if 'town' in str(t)])
         c.birthplace = t.name
         c.location = [t.x,t.y]
+        c.title = f"Pesant"
         c.message = f"You wake up on the streets of {str(t)}."
         
     if c.background == 'Temple orphan':
-        c.caste = "pesant"
         t = np.random.choice([t for t in world.towns if 'town' in str(t)])
         c.birthplace = t.name
         c.location = [t.x,t.y]
+        c.title = f"Orphan"
         c.message = f"You wake up on the streets of {str(t)}."
 
     if c.background == 'Nomad family':
-        c.caste = "pesant"
         l = world.get_filtered_chord(t=['mountain','land'])
         c.birthplace = "the wilderness"
         c.location = l
+        c.title = f"Ranger"
         c.message = f"You wake up in the wilderness, {str(world.df_features.loc[c.get_location_key(),'terrain'])}."
         
 #creating the character from the userform (f)

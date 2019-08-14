@@ -8,7 +8,9 @@
 textWindow = d3.select("body")
     .append("div")
     .attr("id","text-window")
-    .html(charData["name"] + " is standing in " + mapData["terrain"] +".</br>"+ charData['message'])
+    .html(charData["name"] 
+        + charData["current situation"] +".</br>"
+        + charData['message'])
 
 //noteDirection is a global that controlls the rolloff of the text (the direction)
 noteDirection = 1

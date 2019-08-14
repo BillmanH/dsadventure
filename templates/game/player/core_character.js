@@ -1,19 +1,20 @@
 // Tooltip, hover over character to see some stats
-        var char_tooltip = d3.select("body")
+
+    var char_tooltip = d3.select("body")
                 .append("div")
         .attr("id", "char-info")                
         .style("position", "absolute")
                 .style("z-index", "10")
                 .style("visibility", "hidden")
                 .html(charData["name"] + "<br>" 
-            + "Race: " + String(charData["race"]) + "<br>"
-            + "Health: " + String(charData["health"]) + "<br>"
+            + charData['title'] + "<br>"
+            + charData['composure'] + "<br>"
             + ""); //add extra eliments to be displayed to the char tooltip
 
     function updateToolTip(charData){
         h = charData["name"] + "<br>"
-        + "Race: " + String(charData["race"]) + "<br>"
-        + "Health: " + String(charData["health"]) + "<br>"
+        + charData['title'] + "<br>"
+        + charData['composure'] + "<br>"
         return h
     }
 

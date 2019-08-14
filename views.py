@@ -32,6 +32,8 @@ def core_view(request):
     ti = [t['name'] for t in yaml.load(td['terrain_textures'],Loader=yaml.SafeLoader)]
     tt = terrain_items.objects.values().filter(pk__in=ti)
     context['terrData']['Terrain Textures'] = list(tt)
+    #changes and localization variables come last
+    context['charData']["current situation"] = f"is standing in {context['terrData']['feature']}"
     return render(request, 'game/core_view.html',context)
 
 @login_required

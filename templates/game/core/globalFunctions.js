@@ -38,7 +38,7 @@ function move_towards_obj(Xa,Ya,Xb,Yb,speed){
     // in this order (object that would like to move [x,y], then the object you would like to move towards [x,y]
     // where x,y are the current coordinates of the object that you would like to move.
     speed=parseInt(speed);
-    console.log('move-towards-object',Xa,Ya,Xb,Yb,speed)
+    //console.log('move-towards-object',Xa,Ya,Xb,Yb,speed)
     shift = get_distance_vector(Math.round(Xa),
                 Math.round(Ya),
                 Math.round(Xb),
