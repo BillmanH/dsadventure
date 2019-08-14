@@ -1,4 +1,3 @@
-<script id="terrain-texture">
 mapData['area']['Terrain Textures'] = terrData["Terrain Textures"]
 //tool tip should work for all terrain objects
 var terrain_tooltip = d3.select("body")
@@ -36,4 +35,3 @@ for (item in mapData['area']['Terrain Textures']){
 //Assumiming that if there is no spread type, just place it randomly, terrain['density'] is ignored
     }
 }
-</script>
