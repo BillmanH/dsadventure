@@ -8,6 +8,17 @@ def keyChord(key):
     coord = key.split(":")
     return [int(coord[0]),int(coord[1])]
 
+def chordKey(coord):
+    '''
+    takes a key [1,1], returns key "1,1"
+    '''
+    key = ":".join([str(i) for i in coord])
+    return key
+   
+
+def get_area_data(world):
+    pass
+
 class World:
     def __init__(self,landscape):
         self.landscape = landscape
