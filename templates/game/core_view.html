@@ -14,18 +14,20 @@
     {% include "game/core/home_screen.js" %}
     {% include "game/core/globalFunctions.js" %}
     {% include "game/core/text_window.js" %}
-    {% include "game/sprites/base.js" %}
+    //{% include "game/sprites/base.js" %}
 
-// Objects that have complex interaction 
-{% if "monsters" in  mapData %}
-    {% include "game/sprites/monsters/render.js" %}
-{% endif %}
 
 // the core character module
     //sub modules for the character are loaded within this module
     //templates are in /player/
 {% include "game/player/core_character.js" %}
 {% include "game/core/terrain_textures.js" %}
+
+
+// Objects that have complex interaction 
+{% if "monsters" in  mapData %}
+    {% include "game/sprites/monsters/render.js" %}
+{% endif %}
 
 // Scripts that govern interaction between objects
 </script>

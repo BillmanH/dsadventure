@@ -32,12 +32,15 @@ def core_view(request):
     context['terrData'] = world.df_features.loc[world.Character.get_location_key()].fillna("none").to_dict()
     #terrain details come from Azure SQL
     td = terrain_details.objects.values().get(name=context['terrData']['terrain'])
-    context['terrData']['terrain details'] = td
     #terrain items for each item in the terrain textures. 
     context['mapData'] = w.get_area_data(world)
-    ti = [t['name'] for t in yaml.load(td['terrain_textures'],Loader=yaml.SafeLoader)]
-    tt = terrain_items.objects.values().filter(pk__in=ti)
-    context['terrData']['Terrain Textures'] = list(tt)
+    #td is the lists of textures for the world, not the details
+    td = yaml.load(td['terrain_textures'],Loader=yaml.SafeLoader)
+    #ti is the ist of items 
+    ti = [t['name'] for t in td]
+    tt = list(terrain_items.objects.values().filter(pk__in=ti))
+    #bundled into a dict for smooth loading
+    context['n_ter_items']=[{'texture':tt[i],'detail':td[i]} for i in range(len(tt))]
     #changes and localization variables come last
     context['charData']["current situation"] = w.get_character_context(world)
     return render(request, 'game/core_view.html',context)
