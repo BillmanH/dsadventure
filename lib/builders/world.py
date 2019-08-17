@@ -14,10 +14,37 @@ def chordKey(coord):
     '''
     key = ":".join([str(i) for i in coord])
     return key
-   
+
+def get_character_context(world):
+    """
+    gets the text of the situation facing the character right now,
+    used in core view
+    """
+    context = "It is a normal day."
+    return context
+
+def get_features_or_NA(world,coord):
+    try:
+        l = world.df_features.loc[chordKey([coord[0],coord[1]])].fillna("none").to_dict(),
+    except: 
+        l = {"terrain":"void"}
+    return l[0]
 
 def get_area_data(world):
-    pass
+    """
+    note: requires Character
+    """
+    mapData = {}
+    coord = world.Character.location
+    key = world.Character.get_location_key()
+    l = world.df_features.loc[key]
+    worldDim = {world}
+    mapData = {'area':world.df_features.loc[key].fillna("none").to_dict(),
+              'NArea':get_features_or_NA(world,[coord[0],coord[1]-1]),
+              'SArea':get_features_or_NA(world,[coord[0],coord[1]+1]),
+              'EArea':get_features_or_NA(world,[coord[0]+1,coord[1]]),
+              'WArea':get_features_or_NA(world,[coord[0]-1,coord[1]])}
+    return mapData
 
 class World:
     def __init__(self,landscape):

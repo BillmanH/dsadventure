@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from .forms import playerCharacterForm
 
 from .lib.create_world import *
+from .lib.builders import world as w
 from .lib import modify_character 
 
 from .lib.boto import s3Transfer as b
@@ -18,22 +19,27 @@ def start_screen(request):
 
 @login_required
 def core_view(request):
+    """
+    b = loading and saving functions
+    w = world module
+    """
     context = {'charData':{},
             'mapData':{'area':{}},
             'terrData':{}}
     #world objects come from pickles, loaded from s3
     world = b.get_world(request.user.get_username())
     context['charData'] = world.Character.get_charData()
-    context['terrData'] = world.df_features.loc[world.Character.get_location_key()].to_dict()
+    context['terrData'] = world.df_features.loc[world.Character.get_location_key()].fillna("none").to_dict()
     #terrain details come from Azure SQL
     td = terrain_details.objects.values().get(name=context['terrData']['terrain'])
     context['terrData']['terrain details'] = td
     #terrain items for each item in the terrain textures. 
+    context['mapData'] = w.get_area_data(world)
     ti = [t['name'] for t in yaml.load(td['terrain_textures'],Loader=yaml.SafeLoader)]
     tt = terrain_items.objects.values().filter(pk__in=ti)
     context['terrData']['Terrain Textures'] = list(tt)
     #changes and localization variables come last
-    context['charData']["current situation"] = f"is standing in {context['terrData']['feature']}"
+    context['charData']["current situation"] = w.get_character_context(world)
     return render(request, 'game/core_view.html',context)
 
 @login_required
