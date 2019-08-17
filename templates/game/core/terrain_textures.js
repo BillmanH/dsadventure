@@ -12,7 +12,9 @@ var terrain_tooltip = d3.select("body")
 //
 //
 {% for i in n_ter_items %} 
-       //terrData.terrain_details,terrData.terrain_textures 
-var current_texture = {{ i|safe }}
-console.log("{{ i.texture.name }}")
+    //terrData.terrain_details,terrData.terrain_textures 
+    var current_texture = {{ i|safe }}
+    {% with  "game/core/terrain/"|add:i.texture.name|add:".js" as template %}
+    {% include template %}
+    {% endwith %}
 {% endfor %}
