@@ -6,6 +6,7 @@
         .style("position", "absolute")
                 .style("z-index", "10")
                 .style("visibility", "hidden")
+                .style("background-color", 'white')
                 .html(charData["name"] + "<br>" 
             + charData['title'] + "<br>"
             + charData['composure'] + "<br>"
