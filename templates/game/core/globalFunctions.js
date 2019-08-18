@@ -1,3 +1,10 @@
+//returns [-1,1]  for multiplying with other coordinates and determine direction.
+function get_pos_neg(x,y){
+    nx = x/Math.abs(x)
+    ny = y/Math.abs(y)
+    return [nx,ny]
+}
+
 // random coordinates, for placing objects. 
 function get_rnd_coord(){  
         x = Math.floor(Math.random() * width) + 1;
