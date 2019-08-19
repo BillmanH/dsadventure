@@ -1,4 +1,6 @@
-{% extends 'game/core/terrain/render_block.js' %}
+{% include 'game/core/terrain/render_block.js' %}
+
+console.log('here')
 
 d3.selectAll("rect")
-    .style("stroke", "black")
+    .style("border", "1px solid black")

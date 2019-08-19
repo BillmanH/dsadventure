@@ -1,4 +1,4 @@
-console.log({{ t|safe }})
+//console.log({{ t|safe }})
 
 ti = {{ t.texture|safe }}
 //take imput paramerter from t and create an array of data objets for D3.
