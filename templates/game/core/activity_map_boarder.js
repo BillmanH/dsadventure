@@ -17,9 +17,11 @@ Individual opbjects should have thier own click handler.
         var prev_y = char_y
         char_x = cmv[0]
         char_y = cmv[1]
-        var boarderText = "to the *nextArea* you can see *description*;" +
-                                "<form class='maptravelform' action='/gamecontinue' method='post' id='*nextForm*Form'>" +
+    
+    var boarderText = "to the *nextArea* you can see *description*;" +
+                                "<form class='maptravelform' action='coreview' method='post' id='*nextForm*Form'>" +
                                 "<input class='charDataHolder' type='hidden' name='charData' value='placeholder'>"+
+                                '{% csrf_token %}'+
                                 "<button type='submit' value='submit'>Save and progress to this region</button>" +
                                 "</form>"
 //constraints and transition to new area
@@ -29,7 +31,7 @@ Individual opbjects should have thier own click handler.
                 d3.select("#northText")
                     .html(boarderText
                         .replace("*nextArea*",charData["arriveFrom"].toLowerCase())
-                        .replace("*description*",mapData["NArea"]["Description"])
+                        .replace("*description*",mapData["NArea"]["terrain"])
                         .replace("*nextForm*",charData["arriveFrom"].toLowerCase())
                     )
             d3.select(".charDataHolder").attr("value",JSON.stringify(charData)) 
@@ -44,7 +46,7 @@ Individual opbjects should have thier own click handler.
                 d3.select("#southText")
                     .html(boarderText
                         .replace("*nextArea*",charData["arriveFrom"].toLowerCase())
-                        .replace("*description*",mapData["SArea"]["Description"])
+                        .replace("*description*",mapData["SArea"]["terrain"])
                         .replace("*nextForm*",charData["arriveFrom"].toLowerCase())
                     )
             d3.select(".charDataHolder").attr("value",JSON.stringify(charData)) 
@@ -59,7 +61,7 @@ Individual opbjects should have thier own click handler.
                 d3.select("#eastText")
                     .html(boarderText
                         .replace("*nextArea*",charData["arriveFrom"].toLowerCase())
-                        .replace("*description*",mapData["EArea"]["Description"])
+                        .replace("*description*",mapData["EArea"]["terrain"])
                         .replace("*nextForm*",charData["arriveFrom"].toLowerCase())
                     )
             d3.select(".charDataHolder").attr("value",JSON.stringify(charData)) 
@@ -74,7 +76,7 @@ Individual opbjects should have thier own click handler.
                 d3.select("#westText")
                     .html(boarderText
                         .replace("*nextArea*",charData["arriveFrom"].toLowerCase())
-                        .replace("*description*",mapData["WArea"]["Description"])
+                        .replace("*description*",mapData["WArea"]["terrain"])
                         .replace("*nextForm*",charData["arriveFrom"].toLowerCase())
                     )
             d3.select(".charDataHolder").attr("value",JSON.stringify(charData)) 
