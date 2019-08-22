@@ -23,11 +23,21 @@ def core_view(request):
     b = loading and saving functions
     w = world module
     """
-    context = {'charData':{},
-            'mapData':{'area':{}},
-            'terrData':{}}
-    #world objects come from pickles, loaded from s3
-    world = b.get_world(request.user.get_username())
+    context = {}
+    if "POST" == request.method:
+        #get the updated character data from the userform
+        charData = yaml.load(request.POST['charData'])
+        #get the old world (before the update)
+        world = b.get_world(request.user.get_username())
+        #update the charData with this function (keeps the update out of the users's hands)
+        world.Character = modify_character.update_charData(world.Character,charData)
+        new_location = world.Character.get_location_key()
+        b.save_world(world,request.user.get_username())
+        #with the updated world, populate the context
+    if "GET" == request.method:
+        #world objects come from pickles, loaded from s3
+        world = b.get_world(request.user.get_username())
+    #in bost POST(traveling) or GET(loading) the context is populated in the same way.
     context['charData'] = world.Character.get_charData()
     context['terrData'] = world.df_features.loc[world.Character.get_location_key()].fillna("none").to_dict()
     #terrain details come from Azure SQL

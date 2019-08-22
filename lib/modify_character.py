@@ -2,6 +2,19 @@ import pandas as pd
 import numpy as np
 import os
 
+def update_charData(char,charData):
+    char.arriveFrom = charData['arriveFrom']
+    char.composure = charData['composure']
+    char.location = charData['location']
+    char.attributes = charData['attributes']
+    char.title = charData['title']
+    if 'meta' in charData.keys():
+        charData['meta']['n_turns']+=1
+    else:
+        charData['meta'] = {}
+        charData['meta']['n_turns'] = 1
+    return char
+
 class Character():
     def __init__(self,f,world):
         self.name = f['name']
@@ -31,7 +44,7 @@ class Character():
             'title':self.title,
             'composure':self.composure
         }
-    
+
     def get_location_key(self):
         l = self.location
         return f"{(l[0])}:{l[1]}"
