@@ -11,11 +11,11 @@ textWindow = d3.select("body")
     .html(charData["current situation"] +".</br>"
         + charData['message'])
 
-    textWindow.append("div").attr("id", "northText").html("")
-    textWindow.append("div").attr("id", "eastText").html("")
-    textWindow.append("div").attr("id", "southText").html("")
-    textWindow.append("div").attr("id", "westText").html("")
-    textWindow.append("div").attr("id", "eventLog").html("")
+if(mapData['NArea']['terrain']!='void'){textWindow.append("div").attr("id", "northText").html("")}
+if(mapData['EArea']['terrain']!='void'){textWindow.append("div").attr("id", "eastText").html("")}
+if(mapData['SArea']['terrain']!='void'){textWindow.append("div").attr("id", "southText").html("")}
+if(mapData['WArea']['terrain']!='void'){textWindow.append("div").attr("id", "westText").html("")}
+textWindow.append("div").attr("id", "eventLog").html("")
 
 //noteDirection is a global that controlls the rolloff of the text (the direction)
 noteDirection = 1

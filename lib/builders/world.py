@@ -1,6 +1,15 @@
 import numpy as np
 import pandas as pd
 
+def get_town(towns,name):
+    t = [town for town in towns if town.name == name]
+    if len(t) == 0:
+        return None
+    if len(t) == 1:
+        return t[0]
+    else:
+        return t
+
 def keyChord(key):
     '''
     takes a key "1,1", returns a coord [1,1]
@@ -31,7 +40,7 @@ def get_features_or_NA(world,coord):
                     ])
                 ].fillna("none").to_dict(),
     except: 
-        l = {"terrain":"void"}
+        l = [{"terrain":"void"}]
     return l[0]
 
 def get_area_data(world):
