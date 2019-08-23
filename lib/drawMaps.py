@@ -128,7 +128,7 @@ def drawterrainadvanced(df):
         color=alt.Color('terrain',
                        scale=alt.Scale(
                 domain=['land','mountain', 'ocean','forest','desert'],
-                range=['green','brown', 'blue','green','grey'])
+                range=['#53403B','brown', 'blue','#228b22','#edc9af'])
                        )
     )
     return world

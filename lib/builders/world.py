@@ -182,7 +182,7 @@ class World:
         self.grid_elevation = df_new
 
     def brownian_rainfall(self):
-        df_new = self.grid_elevation
+        df_new = self.build_blank_grid(self.landscape)
         for n in range(self.landscape.rain_iter):
             coord = self.get_random_chord()
             for m in range(self.landscape.rain_spread):
