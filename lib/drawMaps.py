@@ -116,3 +116,19 @@ def drawboarders(df):
         tooltip=['terrain','feature','nation']
     )
     return world
+
+
+def drawterrainadvanced(df):
+    df['key'] = df.index
+    df['x'] = df['key'].apply(lambda x: int(str(x).split(":")[0]))
+    df['y'] = df['key'].apply(lambda x: int(str(x).split(":")[1]))
+    world = alt.Chart(df).mark_rect().encode(
+        x='x:O',
+        y='y:O',
+        color=alt.Color('terrain',
+                       scale=alt.Scale(
+                domain=['land','mountain', 'ocean','forest','desert'],
+                range=['green','brown', 'blue','green','grey'])
+                       )
+    )
+    return world
