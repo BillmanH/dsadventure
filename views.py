@@ -30,7 +30,7 @@ def core_view(request):
         #get the old world (before the update)
         world = b.get_world(request.user.get_username())
         #update the charData with this function (keeps the update out of the users's hands)
-        world.Character = modify_character.update_charData(world.Character,charData)
+        world.Character = modify_character.update_charData(world,charData)
         new_location = world.Character.get_location_key()
         b.save_world(world,request.user.get_username())
         #with the updated world, populate the context

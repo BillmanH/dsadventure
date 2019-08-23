@@ -2,14 +2,19 @@ import pandas as pd
 import numpy as np
 import os
 
-def update_charData(char,charData):
+from .updaters.character_message import update_char_message
+
+def update_charData(world,charData):
+    char = world.Character
     char.arriveFrom = charData['arriveFrom']
     char.composure = charData['composure']
     #coerce values to int 
     l = charData['location'].split(":") 
     char.location = [int(l[0]),int(l[1])]
+    #update attributes that may or may not have changed
     char.attributes = charData['attributes']
     char.title = charData['title']
+    char.message = update_char_message(world)
     if 'meta' in charData.keys():
         charData['meta']['n_turns']+=1
     else:
