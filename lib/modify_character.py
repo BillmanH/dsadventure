@@ -5,7 +5,9 @@ import os
 def update_charData(char,charData):
     char.arriveFrom = charData['arriveFrom']
     char.composure = charData['composure']
-    char.location = charData['location']
+    #coerce values to int 
+    l = charData['location'].split(":") 
+    char.location = [int(l[0]),int(l[1])]
     char.attributes = charData['attributes']
     char.title = charData['title']
     if 'meta' in charData.keys():

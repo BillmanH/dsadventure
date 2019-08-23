@@ -25,7 +25,11 @@ def get_character_context(world):
 
 def get_features_or_NA(world,coord):
     try:
-        l = world.df_features.loc[chordKey([coord[0],coord[1]])].fillna("none").to_dict(),
+        l = world.df_features.loc[
+                chordKey([
+                    int(coord[0]),int(coord[1])
+                    ])
+                ].fillna("none").to_dict(),
     except: 
         l = {"terrain":"void"}
     return l[0]
