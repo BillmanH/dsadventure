@@ -1,4 +1,10 @@
+function check_collision(target){
+        return e
+    }
+
 function terrain_interactions(prev_x,prev_y){
+    // prev_x, prev_y
+    console.log("moving from: ",prev_x,prev_y)
     var n_x = char_x
     var n_y = char_y
     t = d3.selectAll(".terrain")
@@ -37,4 +43,3 @@ function terrain_interactions(prev_x,prev_y){
         })
 return [n_x,n_y]
 }
-//objectAlerts("#character",(mapData["monsters"]["message"]))
