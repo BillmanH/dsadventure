@@ -22,6 +22,9 @@ class Landscape:
         self.water_level = params.get('water_level',0)
         self.rain_iter = params.get('rain_iter',8)
         self.rain_spread = params.get('rain_spread',100)
+        #forests and deserts
+        self.desert_threshold = params.get('desert_threshold',2)
+        self.forest_threshold = params.get('forest_threshold',25)
         #other params that aren't used as variables
         self.N_loc = params.get('N_loc',0)
         self.N_std = params.get('N_std',1)

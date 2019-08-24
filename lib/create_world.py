@@ -13,6 +13,8 @@ def the_first_age(default_params):
     world.brownian_land()
     world.brownian_rainfall()
     world.build_df_features()
+    #once df_features is created you can do more fine-tuned details.
+    world.df_features['terrain'] = world.df_features.apply(lambda x: w.set_ecology(x,landscape),axis = 1)
     return world
 
 #the second age (and after) require a world object and modify it

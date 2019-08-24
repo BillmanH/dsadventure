@@ -43,6 +43,17 @@ def get_features_or_NA(world,coord):
         l = [{"terrain":"void"}]
     return l[0]
 
+def set_ecology(x,landscape):
+    if x.terrain == "ocean":
+        return x.terrain
+    if x.terrain == "mountain":
+        return x.terrain
+    if x.rainfall > landscape.forest_threshold:
+        return "forest"
+    if x.rainfall < landscape.desert_threshold:
+        return "desert"
+    return x.terrain
+
 def get_area_data(world):
     """
     note: requires Character
