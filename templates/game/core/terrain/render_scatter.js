@@ -1,34 +1,31 @@
-//console.log({{ t|safe }})
+console.log({{ t|safe }})
 
 ti = {{ t.texture|safe }}
 //take imput paramerter from t and create an array of data objets for D3.
-function get_data(density){
+function get_data(){
+    scatter_spread = 3
     data = []
+    for(j=0;j<{{ t.detail.abundance }}; j++){
+    children = []
     cord = cord = get_rnd_coord()
-    for (i=0;i< {{ t.detail.density}};i++) {
-        ti.spawnOrigin_x = cord[0] + coordshifter(3)
-        ti.spawnOrigin_y = cord[1] + coordshifter(3)
-        data.push(JSON.parse(JSON.stringify(ti)))
+        for (i=0;i< {{ t.detail.density}};i++) {
+            ti.spawnOrigin_x = cord[0] + coordshifter(scatter_spread)
+            ti.spawnOrigin_y = cord[1] + coordshifter(scatter_spread)
+            children.push(JSON.parse(JSON.stringify(ti)))
+        }
+        data.push(children)
     }
     return data
 }
 
-var group_data = []
-    for (i=0;i< {{ t.detail.abundance}};i++){
-        group_data.push(i)
-    }
 
-//uncomment to look at the data in the interpreter. 
-//console.log("testing string")
-//console.log(data)
 var ter_group = canvas.selectAll("{{ t.texture.name|safe }}")
-            .data(group_data)
+            .data(get_data())
             .enter()
             .append("g")
-            
-function add_circles(d,i){
-    d3.select(this)
-        .data(get_data())
+       
+ter_group.selectAll()
+    .data(function(d){return d})
         .enter()
         .append("circle")
                     .style('z-index',-1)
@@ -55,9 +52,7 @@ function add_circles(d,i){
                     })
  
 
-}
 
-ter_group.each(add_circles);
 
 /*
         d3.select(this)

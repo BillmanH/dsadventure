@@ -50,7 +50,11 @@ def core_view(request):
     ti = [t['name'] for t in td]
     tt = list(terrain_items.objects.values().filter(pk__in=ti))
     #bundled into a dict for smooth loading
-    context['n_ter_items']=[{'texture':tt[i],'detail':td[i]} for i in range(len(tt))]
+    context['n_ter_items']=[
+            {'texture':tt[i],
+                'detail':[t for t in td if t['name'] == tt[i]['name']][0]
+                } for i in range(len(tt))
+            ]
     #changes and localization variables come last
     context['charData']["current situation"] = w.get_character_context(world)
     return render(request, 'game/core_view.html',context)
