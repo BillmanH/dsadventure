@@ -1,43 +1,86 @@
-//console.log({{ t|safe }})
+console.log({{ t|safe }})
 
 ti = {{ t.texture|safe }}
 //take imput paramerter from t and create an array of data objets for D3.
-data = []
-for (i=0;i< {{ t.detail.abundance|safe }};i++) {
-    cord = get_rnd_coord()
-    ti.spawnOrigin_x = cord[0]
-    ti.spawnOrigin_y = cord[1]
-    data.push(JSON.parse(JSON.stringify(ti)))
+function get_data(){
+    scatter_spread = 3
+    data = []
+    for(j=0;j<{{ t.detail.abundance }}; j++){
+    children = []
+    cord = cord = get_rnd_coord()
+        for (i=0;i< {{ t.detail.density}};i++) {
+            ti.spawnOrigin_x = cord[0] + coordshifter(scatter_spread)
+            ti.spawnOrigin_y = cord[1] + coordshifter(scatter_spread)
+            children.push(JSON.parse(JSON.stringify(ti)))
+        }
+        data.push(children)
+    }
+    return data
 }
 
-//uncomment to look at the data in the interpreter. 
-//console.log("testing string")
-//console.log(data)
 
-var elem = canvas.selectAll("{{ t.texture.name|safe }}")
-            .data(data)
+var ter_group = canvas.selectAll("{{ t.texture.name|safe }}")
+            .data(get_data())
             .enter()
-            .append("circle")
-            .style('z-index',-1)
-            .attr("cx",function(d){return d.spawnOrigin_x})
-            .attr("cy",function(d){return d.spawnOrigin_y})
-            .attr("affect",function(d){return d.affect})
-            .attr("affectText",function(d){return d.affectText})
-            .attr("affectAmt",function(d){return d.affectAmt})
-            .attr("name",function(d){return d.name})
-            .classed("terrain", true)
-            .classed("circle", true)
-            .attr("r",function(d){return d.size})
-            .style("fill",function(d){return d.hexcolor})
-            .on("mouseover", function(d){
-                return terrain_tooltip.style("visibility", "visible")
+            .append("g")
+       
+ter_group.selectAll()
+    .data(function(d){return d})
+        .enter()
+        .append("circle")
+                    .style('z-index',-1)
+                    .attr("cx",function(d){return d.spawnOrigin_x})
+                    .attr("cy",function(d){return d.spawnOrigin_y})
+                    .attr("affect",function(d){return d.affect})
+                    .attr("affectText",function(d){return d.affectText})
+                    .attr("affectAmt",function(d){return d.affectAmt})
+                    .attr("name",function(d){return d.name})
+                    .classed("terrain", true)
+                    .classed("circle", true)
+                    .attr("r",function(d){return d.size})
+                    .style("fill",function(d){return d.hexcolor})
+                    .on("mouseover", function(d){
+                        return terrain_tooltip.style("visibility", "visible")
+                            .html(d.name);
+                        })
+                    .on("mousemove", function(d){
+                            return terrain_tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px")
                         .html(d.name);
+                        })
+                    .on("mouseout", function(){
+                        return terrain_tooltip.style("visibility", "hidden");
                     })
-            .on("mousemove", function(d){
-                return terrain_tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px")
+ 
+
+
+
+/*
+        d3.select(this)
+                .data(get_data())
+                .enter()
+                .append("circle")
+                    .style('z-index',-1)
+                    .attr("cx",function(d){return d.spawnOrigin_x})
+                    .attr("cy",function(d){return d.spawnOrigin_y})
+                    .attr("affect",function(d){return d.affect})
+                    .attr("affectText",function(d){return d.affectText})
+                    .attr("affectAmt",function(d){return d.affectAmt})
+                    .attr("name",function(d){return d.name})
+                    .classed("terrain", true)
+                    .classed("circle", true)
+                    .attr("r",function(d){return d.size})
+                    .style("fill",function(d){return d.hexcolor})
+                    .on("mouseover", function(d){
+                        return terrain_tooltip.style("visibility", "visible")
+                            .html(d.name);
+                        })
+                    .on("mousemove", function(d){
+                            return terrain_tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px")
                         .html(d.name);
+                        })
+                    .on("mouseout", function(){
+                        return terrain_tooltip.style("visibility", "hidden");
                     })
-            .on("mouseout", function(){
-                return terrain_tooltip.style("visibility", "hidden");
-                    });
-            
+ )
+ */
+console.log("x")

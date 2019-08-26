@@ -31,6 +31,10 @@ d3.selection.prototype.moveToBack = function() {
     });
 };
 
+function coordshifter(move){
+    return randBetween(move*-1, move)
+}
+
 //trig functions for moving and locating objects
 function get_distance_vector(Xa,Ya,Xb,Yb,speed){
     var d = [Xb-Xa,Yb-Ya]
