@@ -2,7 +2,7 @@ console.log({{ t|safe }})
 
 ti = {{ t.texture|safe }}
 //take imput paramerter from t and create an array of data objets for D3.
-function get_data(){
+function get_data_{{ t.texture.name|safe }}(){
     scatter_spread = 3
     data = []
     for(j=0;j<{{ t.detail.abundance }}; j++){
@@ -19,12 +19,12 @@ function get_data(){
 }
 
 
-var ter_group = canvas.selectAll("{{ t.texture.name|safe }}")
-            .data(get_data())
+var ter_group_{{ t.texture.name|safe }} = canvas.selectAll("{{ t.texture.name|safe }}")
+            .data(get_data_{{ t.texture.name|safe }}())
             .enter()
             .append("g")
        
-ter_group.selectAll()
+ter_group_{{ t.texture.name|safe }}.selectAll()
     .data(function(d){return d})
         .enter()
         .append("circle")
