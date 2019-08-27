@@ -60,6 +60,18 @@ def core_view(request):
     return render(request, 'game/core_view.html',context)
 
 @login_required
+def char_map(request):
+    context = {}
+    world = b.get_world(request.user.get_username())
+    #building a dictionairy in the format that d3.js will prefer
+    wa = [world.df_features.loc[m].fillna("").to_dict() for m in world.df_features.index]
+    context['df_features'] = wa
+    context['dim_1'] = np.unique(world.df_features['x']).tolist() 
+    context['dim_2'] = np.unique(world.df_features['y']).tolist()
+
+    return render(request, 'game/char_map.html',context)
+
+@login_required
 def create_character(request):
     if request.method == 'POST':
         form = playerCharacterForm(request.POST)

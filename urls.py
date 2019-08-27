@@ -10,4 +10,5 @@ urlpatterns = [
         path('showworld02', views.show_world_02, name='show_world_02'),
         path('showworld03', views.show_world_03, name='show_world03'),
         path('createcharacter', views.create_character, name='create_character'),
-        path('coreview', views.core_view, name='core_view')]
+        path('coreview', views.core_view, name='core_view'),
+        path('charmap', views.char_map, name='char_map')]

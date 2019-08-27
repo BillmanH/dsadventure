@@ -1,0 +1,13 @@
+{% load static %}
+<html>
+    <head>
+    {% include "prodweb/gatag.html" %}
+    <link rel="stylesheet" type="text/css" href="{% static 'game/forms.css' %}">
+    <script type="text/javascript" src="{% static 'prodweb/d3.js' %}"></script>
+    </head>
+    <body>
+        <p>The world as you know it.</p>
+    {% include "game/charts/charmap.html" %}
+    </body>
+</html>
+
