@@ -35,6 +35,7 @@ class Character():
         self.composure = 10
         self.attributes = ['started']
         self.location = None
+        self.arriveFrom = "Center"
 
     def __repr__(self):
         return f"{self.name} the adventurer"
@@ -49,7 +50,8 @@ class Character():
             'attributes':self.attributes,
             'location':self.get_location_key(),
             'title':self.title,
-            'composure':self.composure
+            'composure':self.composure,
+            'arriveFrom':self.arriveFrom
         }
 
     def get_location_key(self):
