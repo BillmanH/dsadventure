@@ -6,6 +6,7 @@ var dim_2 = {{ dim_2|safe }}
 
 var featureColors = 
         {"land":"#b2aa9d",
+            "unkown":"000000",
             "mountain":"#977c53",
             "ocean":"#0077be",
             "forest":"#228b22",
@@ -106,9 +107,11 @@ var featureColors =
        heatMap.transition()
            .style("fill", function(d) { return featureColors[d['terrain']]; });
    
-       heatMap.append("title").text(function(d) { return d['terrain']; });
-   
-   
+       heatMap.append("title").text(function(d) { 
+                if(d['terrain']=='ocean'){return d['terrain']}
+                else if(d['terrain']=='town'){return d['feature']+" , nation of "+d['nation']}
+                else{return d['terrain']+" , nation of "+d['nation']} 
+        })        
     
    d3.select("#terrain").on("click", 
         function (d) {

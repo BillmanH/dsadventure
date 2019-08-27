@@ -1,6 +1,24 @@
 import numpy as np
 import pandas as pd
 
+def mask_unknown(world):
+    """
+    returns updated ('masked') df_features
+    hide all terrain and nations that the character has not seen.
+    """
+    df = world.df_features
+    def masker(x):
+        if x.visited >= 1:
+            return x
+        else:
+            x.terrain = 'unknown'
+            x.nation = 'unknown'
+            x.feature = 'unknown'
+            x['nation number'] = '0'
+            return x
+    df = df.apply(masker,axis=1)
+    return df
+    
 def get_town(towns,name):
     t = [town for town in towns if town.name == name]
     if len(t) == 0:

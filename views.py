@@ -29,9 +29,14 @@ def core_view(request):
         charData = yaml.load(request.POST['charData'])
         #get the old world (before the update)
         world = b.get_world(request.user.get_username())
+        old_location = world.Character.get_location_key()
         #update the charData with this function (keeps the update out of the users's hands)
         world.Character = modify_character.update_charData(world,charData)
         new_location = world.Character.get_location_key()
+        if 'visited' not in world.df_features.columns:
+            world.df_features.loc[old_location,'visited'] = 1
+        else:
+            world.df_features.loc[old_location,'visited'] += 1
         b.save_world(world,request.user.get_username())
         #with the updated world, populate the context
     if "GET" == request.method:
@@ -63,8 +68,9 @@ def core_view(request):
 def char_map(request):
     context = {}
     world = b.get_world(request.user.get_username())
-    #building a dictionairy in the format that d3.js will prefer
-    wa = [world.df_features.loc[m].fillna("").to_dict() for m in world.df_features.index]
+    #building a dictionairy in the format that d3.js will prefer'
+    masked_world = w.mask_unknown(world)
+    wa = [masked_world.loc[m].fillna("").to_dict() for m in world.df_features.index]
     context['df_features'] = wa
     context['dim_1'] = np.unique(world.df_features['x']).tolist() 
     context['dim_2'] = np.unique(world.df_features['y']).tolist()
