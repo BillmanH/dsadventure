@@ -29,21 +29,23 @@ def core_view(request):
         charData = yaml.load(request.POST['charData'])
         #get the old world (before the update)
         world = b.get_world(request.user.get_username())
-        old_location = world.Character.get_location_key()
+        context['old_location'] = world.Character.get_location_key()
         #update the charData with this function (keeps the update out of the users's hands)
         world.Character = modify_character.update_charData(world,charData)
         new_location = world.Character.get_location_key()
         if 'visited' not in world.df_features.columns:
-            world.df_features.loc[old_location,'visited'] = 1
-        else:
-            world.df_features.loc[old_location,'visited'] += 1
+            world.df_features.loc[context['old_location'],'visited'] = 1
+        world.df_features.loc[context['old_location'],'visited'] = 1
         b.save_world(world,request.user.get_username())
         #with the updated world, populate the context
     if "GET" == request.method:
         #world objects come from pickles, loaded from s3
         world = b.get_world(request.user.get_username())
+    context['worlds_visited'] = world.df_features['visited'].sum()
     #in bost POST(traveling) or GET(loading) the context is populated in the same way.
     context['charData'] = world.Character.get_charData()
+    if 'old_location' in context.keys():
+        context['charData']['old_location'] = context['old_location']
     context['terrData'] = world.df_features.loc[world.Character.get_location_key()].fillna("none").to_dict()
     #terrain details come from Azure SQL
     td = terrain_details.objects.values().get(name=context['terrData']['terrain'])
@@ -74,7 +76,7 @@ def char_map(request):
     context['df_features'] = wa
     context['dim_1'] = np.unique(world.df_features['x']).tolist() 
     context['dim_2'] = np.unique(world.df_features['y']).tolist()
-
+    context['charData'] = world.Character.get_charData()
     return render(request, 'game/char_map.html',context)
 
 @login_required

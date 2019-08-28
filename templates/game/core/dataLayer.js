@@ -1,4 +1,4 @@
-
+var worlds_visited = {{ worlds_visited | safe }}
 // charData is all of the info relevant to the character
 var charData = {{charData | safe}};
 var currentLocation = charData['location']
