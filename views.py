@@ -72,6 +72,7 @@ def char_map(request):
     world = b.get_world(request.user.get_username())
     #building a dictionairy in the format that d3.js will prefer'
     masked_world = w.mask_unknown(world)
+    masked_world.loc[world.Character.get_location_key(),'character'] = 'here'
     wa = [masked_world.loc[m].fillna("").to_dict() for m in world.df_features.index]
     context['df_features'] = wa
     context['dim_1'] = np.unique(world.df_features['x']).tolist() 

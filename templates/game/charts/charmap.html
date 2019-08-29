@@ -105,10 +105,11 @@ var featureColors =
            .attr("class", "square")
    
        heatMap.transition()
-           .style("fill", function(d) { return featureColors[d['terrain']]; });
+    .style("fill", function(d) { if(d['character']=='here'){return "#FFFF00"} else {return featureColors[d['terrain']];} });
    
        heatMap.append("title").text(function(d) { 
-                if(d['terrain']=='ocean'){return d['terrain']}
+           if(d['character']=='here'){return d['terrain']+ ", You are here"}
+                else if(d['terrain']=='ocean'){return d['terrain']}
                 else if(d['terrain']=='town'){return d['feature']+" , nation of "+d['nation']}
                 else{return d['terrain']+" , nation of "+d['nation']} 
         })        
