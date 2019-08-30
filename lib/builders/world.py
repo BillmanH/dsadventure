@@ -10,6 +10,8 @@ def mask_unknown(world):
     def masker(x):
         if x.visited >= 1:
             return x
+        elif world.Character.title == "Noble":
+            return x
         else:
             x.terrain = 'unknown'
             x.nation = 'unknown'
