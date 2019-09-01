@@ -29,6 +29,7 @@ class Character():
         self.coreskills = [f['coreskills']]
         self.secondaryskills = [f['secondaryskills']]
         self.message = "game start" 
+        self.title = "adventurer"
         self.equipment = {'gold':1}
         self.size = 5
         self.speed = 15
