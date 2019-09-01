@@ -3,7 +3,8 @@ import pandas as pd
 
 
 def get_town_dict():
-    
+    town_data = {}
+    return town_data  
     
 class Town:
     def townNameGenerator(self,names):
