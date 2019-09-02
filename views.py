@@ -33,9 +33,12 @@ def core_view(request):
         #update the charData with this function (keeps the update out of the users's hands)
         world.Character = modify_character.update_charData(world,charData)
         new_location = world.Character.get_location_key()
-        if 'visited' not in world.df_features.columns:
-            world.df_features.loc[context['old_location'],'visited'] = 1
+        world.Character.turn_number += 1
+        #TODO: game starts on "unvisitied location" change first place to visited by default. 
+        #keeping track of whether or not the character has been there
         world.df_features.loc[context['old_location'],'visited'] = 1
+        world.df_features.loc[context['old_location'],'aware'] = 1
+        world.df_features.loc[context['old_location'],'turn_last_visited'] = world.Character.turn_number
         b.save_world(world,request.user.get_username())
         #with the updated world, populate the context
     if "GET" == request.method:

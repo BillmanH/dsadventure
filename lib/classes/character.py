@@ -2,27 +2,9 @@ import pandas as pd
 import numpy as np
 import os
 
-from .updaters.character_message import update_char_message
-
-def update_charData(world,charData):
-    char = world.Character
-    char.arriveFrom = charData['arriveFrom']
-    char.composure = charData['composure']
-    #coerce values to int 
-    l = charData['location'].split(":") 
-    char.location = [int(l[0]),int(l[1])]
-    #update attributes that may or may not have changed
-    char.attributes = charData['attributes']
-    char.title = charData['title']
-    char.message = update_char_message(world)
-    if 'meta' in charData.keys():
-        charData['meta']['n_turns']+=1
-    else:
-        charData['meta'] = {}
-        charData['meta']['n_turns'] = 1
-    return char
 
 class Character():
+    #f is the user form from the character creation menu
     def __init__(self,f,world):
         self.name = f['name']
         self.background = f['background']
@@ -37,7 +19,6 @@ class Character():
         self.attributes = ['started']
         self.location = None
         self.arriveFrom = "Center"
-        self.turn_number = 1
 
     def __repr__(self):
         return f"{self.name} the adventurer"
@@ -95,11 +76,3 @@ def set_char_origin(c,world):
         c.title = f"Ranger"
         c.message = f"You wake up in the wilderness, {str(world.df_features.loc[c.get_location_key(),'terrain'])}."
         
-#creating the character from the userform (f)
-#returns a world, not a character
-def create_character(character_dict,world):
-    c = Character(character_dict,world)
-    set_char_origin(c,world)
-    world.Character = c
-    
-    return world

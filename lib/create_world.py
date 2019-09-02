@@ -54,6 +54,9 @@ def the_third_age(world):
     path = os.listdir()
     e = events.Events()
     all_events = events.pass_through_time(world,e.events_df,nations)
+    world.df_features['visited'] = 0
+    world.df_features['aware'] = 0
+    world.df_features['turn_last_visited'] = 0
     return world,all_events
 
 
