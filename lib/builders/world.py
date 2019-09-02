@@ -10,7 +10,30 @@ def mask_unknown(world):
     def masker(x):
         if x.visited >= 1:
             return x
-        elif world.Character.title == "Noble":
+        elif "noble" in str(world.Character.title).lower():
+            x.terrain = 'unknown'
+            return x
+        elif "mountaneer" in world.Character.secondaryskills:
+            if x.terrain == 'mountain':
+                x.nation = 'unknown'
+                x['nation number'] = '0'
+                return x
+            else:
+                x.terrain = 'unknown'
+                x.nation = 'unknown'
+                x.feature = 'unknown'
+                x['nation number'] = '0'
+            return x
+        elif "desert survival" in world.Character.secondaryskills:
+            if x.terrain == "desert":
+                x.nation = 'unknown'
+                x['nation number'] = '0'
+                return x
+            else:
+                x.terrain = 'unknown'
+                x.nation = 'unknown'
+                x.feature = 'unknown'
+                x['nation number'] = '0'
             return x
         else:
             x.terrain = 'unknown'
