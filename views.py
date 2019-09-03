@@ -1,16 +1,26 @@
+#Django libraries
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 
+#forms
 from .forms import playerCharacterForm
 
+#functions that generate the world
 from .lib.create_world import *
+
+#builders are the modules that get and put data into the right places
 from .lib.builders import world as w
+from .lib import builders
+
+#modify_character also contains the Character() class
 from .lib import modify_character 
 
+#libraries to save and load files
 from .lib.boto import s3Transfer as b
 import yaml
 
+#models pulled in from Azure SQL Server
 from .models import bestiary,terrain_details,terrain_items
 
 @login_required
