@@ -60,6 +60,10 @@ def core_view(request):
     if 'old_location' in context.keys():
         context['charData']['old_location'] = context['old_location']
     context['terrData'] = world.df_features.loc[world.Character.get_location_key()].fillna("none").to_dict()
+    #if 'terrain' is a town, get the town details. 
+    if context['terrData']['terrain'] == 'town':
+        townData = builders.towns.get_town_dict(world,context['terrData']['feature']) 
+        context['terrData']['town'] = townData
     #terrain details come from Azure SQL
     td = terrain_details.objects.values().get(name=context['terrData']['terrain'])
     #terrain items for each item in the terrain textures. 

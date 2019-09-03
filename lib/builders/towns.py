@@ -2,8 +2,13 @@ import numpy as np
 import pandas as pd
 
 
-def get_town_dict():
-    town_data = {}
+def get_town_dict(world,town_name):
+    town_data = {'name':town_name}
+    town = get_town(world.towns,town_name)
+    town_data['str'] = str(town)
+    town_data['diplomacy'] = town.diplomacy
+    town_data['nation'] = town.nation
+    town_data['type'] = town.type
     return town_data  
     
 class Town:
