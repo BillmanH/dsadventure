@@ -44,6 +44,8 @@ class Nation:
         self.towns = self.addTowns(world.towns)
         self.diplomacy = self.addDiplomacy(world.nations)
         self.ruler = people.Person(culture,role=f'Ruler of the nation of {self.name}',location=self.get_capitol().name)
+        self.get_capitol().population.append(self.ruler)
+        
         
     def __repr__(self):
         return f"Nation of {self.name}"

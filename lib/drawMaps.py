@@ -92,8 +92,8 @@ def drawCities(df):
         y='y:O',
         color=alt.Color('terrain',
                        scale=alt.Scale(
-                domain=['land','mountain', 'ocean','town'],
-                range=['green','brown', 'blue','black'])
+                domain=['land','mountain', 'ocean','forest','desert','town'],
+                range=['#53403B','brown', 'blue','#228b22','#edc9af','#000000'])
                        )
     )
     return world

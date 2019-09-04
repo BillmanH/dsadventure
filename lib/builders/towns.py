@@ -9,6 +9,7 @@ def get_town_dict(world,town_name):
     town_data['diplomacy'] = town.diplomacy
     town_data['nation'] = town.nation
     town_data['type'] = town.type
+    town_data['population'] = [p.get_person_data() for p in town.population]
     return town_data  
     
 class Town:
@@ -30,14 +31,18 @@ class Town:
         self.diplomacy = {}
         self.nation = self.name
         self.type = 'town'
+        #the speaker is a member of the population, but also an important role in the town. 
         self.speaker =  people.Person(culture,role=f'Speaker of {self.name}',location=self.name)
+        self.population = [self.speaker]
+        self.culture = culture
         
     def __repr__(self):
         return f"{self.type} of {self.name}: population: {self.pop} location: [{self.x},{self.y}] founded {self.founded}"
         
-    def population_growth(self, birthrate):
+    def population_growth(self, birthrate,people):
         if np.random.uniform()<birthrate:
             self.pop += 1
+            self.population.append(people.Person(self.culture,role=f'peon',location=self.name))
 
     def haveDiplomacy(self,towns):
         for i in towns:
@@ -64,7 +69,7 @@ def build_towns(world,people):
             towns.append(Town(keyChord(key),i,world.culture,people))
 
         for t in towns:
-            t.population_growth(world.culture.town_birthrate)
+            t.population_growth(world.culture.town_birthrate,people)
     return towns
 
 def get_town(towns,name):
