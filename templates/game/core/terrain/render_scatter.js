@@ -23,6 +23,9 @@ var ter_group_{{ t.texture.name|safe }} = canvas.selectAll("{{ t.texture.name|sa
             .data(get_data_{{ t.texture.name|safe }}())
             .enter()
             .append("g")
+            .classed("terrain",true)
+            .classed("{{ t.texture.name|safe }}",true)
+       
        
 ter_group_{{ t.texture.name|safe }}.selectAll()
     .data(function(d){return d})

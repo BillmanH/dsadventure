@@ -1,6 +1,16 @@
-function check_collision(target){
-        return e
-    }
+function check_terrain_collsion(prev_x,prev_y,char_x,char_y){
+
+    t.each(function(d, i) {
+        if (d3.select(this).classed("circle")){
+            var x1=this.cx.baseVal.value
+            var y1=this.cy.baseVal.value
+        } else if (d3.select(this).classed("rect")){
+            var x1=this.x.baseVal.value
+            var y1=this.x.baseVal.value
+        }
+    })
+}
+
 
 function terrain_interactions(prev_x,prev_y){
     // prev_x, prev_y
