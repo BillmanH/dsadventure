@@ -1,5 +1,4 @@
 function check_terrain_collsion(prev_x,prev_y,char_x,char_y){
-
     t.each(function(d, i) {
         if (d3.select(this).classed("circle")){
             var x1=this.cx.baseVal.value

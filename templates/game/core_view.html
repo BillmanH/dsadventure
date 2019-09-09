@@ -30,6 +30,11 @@
     {% include "game/sprites/monsters/render.js" %}
 {% endif %}
 
+{% if terData.town is defined %}
+    {% include "game/core/people/townsfolk.js" %}
+{% endif %}
+
+
 // Scripts that govern interaction between objects
 {% include "game/core/interaction_terrain_char.js" %}
 

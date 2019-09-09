@@ -25,7 +25,7 @@ Individual opbjects should have thier own click handler.
     render_side_map(char_x,char_y);
 //Each object that reacts to player movement must have an update statement here. 
     // check terrain
-    var collision_check = check_terrain_collsion(prev_x,prev_y,char_x,char_y)
+    //var collision_check = check_terrain_collsion(prev_x,prev_y,char_x,char_y)
 
         //terrain interactions happen before the character movement is relocated
         var drc = terrain_interactions(prev_x,prev_y)//terrain_interactions takes the cacluated position change and checks for modifications due to objects
