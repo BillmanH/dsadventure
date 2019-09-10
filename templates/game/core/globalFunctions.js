@@ -44,6 +44,14 @@ function get_distance_vector(Xa,Ya,Xb,Yb,speed){
     return coord
 }
 
+//calculate the distance to the character.
+function get_dist_to_char(x,y){
+    var a = Math.abs(char_y-y)
+    var b = Math.abs(char_x-x)
+    var c = Math.sqrt( a*a + b*b );
+    return c
+}
+
 function move_towards_obj(Xa,Ya,Xb,Yb,speed){
     // produces new coordinates that are in the direction of the character, using the speed
     // in this order (object that would like to move [x,y], then the object you would like to move towards [x,y]

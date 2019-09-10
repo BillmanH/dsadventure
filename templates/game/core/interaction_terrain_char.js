@@ -1,11 +1,20 @@
 function check_terrain_collsion(prev_x,prev_y,char_x,char_y){
+    t = d3.selectAll(".terrain")
     t.each(function(d, i) {
         if (d3.select(this).classed("circle")){
             var x1=this.cx.baseVal.value
             var y1=this.cy.baseVal.value
+            var r=this.r.baseVal.value
         } else if (d3.select(this).classed("rect")){
             var x1=this.x.baseVal.value
             var y1=this.x.baseVal.value
+            var r=5
+        }
+    dist_to_ch = get_dist_to_char(x1,y1)
+    threshold = charData["speed"]+charData["size"]+r
+        if (dist_to_ch<=threshold){
+            console.log("an object is close")
+            return true
         }
     })
 }
