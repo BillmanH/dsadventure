@@ -9,8 +9,9 @@ function get_data_{{ t.texture.name|safe }}(){
     children = []
     cord = cord = get_rnd_coord()
         for (i=0;i< {{ t.detail.density}};i++) {
-            ti.spawnOrigin_x = cord[0] + coordshifter(scatter_spread)
-            ti.spawnOrigin_y = cord[1] + coordshifter(scatter_spread)
+            buildShift = get_pos_neg(randBetween(-1,1),randBetween(-1,1))
+            ti.spawnOrigin_x = cord[0] + ((buildShift[0]*{{ t.texture.size }})/2)
+            ti.spawnOrigin_y = cord[1] + ((buildShift[1]*{{ t.texture.size }})/2)
             children.push(JSON.parse(JSON.stringify(ti)))
         }
         data.push(children)
@@ -42,6 +43,7 @@ ter_group_{{ t.texture.name|safe }}.selectAll()
                     .attr("name",function(d){return d.name})
                     .classed("terrain", true)
                     .classed("rect", true)
+                    .attr("stroke","black")
                     .style("fill",function(d){return d.hexcolor})
                     .on("mouseover", function(d){
                         return terrain_tooltip.style("visibility", "visible")
