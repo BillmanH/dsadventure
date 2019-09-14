@@ -1,6 +1,10 @@
 import numpy as np
 import pandas as pd
 
+def modifyTerDetail(world,context):
+    town = get_town(world.towns,context['mapData']['area']['feature'])
+    newcontext = context
+    return newcontext
 
 def get_town_dict(world,town_name):
     town_data = {'name':town_name}

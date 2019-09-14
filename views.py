@@ -60,10 +60,6 @@ def core_view(request):
     if 'old_location' in context.keys():
         context['charData']['old_location'] = context['old_location']
     context['terrData'] = world.df_features.loc[world.Character.get_location_key()].fillna("none").to_dict()
-    #if 'terrain' is a town, get the town details. 
-    if context['terrData']['terrain'] == 'town':
-        townData = builders.towns.get_town_dict(world,context['terrData']['feature']) 
-        context['terrData']['town'] = townData
     #terrain details come from Azure SQL
     td = terrain_details.objects.values().get(name=context['terrData']['terrain'])
     #terrain items for each item in the terrain textures. 
@@ -79,6 +75,12 @@ def core_view(request):
                 'detail':[t for t in td if t['name'] == tt[i]['name']][0]
                 } for i in range(len(tt))
             ]
+    
+    #once context is collected it can be modified with builder specific modifiers
+    if context['terrData']['terrain'] == 'town':
+        townData = builders.towns.get_town_dict(world,context['terrData']['feature']) 
+        context['terrData']['town'] = townData
+        context = builders.towns.modifyTerDetail(world,context)
     #changes and localization variables come last
     context['charData']["current situation"] = w.get_character_context(world)
     return render(request, 'game/core_view.html',context)
