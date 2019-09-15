@@ -2,8 +2,18 @@ import numpy as np
 import pandas as pd
 
 def modifyTerDetail(world,context):
+    #the entire context can be modified here to add elements to the town
     town = get_town(world.towns,context['mapData']['area']['feature'])
-    newcontext = context
+
+    newcontext = context.copy()
+    newcontext['n_ter_items'] = []
+    for t in context['n_ter_items']:
+        if t['detail']['name'] == 'building':
+            t['detail']['abundance'] = town.pop
+            t['detail']['density'] = world.culture.eons-town.founded
+            newcontext['n_ter_items'].append(t)
+        else:
+            newcontext['n_ter_items'].append(t)
     return newcontext
 
 def get_town_dict(world,town_name):

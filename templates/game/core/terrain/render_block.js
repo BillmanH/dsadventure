@@ -13,6 +13,7 @@ function get_data_{{ t.texture.name|safe }}(){
             ti.spawnOrigin_x = cord[0] + ((buildShift[0]*{{ t.texture.size }})/2)
             ti.spawnOrigin_y = cord[1] + ((buildShift[1]*{{ t.texture.size }})/2)
             children.push(JSON.parse(JSON.stringify(ti)))
+            cord = [cord[0] + ((buildShift[0]*{{ t.texture.size }})),cord[1] + ((buildShift[1]*{{ t.texture.size }}))]
         }
         data.push(children)
     }
