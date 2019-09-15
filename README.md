@@ -4,15 +4,20 @@ I'm still migrating a lot from my old flaskapp so I don't have a working demo on
 
 # Infrastructure
 ## Django
-The core app is written using Django. You can clone this app directly into your functioning Django app by:
+The core app is written using Django. You can clone this app directly into your functioning Django project by cloning this repo into your project directory and adding the URLs to your production urls.py view. The totorial on the django website should show you how to use this.
+
+Example snippet to add to your urls.py:
 ```
 urlpatterns = [
         path('game', include('game.urls')),
     ]
 ```
 
-Note you'll need the standard login forms to authenticate the user where required. 
+You will also need:
+* settup for authentication
+* a sql-like database (I'm using Azure SQL even though the app is hosted on EC2) 
 
+have a look at the [conda env](https://github.com/BillmanH/homepage/blob/master/prodweb_env.yaml) for more clues.
 ## Jupyter Notebooks
 Notebooks can be served via ssh forwarding. This allows me to test and tinker with the actual deployed code without disrupting the live server. All functions run out of those notebooks are the same as they are in the live app.
 
