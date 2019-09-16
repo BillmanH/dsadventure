@@ -26,7 +26,6 @@ Individual opbjects should have thier own click handler.
 //Each object that reacts to player movement must have an update statement here. 
     // check terrain
     collision_check = check_terrain_collsion(prev_x,prev_y,char_x,char_y)
-    console.log("collision = "+collision_check)
         //terrain interactions happen before the character object is relocated
         // regular movement happens if the check turns out that no colision has happened.
         if(collision_check){

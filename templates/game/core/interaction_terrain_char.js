@@ -17,22 +17,21 @@ function check_terrain_collsion(prev_x,prev_y,char_x,char_y){
         if (dist_to_ch<=threshold){
             //you could place a "proximity event" here if you had one
             //console.log(this)
-            console.log("[" + x1 + "," + y1 + "]" + " an " + " is close")
+            //console.log("[" + x1 + "," + y1 + "]" + " an " + " is close")
             // next check for the actual collsion event
             touch_threshold = get_dist_a_b(char_x,char_y,x1,y1)
             if (touch_threshold<(charData["size"]+r)){
                 //all collision activity events here:
-                console.log("touche")
                 switch (d3.select(this).attr("affect")) {
                 case "none":
                     break;
                 case "slow":
                     charData["attributes"]["slowed"] = d3.select(this).attr("affectAmt")
-                    objectAlerts("#character",d3.select(this).attr("affectText").replace("***",charData["name"]))
+                    objectAlerts("#character",d3.select(this).attr("affectText").replace("**",charData["name"]))
                     break;
                 case "bump":
                     vol = d3.select(this).attr("affectAmt")
-                    objectAlerts("#character",d3.select(this).attr("affectText").replace("***",charData["name"]))
+                    objectAlerts("#character",d3.select(this).attr("affectText").replace("**",charData["name"]))
                     break;
                 default:
                     break;
