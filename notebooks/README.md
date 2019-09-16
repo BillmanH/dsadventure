@@ -1,6 +1,6 @@
 # notebooks
 
-__often times notebooks on GitHub don't load__ [Here is the link](http://williamjeffreyharding.com/blog/?article=Generating_a_Random_World_Map_in_Python.html&utm_source=github&utm_medium=readme&utm_campaign=blogs) to some of those notebooks on my personal blog
+__often times notebooks on GitHub don't load__ [Here is the link](http://williamjeffreyharding.com/blog/?article=Generating_a_Random_World_Map_in_Python.html&utm_source=github&utm_medium=readme&utm_campaign=blogs) to some of those notebooks on my personal blog.  
 All backend functions are developed in Jupyter notebooks. The notebooks `import` the actual modules used in the production code. The only difference is that the notebooks provide a REPL run-through of each function so that it can be examined and documented. 
 
 ## Stages of the world
