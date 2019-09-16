@@ -12,6 +12,7 @@ function get_data_{{ t.texture.name|safe }}(){
             buildShift = get_pos_neg(randBetween(-1,1),randBetween(-1,1))
             ti.spawnOrigin_x = cord[0] + ((buildShift[0]*{{ t.texture.size }})/2)
             ti.spawnOrigin_y = cord[1] + ((buildShift[1]*{{ t.texture.size }})/2)
+            ti.sizeSpread = randBetween(10,80)
             children.push(JSON.parse(JSON.stringify(ti)))
             cord = [cord[0] + ((buildShift[0]*{{ t.texture.size }})),cord[1] + ((buildShift[1]*{{ t.texture.size }}))]
         }
@@ -36,8 +37,8 @@ ter_group_{{ t.texture.name|safe }}.selectAll()
                     .style('z-index',-1)
                     .attr("x",function(d){return d.spawnOrigin_x})
                     .attr("y",function(d){return d.spawnOrigin_y})
-                    .attr("width",function(d){return d.size + randBetween(1,10)})
-                    .attr("height",function(d){return d.size + randBetween(1,10)})
+                    .attr("width",function(d){return d.size + randBetween(1,d.sizeSpread)})
+                    .attr("height",function(d){return d.size + randBetween(1,d.sizeSpread)})
                     .attr("affect",function(d){return d.affect})
                     .attr("affectText",function(d){return d.affectText})
                     .attr("affectAmt",function(d){return d.affectAmt})
