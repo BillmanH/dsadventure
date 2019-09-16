@@ -19,10 +19,9 @@ You will also need:
 
 have a look at the [conda env](https://github.com/BillmanH/homepage/blob/master/prodweb_env.yaml) for more clues.
 ## Jupyter Notebooks
-Notebooks can be served via ssh forwarding. This allows me to test and tinker with the actual deployed code without disrupting the live server. All functions run out of those notebooks are the same as they are in the live app.
+Notebooks can be served via ssh forwarding. This allows me to test and tinker with the actual deployed code without disrupting the live server. All functions run out of those notebooks are the same as they are in the live app. Notebooks also serve as tests for the logic in the apps. When making changes you can run all of the notebooks to ensure that they complete. 
 
-Notebooks also serve as tests for the logic in the apps. When making changes you can run all of the notebooks to ensure that they complete. 
-
+You can see the notebooks in the `notebooks` folder, but my favorites are also posted [on my personal blog](http://williamjeffreyharding.com/blog/?article=Generating_a_Random_World_Map_in_Python.html&utm_source=github&utm_medium=readme&utm_campaign=blogs)
 ## Scikit Learn
 This is used to:
 * Calculate the area of nation states
