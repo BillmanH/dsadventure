@@ -20,7 +20,7 @@ Individual opbjects should have thier own click handler.
         var prev_y = char_y
         char_x = cmv[0]
         char_y = cmv[1]
-    
+      
 // if the character has moved close to the edges of the screen, light up the buttons to save and go to that area. 
     render_side_map(char_x,char_y);
 //Each object that reacts to player movement must have an update statement here. 
@@ -29,12 +29,18 @@ Individual opbjects should have thier own click handler.
         //terrain interactions happen before the character object is relocated
         // regular movement happens if the check turns out that no colision has happened.
         if(collision_check){
-            //playerChar.transition().attr("cx", char_x).attr("cy", char_y);
+            cmv = move_towards_obj(prev_x,prev_y,p.x,p.y,moveRate/2);
+            console.log("moving half",cmv,moveRate)
+        playerChar.transition().attr("cx", cmv[0]).attr("cy", cmv[1]);
+        playerChar.transition().attr("cx", prev_x).attr("cy", prev_y);
+
+            char_x = prev_x
+            char_y = prev_y
         } else {
         playerChar.transition().attr("cx", char_x).attr("cy", char_y);
-        playerChar.moveToFront()//ensure that character is always on top and not topped by other characters. 
-                char_tooltip.html(updateToolTip(charData));
-          }
+        }
+       playerChar.moveToFront()
+       char_tooltip.html(updateToolTip(charData));
 //the .js templates are only brought in if the 'monsters' section of the mapData contains monsters. 
 {% if "monsters" in mapData %}
     {% include "game/monsters/core_monster.js" %}    
