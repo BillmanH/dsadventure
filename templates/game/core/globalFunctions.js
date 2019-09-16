@@ -52,6 +52,14 @@ function get_dist_to_char(x,y){
     return c
 }
 
+//calculate the distance between too coordinates
+function get_dist_a_b(x1,y1,x2,y2){
+    var a = Math.abs(y2-y1)
+    var b = Math.abs(x2-x1)
+    var c = Math.sqrt( a*a + b*b );
+    return c
+}
+
 function move_towards_obj(Xa,Ya,Xb,Yb,speed){
     // produces new coordinates that are in the direction of the character, using the speed
     // in this order (object that would like to move [x,y], then the object you would like to move towards [x,y]

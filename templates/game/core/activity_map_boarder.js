@@ -25,15 +25,17 @@ Individual opbjects should have thier own click handler.
     render_side_map(char_x,char_y);
 //Each object that reacts to player movement must have an update statement here. 
     // check terrain
-    var collision_check = check_terrain_collsion(prev_x,prev_y,char_x,char_y)
-
-        //terrain interactions happen before the character movement is relocated
-        var drc = terrain_interactions(prev_x,prev_y)//terrain_interactions takes the cacluated position change and checks for modifications due to objects
-        char_x = drc[0]
-        char_y = drc[1]
+    collision_check = check_terrain_collsion(prev_x,prev_y,char_x,char_y)
+    console.log("collision = "+collision_check)
+        //terrain interactions happen before the character object is relocated
+        // regular movement happens if the check turns out that no colision has happened.
+        if(collision_check){
+            //playerChar.transition().attr("cx", char_x).attr("cy", char_y);
+        } else {
         playerChar.transition().attr("cx", char_x).attr("cy", char_y);
         playerChar.moveToFront()//ensure that character is always on top and not topped by other characters. 
                 char_tooltip.html(updateToolTip(charData));
+          }
 //the .js templates are only brought in if the 'monsters' section of the mapData contains monsters. 
 {% if "monsters" in mapData %}
     {% include "game/monsters/core_monster.js" %}    

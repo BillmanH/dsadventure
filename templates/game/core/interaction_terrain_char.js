@@ -1,4 +1,5 @@
 function check_terrain_collsion(prev_x,prev_y,char_x,char_y){
+    check = false
     t = d3.selectAll(".terrain")
     t.each(function(d, i) {
         if (d3.select(this).classed("circle")){
@@ -6,41 +7,23 @@ function check_terrain_collsion(prev_x,prev_y,char_x,char_y){
             var y1=this.cy.baseVal.value
             var r=this.r.baseVal.value
         } else if (d3.select(this).classed("rect")){
-            var x1=this.x.baseVal.value
-            var y1=this.x.baseVal.value
-            var r=5
+            var x1=(this.x.baseVal.value)+(this.width.baseVal.value/2)
+            var y1=(this.y.baseVal.value)+(this.height.baseVal.value/2)
+            var r= (this.height.baseVal.value+this.width.baseVal.value)/2
         }
+    //speed up compute time by limiting checks on only the objects that are close. 
     dist_to_ch = get_dist_to_char(x1,y1)
     threshold = charData["speed"]+charData["size"]+r
         if (dist_to_ch<=threshold){
-            console.log("an object is close")
-            return true
-        }
-    })
-}
-
-
-function terrain_interactions(prev_x,prev_y){
-    // prev_x, prev_y
-    console.log("moving from: ",prev_x,prev_y)
-    var n_x = char_x
-    var n_y = char_y
-    t = d3.selectAll(".terrain")
-    t.each(function(d, i) {
-        if (d3.select(this).classed("circle")){
-            var x1=this.cx.baseVal.value
-            var y1=this.cy.baseVal.value
-        } else if (d3.select(this).classed("rect")){
-            var x1=this.x.baseVal.value
-            var y1=this.x.baseVal.value
-        };
-
-        var hyp = Math.sqrt((Math.pow(Math.abs(x1-char_x),2)) + (Math.pow(Math.abs(y1-char_y),2))) 
-        var dx = x1 - prev_x
-        var dy = y1 - prev_y
- 
-        if (hyp < d3.select(this).attr("size")+charData["size"]) { //this is the collision event
-            switch (d3.select(this).attr("affect")) {
+            //you could place a "proximity event" here if you had one
+            //console.log(this)
+            console.log("[" + x1 + "," + y1 + "]" + " an " + " is close")
+            // next check for the actual collsion event
+            touch_threshold = get_dist_a_b(char_x,char_y,x1,y1)
+            if (touch_threshold<(charData["size"]+r)){
+                //all collision activity events here:
+                console.log("touche")
+                switch (d3.select(this).attr("affect")) {
                 case "none":
                     break;
                 case "slow":
@@ -48,16 +31,17 @@ function terrain_interactions(prev_x,prev_y){
                     objectAlerts("#character",d3.select(this).attr("affectText").replace("***",charData["name"]))
                     break;
                 case "bump":
-                    var vol = d3.select(this).attr("affectAmt")
-                           var dir = get_pos_neg(dx,dy)
+                    vol = d3.select(this).attr("affectAmt")
                     objectAlerts("#character",d3.select(this).attr("affectText").replace("***",charData["name"]))
-                    n_x = x1 + -1*(dir[0])*(vol+hyp)
-                    n_y = y1 + -1*(dir[1])*(vol+hyp)
                     break;
                 default:
                     break;
             }
-        }
-        })
-return [n_x,n_y]
+                
+                check = true
+            } 
+        } 
+    })
+return check
 }
+
