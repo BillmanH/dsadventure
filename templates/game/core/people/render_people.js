@@ -1,14 +1,14 @@
 //take imput paramerter from t and create an array of data objets for D3.
 
-for(var i=0;i < terrData['town']['population'].length;i++){
+for(var i=0;i < terrData['people'].length;i++){
     c = get_rnd_coord()
-    terrData['town']['population'][i]['spawn_x'] = c[0]
-    terrData['town']['population'][i]['spawn_y'] = c[1]
+    terrData['people'][i]['spawn_x'] = c[0]
+    terrData['people'][i]['spawn_y'] = c[1]
 }
 // (var i=0;i < terrData['town']['population'].length;i++) 
       
 canvas.selectAll(".people")
-    .data(terrData['town']['population'])
+    .data(terrData['people'])
         .enter()
         .append("circle")
                     .style('z-index',-1)

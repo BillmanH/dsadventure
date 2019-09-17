@@ -1,10 +1,11 @@
 import numpy as np
 import pandas as pd
 
-def modifyTerDetail(world,context):
+
+def modify_context(world,context):
     #the entire context can be modified here to add elements to the town
     town = get_town(world.towns,context['mapData']['area']['feature'])
-
+    #copy the context object
     newcontext = context.copy()
     newcontext['n_ter_items'] = []
     for t in context['n_ter_items']:
@@ -14,17 +15,14 @@ def modifyTerDetail(world,context):
             newcontext['n_ter_items'].append(t)
         else:
             newcontext['n_ter_items'].append(t)
-    return newcontext
-
-def get_town_dict(world,town_name):
-    town_data = {'name':town_name}
-    town = get_town(world.towns,town_name)
+    town_data = {'name':context['mapData']['area']['feature']}
     town_data['str'] = str(town)
     town_data['diplomacy'] = town.diplomacy
     town_data['nation'] = town.nation
     town_data['type'] = town.type
-    town_data['population'] = [p.get_person_data() for p in town.population]
-    return town_data  
+    newcontext['terrData']['town'] = town_data
+    newcontext['terrData']['people'] = [p.get_person_data() for p in town.population]
+    return newcontext  
     
 class Town:
     def townNameGenerator(self,names):

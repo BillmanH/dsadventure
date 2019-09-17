@@ -1,4 +1,4 @@
-{% extends 'game/core/people/render_townsfolk.js' %}
+{% extends 'game/core/people/render_people.js' %}
 
 console.log("townsfolk")
 

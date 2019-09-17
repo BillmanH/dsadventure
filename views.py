@@ -78,9 +78,7 @@ def core_view(request):
     
     #once context is collected it can be modified with builder specific modifiers
     if context['terrData']['terrain'] == 'town':
-        townData = builders.towns.get_town_dict(world,context['terrData']['feature']) 
-        context['terrData']['town'] = townData
-        context = builders.towns.modifyTerDetail(world,context)
+        context = builders.towns.modify_context(world,context) 
     #changes and localization variables come last
     context['charData']["current situation"] = w.get_character_context(world)
     return render(request, 'game/core_view.html',context)
