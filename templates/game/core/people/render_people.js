@@ -25,11 +25,11 @@ canvas.selectAll(".people")
                     .style("stroke","black")
                     .on("mouseover", function(d){
                         return terrain_tooltip.style("visibility", "visible")
-                            .html(d.name);
+                            .html(d.name+", "+d.role);
                         })
                     .on("mousemove", function(d){
                             return terrain_tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px")
-                        .html(d.name);
+                        .html(d.name+", "+d.role);
                         })
                     .on("mouseout", function(){
                         return terrain_tooltip.style("visibility", "hidden");
