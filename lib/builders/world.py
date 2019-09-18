@@ -271,7 +271,7 @@ class World:
         if x>=self.landscape.mountain_level:
             return 'mountain'
         else:
-            return 'land'
+            return 'plain'
     
     def build_df_features(self):
         df = self.meltMap(self.grid_rainfall,value='rainfall').rename(columns={'value':'water'})

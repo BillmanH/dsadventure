@@ -47,6 +47,7 @@ class Town:
         self.speaker =  people.Person(culture,role=f'Speaker of {self.name}',location=self.name)
         self.population = [self.speaker]
         self.culture = culture
+        self.buildings = ['great_hall']
         
     def __repr__(self):
         return f"{self.type} of {self.name}: population: {self.pop} location: [{self.x},{self.y}] founded {self.founded}"
