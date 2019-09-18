@@ -35,3 +35,9 @@ def pass_through_time(world,events,nations):
         else:
             all_events.append(f'{e}: nothing happend during this period.')
     return all_events
+
+def add_chaos_to_world(world):
+    world.df_features['danger'] = (world.df_features['key']
+                                   .apply(lambda x: np.round(np.random.normal(world.culture.chaos, .3),3))
+                                    )
+    return world

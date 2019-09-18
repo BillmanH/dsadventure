@@ -57,6 +57,7 @@ def the_third_age(world):
     world.df_features['visited'] = 0
     world.df_features['aware'] = 0
     world.df_features['turn_last_visited'] = 0
+    world = events.add_chaos_to_world(world)
     return world,all_events
 
 
