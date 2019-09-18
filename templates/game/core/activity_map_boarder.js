@@ -30,7 +30,6 @@ Individual opbjects should have thier own click handler.
         // regular movement happens if the check turns out that no colision has happened.
         if(collision_check){
             cmv = move_towards_obj(prev_x,prev_y,p.x,p.y,moveRate/2);
-            console.log("moving half",cmv,moveRate)
         playerChar.transition().attr("cx", cmv[0]).attr("cy", cmv[1]);
         playerChar.transition().attr("cx", prev_x).attr("cy", prev_y);
 
@@ -38,6 +37,11 @@ Individual opbjects should have thier own click handler.
             char_y = prev_y
         } else {
         playerChar.transition().attr("cx", char_x).attr("cy", char_y);
+        
+           {% if terrData.town %}
+                {% include "game/core/people/talk_townsfolk.js" %}
+                move_townsfolk()
+           {% endif %}
         }
        playerChar.moveToFront()
        char_tooltip.html(updateToolTip(charData));
