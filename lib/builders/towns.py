@@ -54,7 +54,7 @@ class Town:
     def population_growth(self, birthrate,people):
         if np.random.uniform()<birthrate:
             self.pop += 1
-            self.population.append(people.Person(self.culture,role=f'peon',location=self.name))
+            self.population.append(people.Person(self.culture,location=self.name))
 
     def haveDiplomacy(self,towns):
         for i in towns:

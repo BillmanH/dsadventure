@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 class Person:
-    def __init__(self,culture,role='peon',location=None):
+    def __init__(self,culture,role='commoner',location=None):
         self.name = culture.personNameGenerator()
         self.role = role
         self.nation = location
