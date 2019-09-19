@@ -12,6 +12,7 @@ from .lib.create_world import *
 #builders are the modules that get and put data into the right places
 from .lib.builders import world as w
 from .lib import builders
+from .lib.builders import monsters
 
 #modify_character also contains the Character() class
 from .lib import modify_character 
@@ -61,11 +62,11 @@ def core_view(request):
         context['charData']['old_location'] = context['old_location']
     context['terrData'] = world.df_features.loc[world.Character.get_location_key()].fillna("none").to_dict()
     #terrain details come from Azure SQL
-    td = terrain_details.objects.values().get(name=context['terrData']['terrain'])
+    tdt = terrain_details.objects.values().get(name=context['terrData']['terrain'])
     #terrain items for each item in the terrain textures. 
     context['mapData'] = w.get_area_data(world)
     #td is the lists of textures for the world, not the details
-    td = yaml.load(td['terrain_textures'],Loader=yaml.SafeLoader)
+    td = yaml.load(tdt['terrain_textures'],Loader=yaml.SafeLoader)
     #ti is the list of items 
     ti = [t['name'] for t in td]
     tt = list(terrain_items.objects.values().filter(pk__in=ti))
@@ -79,6 +80,10 @@ def core_view(request):
     #once context is collected it can be modified with builder specific modifiers
     if context['terrData']['terrain'] == 'town':
         context = builders.towns.modify_context(world,context) 
+    #roll a die to dermine if monsters will show up in this worl. Add monsters to context if they do. 
+    if monsters.check_for_monsters(world):
+       context['terrain_textures']['monsters'] = tdt['creatures']
+       context = monsters.add_monsters_to_context(world,context)
     #changes and localization variables come last
     context['charData']["current situation"] = w.get_character_context(world)
     return render(request, 'game/core_view.html',context)
