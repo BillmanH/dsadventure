@@ -82,8 +82,10 @@ def core_view(request):
         context = builders.towns.modify_context(world,context) 
     #roll a die to dermine if monsters will show up in this worl. Add monsters to context if they do. 
     if monsters.check_for_monsters(world):
-       context['terrain_textures']['monsters'] = tdt['creatures']
-       context = monsters.add_monsters_to_context(world,context)
+        mi = tdt['creatures'].split(",") 
+        m = list(bestiary.objects.values().filter(pk__in=mi))
+        context['terrData']['monsters'] = m
+        context = monsters.add_monsters_to_context(world,context)
     #changes and localization variables come last
     context['charData']["current situation"] = w.get_character_context(world)
     return render(request, 'game/core_view.html',context)
