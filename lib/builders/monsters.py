@@ -7,5 +7,10 @@ def check_for_monsters(world):
 
 def add_monsters_to_context(world,context):
     newcontext = context.copy()
-    newcontext['monsters'] = []
+    monsters = context['terrData']['monsters']
+    allMonsters = [[m for i in range(np.random.randint(m['group_min'],m['group_max']))]
+                    for m in monsters]
+    newcontext['terrData']['monsters'] = allMonsters
     return newcontext
+
+#TODO Monsters need unique ids
