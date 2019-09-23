@@ -42,6 +42,10 @@ Individual opbjects should have thier own click handler.
                 {% include "game/core/people/talk_townsfolk.js" %}
                 move_townsfolk()
            {% endif %}
+           {% if terrData.monsters %}
+                {% include "game/core/monsters/move_monsters.js" %}
+                move_monster()
+            {% endif %}
         }
        playerChar.moveToFront()
        char_tooltip.html(updateToolTip(charData));
