@@ -7,7 +7,7 @@ function move_monster(){
                 d3.select(this).classed("detectsPlayer",true);
             }
         if(get_dist_to_char(d3.select(this).attr("cx"),d3.select(this).attr("cy"))<=charData["size"]){
-               {% include "game/core/monsters/monster_attack.js" %}
+               {% include "game/core/monsters/attack_monster.js" %}
             }
             nmc = move_towards_obj(Math.round(d3.select(this).attr("cx")),
                         Math.round(d3.select(this).attr("cy")),

@@ -9,18 +9,23 @@ def check_for_monsters(world):
 def add_monsters_to_context(world,context):
     newcontext = context.copy()
     monsters = context['terrData']['monsters']
-    allMonsters = [[m for i in range(np.random.randint(m['group_min'],m['group_max']))]
-                    for m in monsters]
+    allMonsters=[]
+    for m in monsters:
+        listOfMonsters = []
+        for i in range(np.random.randint(m['group_min'],m['group_max'])):
+            mi = m.copy()
+            #make random id for each creture
+            nameLetters = list('abcdefghijklmnopqrstuvwxyz')
+            mid = "".join(np.random.choice(nameLetters,6))
+            mi['id'] = mid
+            listOfMonsters.append(mi)
+        allMonsters.append(listOfMonsters)
+
+       #allMonsters = [[makeMonsterDict(m) for i in range(np.random.randint(m['group_min'],m['group_max']))]
+       #             for m in monsters]
     newcontext['terrData']['monsters'] = allMonsters
     return newcontext
 
-
-def makeMonsterDict(m):
-    nameLetters = 'abcdefghijklmnopqrstuvwxyz'
-    l = 6
-    name = "".join([np.choose(nameLetters) for i in range(l)])
-    m['id'] = name
-    return m
 
 class Monster:
     def __init__(m):
