@@ -26,8 +26,8 @@
 
 
 // Objects that have complex interaction 
-{% if "monsters" in  mapData %}
-    {% include "game/sprites/monsters/render.js" %}
+{% if terrData.monsters %}
+    {% include "game/core/monsters/random_monsters.js" %}
 {% endif %}
 
 {% if terrData.town %}

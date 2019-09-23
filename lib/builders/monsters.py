@@ -3,7 +3,8 @@ import pandas as pd
 
 def check_for_monsters(world):
     danger = world.df_features.loc[world.Character.get_location_key()].danger
-    return np.random.rand() < danger
+    #return np.random.rand() < danger
+    return True
 
 def add_monsters_to_context(world,context):
     newcontext = context.copy()
@@ -13,4 +14,14 @@ def add_monsters_to_context(world,context):
     newcontext['terrData']['monsters'] = allMonsters
     return newcontext
 
-#TODO Monsters need unique ids
+
+def makeMonsterDict(m):
+    nameLetters = 'abcdefghijklmnopqrstuvwxyz'
+    l = 6
+    name = "".join([np.choose(nameLetters) for i in range(l)])
+    m['id'] = name
+    return m
+
+class Monster:
+    def __init__(m):
+        self.name = "foo"
