@@ -67,11 +67,15 @@ function move_towards_obj(Xa,Ya,Xb,Yb,speed){
     speed=parseInt(speed);
     //console.log('move-towards-object',Xa,Ya,Xb,Yb,speed)
     shift = get_distance_vector(Math.round(Xa),
-                Math.round(Ya),
-                Math.round(Xb),
-                Math.round(Yb),
-                speed)
-    a = Xa+shift[0]
-    b = Ya+shift[1]
+            Math.round(Ya),
+            Math.round(Xb),
+            Math.round(Yb),
+            speed)
+    if(Number.isNaN(shift[0])){
+        return [Xa,Xb]
+    } else {
+        a = Xa+shift[0]
+        b = Ya+shift[1]
     return [a,b]
+    }
 }
