@@ -1,6 +1,6 @@
 var boarderText = "to the *nextArea* you can see *description*;" +
                 "<form class='maptravelform' action='coreview' method='post' id='*nextForm*Form'>" +
-                "<input class='charDataHolder' type='hidden' name='charData' value='placeholder'>"+
+                "<input class='charDataHolder' type='hidden' name='charData' value="+JSON.stringify(charData)+">"+
                 '{% csrf_token %}'+
                 "<button type='submit' value='submit'>Save and progress to this region</button>" +
                 "</form>"
