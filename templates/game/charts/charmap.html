@@ -5,7 +5,8 @@
     var dim_2 = {{ dim_2|safe }} 
 
 var featureColors = 
-        {"land":"#b2aa9d",
+        {"plain":"#b2aa9d",
+            "town":"#435265",
             "unkown":"000000",
             "mountain":"#977c53",
             "ocean":"#0077be",
@@ -17,7 +18,7 @@ var featureColors =
 <style>
    rect.bordered {
    stroke: #bbb;
-   stroke-width:3px;   
+   stroke-width:1px;   
    }
    text.mono {
    font-size: 9pt;
@@ -46,7 +47,7 @@ var featureColors =
 </style>
 <button type="button" id="terrain">terrain</button>
 <button type="button" id="nations">nations</button>
- 
+<button type="button" id="danger">danger</button>
 
 <script type="text/javascript">
     var maxNum = dim_1.length
@@ -65,9 +66,12 @@ var featureColors =
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     var mountainColors = ['#ecca96','#e9b97a','#e4a865','#dc9856','#d18954','#c7784c','#c0673f','#b85536','#ad4433'] 
     var waterColors = ['#bed8ec','#a8cee5','#8fc1de','#74b2d7','#5ba3cf','#4592c6','#3181bd','#206fb2','#125ca4'] 
+    var dangerColors = ['#bed8ec','#a8cee5','#8fc1de','#74b2d7','#5ba3cf','#4592c6','#3181bd','#206fb2','#125ca4'] 
     
     var mountainScale = d3.scaleLinear().range(mountainColors).domain([d3.min(df_features,function(d){return d.elevation})
                                                                     ,d3.max(df_features,function(d){return d.elevation})]); 
+    var dangerScale = d3.scaleLinear().range(mountainColors).domain([d3.min(df_features,function(d){return d.danger})
+                                                                    ,d3.max(df_features,function(d){return d.danger})]); 
     var waterScale = d3.scaleLinear().range(waterColors).domain([d3.min(df_features,function(d){return d.rainfall})
                                                                     ,d3.max(df_features,function(d){return d.rainfall})]); 
                         
@@ -120,6 +124,14 @@ var featureColors =
             .style("fill", function(d) { return featureColors[d['terrain']]; })
         }
    );
+
+  d3.select("#danger").on("click", 
+        function (d) {
+            heatMap.transition()
+                .style("fill", function(d) {if(d['terrain']=='unknown'){return "00000"}else{return dangerScale(d['danger']*10) }})
+        }
+   );
+  
         {% include "game/charts/nationmaps.js" %}
 
 </script>

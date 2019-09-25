@@ -29,7 +29,7 @@ function switchDirection(t){
 
 
 //objectAlerts takes an object (like the char) and sends out a quick text
-//accepts a selection, an object 'this' or playerChar or a class or id
+//accepts an object 'this' or playerChar or a class or id
 function objectAlerts(subject,message,color="#000000"){
     noteDirection++;
     if(noteDirection>4){noteDirection=1};
