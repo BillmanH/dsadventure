@@ -77,4 +77,4 @@ function charDeath(){
 
 {% include "game/player/charattack.js" %}
 
-
+objectAlerts("#character",charData["current situation"])

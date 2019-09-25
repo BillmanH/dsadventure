@@ -67,13 +67,18 @@ def chordKey(coord):
     key = ":".join([str(i) for i in coord])
     return key
 
-def get_character_context(world):
+def get_character_context(world,context):
     """
     gets the text of the situation facing the character right now,
     used in core view
     """
-    context = "It is a normal day."
-    return context
+    if 'monsters' in context['terrData'].keys():
+        threat = f"Danger! there are {', and'.join([n[0]['name']+'s' for n in context['terrData']['monsters']])} nearby."
+    else:
+        threat = "The area is calm and peaceful."
+
+    message = threat
+    return message
 
 def get_features_or_NA(world,coord):
     try:

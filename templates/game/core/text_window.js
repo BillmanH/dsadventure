@@ -2,7 +2,6 @@
     Adding text when needed. This global function takes a d3 object, appends some text and that text dissapears when the function is complete. 
     It runs asynchronosly, so you can have multiple objects sending messages simultaniously. 
 
-    Additional text 'textWindow' is at the bottom of the screen and is piped in from the server. You should be able to get it in 'textWindow' from     from the server'
     */
 
 textWindow = d3.select("body")
@@ -30,7 +29,7 @@ function switchDirection(t){
 
 
 //objectAlerts takes an object (like the char) and sends out a quick text
-//message for 
+//accepts a selection, an object 'this' or playerChar or a class or id
 function objectAlerts(subject,message,color="#000000"){
     noteDirection++;
     if(noteDirection>4){noteDirection=1};

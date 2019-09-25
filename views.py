@@ -87,7 +87,7 @@ def core_view(request):
         context['terrData']['monsters'] = m
         context = monsters.add_monsters_to_context(world,context)
     #changes and localization variables come last
-    context['charData']["current situation"] = w.get_character_context(world)
+    context['charData']["current situation"] = w.get_character_context(world,context)
     return render(request, 'game/core_view.html',context)
 
 @login_required
