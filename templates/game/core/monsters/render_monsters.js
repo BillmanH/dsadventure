@@ -23,6 +23,9 @@ monster_group.selectAll()
                     .attr("id",function(d){return d.id})
                     .attr("move",function(d){return d.move})
                     .attr("perception",function(d){return d.perception})
+                    .attr("attack_type",function(d){return d.attack_type})
+                    .attr("damage",function(d){return d.damage})
+                    .attr("health",function(d){return d.health})
                     .classed("circle", true)
                     .classed("alive", true)
                     .classed("monster", true)
@@ -35,7 +38,8 @@ monster_group.selectAll()
                         })
                     .on("mousemove", function(d){
                             return terrain_tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px")
-                        .html(d.name);
+                        .html(d.name+"</br>"+
+                              d.health);
                         })
                     .on("mouseout", function(){
                         return terrain_tooltip.style("visibility", "hidden");

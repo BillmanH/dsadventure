@@ -49,6 +49,7 @@
                 .attr("cx", char_x)
                 .attr("cy", char_y)
                 .attr("r", charData["size"])
+                .attr("composure", charData["composure"])
         .style("z-index", "9")
                 .on("mouseover", function(){
                     char_tooltip.style("visibility", "visible");

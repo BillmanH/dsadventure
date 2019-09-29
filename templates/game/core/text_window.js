@@ -30,7 +30,7 @@ function switchDirection(t){
 
 //objectAlerts takes an object (like the char) and sends out a quick text
 //accepts an object 'this' or playerChar or a class or id
-function objectAlerts(subject,message,color="#000000"){
+function objectAlerts(subject,message,color="#000000",bg="white"){
     noteDirection++;
     if(noteDirection>4){noteDirection=1};
     direct = switchDirection(noteDirection);
@@ -44,6 +44,7 @@ function objectAlerts(subject,message,color="#000000"){
         .style("z-index", "10")
         .style("position", "absolute")
         .attr("class","objectalert")
+        .style("background-color", bg)
         .style("top", y +"px").style("left",x +"px")
         .html("<p style='color:"+color+"'>"+message+"</p>")
         .transition()
