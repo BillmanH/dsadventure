@@ -3,7 +3,8 @@ from django.db import models
 
 class terrain_items(models.Model):
     name = models.CharField(max_length=50,primary_key=True)
-    hexcolor = models.CharField(max_length=50)
+    hexcolor = models.CharField(max_length=50,default='#000000')
+    borderhex = models.CharField(max_length=50,default='#000000')
     size = models.IntegerField()
     spread = models.CharField(max_length=50)
     affect = models.CharField(max_length=50)

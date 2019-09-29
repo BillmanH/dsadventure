@@ -3,7 +3,7 @@ console.log({{ t|safe }})
 ti = {{ t.texture|safe }}
 //take imput paramerter from t and create an array of data objets for D3.
 function get_data_{{ t.texture.name|safe }}(){
-    scatter_spread = 3
+    scatter_spread = 8
     data = []
     for(j=0;j<{{ t.detail.abundance }}; j++){
     children = []
@@ -42,6 +42,7 @@ ter_group_{{ t.texture.name|safe }}.selectAll()
                     .classed("circle", true)
                     .attr("r",function(d){return d.size})
                     .style("fill",function(d){return d.hexcolor})
+                    .style("stroke",function(d){return d.borderhex})
                     .on("mouseover", function(d){
                         return terrain_tooltip.style("visibility", "visible")
                             .html(d.name);
