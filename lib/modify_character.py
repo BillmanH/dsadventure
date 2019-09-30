@@ -26,6 +26,7 @@ class Character():
     def __init__(self,f,world):
         self.name = f['name']
         self.background = f['background']
+        self.languages = []
         self.coreskills = [f['coreskills']]
         self.secondaryskills = [f['secondaryskills']]
         self.message = "game start" 
@@ -53,7 +54,8 @@ class Character():
             'location':self.get_location_key(),
             'title':self.title,
             'composure':self.composure,
-            'arriveFrom':self.arriveFrom
+            'arriveFrom':self.arriveFrom,
+            'equipment':self.equipment
         }
 
     def get_location_key(self):
@@ -95,11 +97,45 @@ def set_char_origin(c,world):
         c.title = f"Ranger"
         c.message = f"You wake up in the wilderness, {str(world.df_features.loc[c.get_location_key(),'terrain'])}."
         
+def set_starting_eq(c,world):
+    if "fencing" in c.coreskills:
+        c.equipment['weapons'] = [{'name':'basic sword',
+                                   'quantiy':1,
+                                     'damage':6,
+                                     'damage_mod':2}]
+    if "archery" in c.coreskills:
+        c.equipment['weapons'] = [{'name':'basic bow',
+                                  'quantity':1,
+                                  'damage':3,
+                                  'damage_mod':1}]
+    if "spellcasting" in c.coreskills:
+        c.equipment['spells'] = [{'name':'lightning',
+                                 'quantity':4,
+                                 'damage':8,
+                                 'damage_mod':3}]
+        
+def set_skills(world,skill):
+    if skill == 'mountaneer':
+        world.df_features.loc[world.df_features['terrain']=='mountain','aware'] = 1
+    if skill == 'desert survival':
+        world.df_features.loc[world.df_features['terrain']=='desert','aware'] = 1
+    if skill == 'hunting':
+        world.Character.equipment['food'] = [{'rations':3}]
+    if skill == 'additional language':   
+        np.random.choice([n.name for n in world.nations if n.name != world.df_features.loc[world.Character.get_location_key()].nation])
+    
+        
+        
 #creating the character from the userform (f)
 #returns a world, not a character
 def create_character(character_dict,world):
     c = Character(character_dict,world)
+    world.df_features.loc[:,'aware'] = 0
     set_char_origin(c,world)
+    set_starting_eq(c,world)
     world.Character = c
-    
+    world.df_features['visited'] = 0
+    world.df_features.loc[world.Character.get_location_key(),'visited'] = 1
+    #automatically speaks the language of that nation
+    world.Character.languages.append(world.df_features.loc[world.Character.get_location_key()].nation)
     return world
