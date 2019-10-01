@@ -44,4 +44,8 @@ monster_group.selectAll()
                     .on("mouseout", function(){
                         return terrain_tooltip.style("visibility", "hidden");
                     })
+                    .on("click", function(d){
+                        console.log(this,d);
+                        charattack(this,d)
+                    })
 

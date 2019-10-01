@@ -76,6 +76,6 @@ function charDeath(){
     d3.select("#chardeathbutton").html(charData["name"] + " has died...")
 }
 
-{% include "game/player/charattack.js" %}
+{% include "game/player/attack_char.js" %}
 
 objectAlerts("#character",charData["current situation"])
