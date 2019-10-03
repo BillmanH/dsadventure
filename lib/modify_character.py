@@ -100,20 +100,26 @@ def set_char_origin(c,world):
 def set_starting_eq(c,world):
     if "fencing" in c.coreskills:
         c.equipment['weapons'] = [{'name':'basic sword',
+                                    'id':'0000',
                                    'quantiy':1,
+                                   'range':10,
                                      'damage':6,
                                      'damage_mod':2}]
     if "archery" in c.coreskills:
         c.equipment['weapons'] = [{'name':'basic bow',
-                                  'quantity':1,
-                                  'damage':3,
-                                  'damage_mod':1}]
+            'id':'0000',
+          'quantity':1,
+          'range':200,
+          'damage':3,
+          'damage_mod':1}]
     if "spellcasting" in c.coreskills:
         c.equipment['spells'] = [{'name':'lightning',
-                                 'quantity':4,
-                                 'damage':8,
-                                 'damage_mod':3}]
-        
+            'id':'0000',
+             'quantity':4,
+             'range':10000,
+             'damage':8,
+             'damage_mod':3}]
+
 def set_skills(world,skill):
     if skill == 'mountaneer':
         world.df_features.loc[world.df_features['terrain']=='mountain','aware'] = 1

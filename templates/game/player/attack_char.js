@@ -34,9 +34,11 @@ function charattack(target){
     range = get_dist_to_char(target)
     console.log(range)
     // checktoSee if a character has equipped items that do damage
-    if(range <= 10){
+    if((range <= 10)&(true)){
       meleAttack(target) 
-    } else {
+    } else if ((range => 10)&(true)){
        rangeAttack(target)
+    } else {
+        //no attack
     }
 }
