@@ -12,11 +12,9 @@ function assign_damage_to_target(target,damage){
 function meleAttack(target,weapon){
     damage = 1
     assign_damage_to_target(target,damage)
-
     objectAlerts('#character',
         damage.toString()+": " + charData['name']+' attacks '+ target.name +' with '+ weapon,
         color=charColor)
-
 }
 
 function rangeAttack(target,weapon){

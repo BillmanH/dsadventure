@@ -1,4 +1,10 @@
 //returns [-1,1]  for multiplying with other coordinates and determine direction.
+function popvalues(a,m){
+    delete a[m]
+    return a
+}
+
+
 function get_pos_neg(x,y){
     nx = x/Math.abs(x)
     ny = y/Math.abs(y)

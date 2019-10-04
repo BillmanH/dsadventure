@@ -2,6 +2,7 @@ mapData['area']['Terrain Textures'] = terrData["Terrain Textures"]
 //tool tip should work for all terrain objects
 var terrain_tooltip = d3.select("body")
     .append("div")
+    .style("background-color", 'white')
     .attr("id", "terrain-info")                
     .style("position", "absolute")
     .style("z-index", "10")
