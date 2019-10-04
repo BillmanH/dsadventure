@@ -25,13 +25,14 @@ Individual opbjects should have thier own click handler.
     render_side_map(char_x,char_y);
 //Each object that reacts to player movement must have an update statement here. 
     // check terrain
+    hasCollided=false
     collision_check = check_terrain_collsion(prev_x,prev_y,char_x,char_y)
         //terrain interactions happen before the character object is relocated
         // regular movement happens if the check turns out that no colision has happened.
         if(collision_check){
             cmv = move_towards_obj(prev_x,prev_y,p.x,p.y,moveRate/2);
-        playerChar.transition().attr("cx", cmv[0]).attr("cy", cmv[1]);
-        playerChar.transition().attr("cx", prev_x).attr("cy", prev_y);
+            playerChar.transition().attr("cx", cmv[0]).attr("cy", cmv[1]);
+            playerChar.transition().attr("cx", prev_x).attr("cy", prev_y);
 
             char_x = prev_x
             char_y = prev_y

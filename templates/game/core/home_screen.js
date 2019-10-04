@@ -4,8 +4,8 @@ if(window.innerWidth <= 800){
    }
     var width = window.innerWidth-widthPadding,
         height = window.innerHeight-100,
-        char_x = screen.width/2,
-        char_y = screen.height / 2;
+        char_x = width /2,
+        char_y = height / 2;
     var canvas = d3.select("body")
         .append("svg")
         .attr("width",width)

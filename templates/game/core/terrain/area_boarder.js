@@ -15,7 +15,7 @@ function render_side_map (char_x,char_y){
                 .replace("*description*",mapData["NArea"]["terrain"])
                 .replace("*nextForm*",charData["arriveFrom"].toLowerCase())
                 )
-        d3.select(".charDataHolder").attr("value",JSON.stringify(charData)) 
+        d3.select(".charDataHolder").attr("value",JSON.stringify(popvalues(charData,"message"))) 
     }
     if (char_y > 50) {
         d3.select("#northText").html("")
@@ -30,7 +30,7 @@ function render_side_map (char_x,char_y){
             .replace("*description*",mapData["SArea"]["terrain"])
             .replace("*nextForm*",charData["arriveFrom"].toLowerCase())
             )
-    d3.select(".charDataHolder").attr("value",JSON.stringify(charData)) 
+    d3.select(".charDataHolder").attr("value",JSON.stringify(popvalues(charData,"message"))) 
     }
     if (char_y < height - 50) {
         d3.select("#southText").html("")
@@ -45,7 +45,7 @@ function render_side_map (char_x,char_y){
                 .replace("*description*",mapData["EArea"]["terrain"])
                 .replace("*nextForm*",charData["arriveFrom"].toLowerCase())
                 )
-    d3.select(".charDataHolder").attr("value",JSON.stringify(charData)) 
+    d3.select(".charDataHolder").attr("value",JSON.stringify(popvalues(charData,"message"))) 
     }
     if (char_x < width - 50) {
             d3.select("#eastText").html("")
@@ -60,7 +60,7 @@ function render_side_map (char_x,char_y){
                 .replace("*description*",mapData["WArea"]["terrain"])
                 .replace("*nextForm*",charData["arriveFrom"].toLowerCase())
                 )
-        d3.select(".charDataHolder").attr("value",JSON.stringify(charData)) 
+        d3.select(".charDataHolder").attr("value",JSON.stringify(popvalues(charData,"message"))) 
     }
     if (char_x > 50) {
         d3.select("#westText").html("")
