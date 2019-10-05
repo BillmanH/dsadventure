@@ -18,7 +18,9 @@ function get_rnd_coord(){
         return [x,y]
 }
 function randBetween(min, max) {
-  return Math.random() * (max - min) + min;
+    var x =  Math.random() * (max - min) + min;
+    x = Math.round(x*100)/100
+    return x
 }
 
 //some additions to d3 that allow me to move them to the front and back.
