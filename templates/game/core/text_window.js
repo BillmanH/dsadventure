@@ -41,7 +41,7 @@ function objectAlerts(subject,message,color="#000000",bg="white"){
     ny = (parseInt(y)+(randBetween(50,150)*direct[1])).toString()
     var objectAlert = d3.select("body")
         .append("div")
-        .style("z-index", "10")
+        .style("z-index", "8")
         .style("position", "absolute")
         .attr("class","objectalert")
         .style("background-color", bg)

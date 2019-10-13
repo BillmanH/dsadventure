@@ -4,6 +4,7 @@ function check_terrain_collsion(prev_x,prev_y,char_x,char_y){
     //console.clear();
     //console.log("moving from ",Math.round(prev_x),Math.round(prev_y))
     //console.log("moving to ",Math.round(char_x),Math.round(char_y))
+    //
     t.each(function(d, i) {
         if (d3.select(this).classed("circle")){
             var x1=this.cx.baseVal.value
@@ -35,7 +36,9 @@ function check_terrain_collsion(prev_x,prev_y,char_x,char_y){
                     break;
                 case "bump":
                     vol = d3.select(this).attr("affectAmt")
-                    objectAlerts("#character",d3.select(this).attr("affectText").replace("**",charData["name"]))
+                    if(check==false){
+                        objectAlerts("#character",d3.select(this).attr("affectText").replace("**",charData["name"]));
+                    }
                     check = true
                     break;
                 default:
