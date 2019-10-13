@@ -49,3 +49,7 @@ monster_group.selectAll()
                         charattack(this,d)
                     })
 
+monster_group.selectAll("circle").each(function(d) {
+      this.classList.add(d.name);
+});
+
