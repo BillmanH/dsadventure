@@ -21,6 +21,7 @@ function assign_damage_to_target(target,damage){
 }
 
 function meleAttack(target,weapon){
+    d3.select("#"+target.id).classed("detectsPlayer",true)
     damage = 1
     assign_damage_to_target(target,damage)
     objectAlerts('#character',
@@ -29,6 +30,7 @@ function meleAttack(target,weapon){
 }
 
 function rangeAttack(target,weapon){
+    d3.select("#"+target.id).classed("detectsPlayer",true)
     console.log("ranged Attack",weapon)
     damage = randBetween(1, weapon.damage) + weapon.damage_mod
     assign_damage_to_target(target,damage)

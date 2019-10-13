@@ -1,5 +1,5 @@
 function move_monster(){
-    d3.selectAll(".monster,.alive")
+    d3.selectAll(".monster.alive")
         .each(function(d,i) {
             //check if the distance is less than perception
             if(get_dist_to_char(d3.select(this).attr("cx"),d3.select(this).attr("cy"))<=d3.select(this).attr('perception')){
