@@ -30,7 +30,6 @@ function meleAttack(target,weapon){
 }
 
 function rangeAttack(target,weapon){
-    console.log("target: " + target)
     d3.select(target).classed("detectsPlayer",true)
     //console.log("ranged Attack",weapon)
     damage = randBetween(1, weapon.damage) + weapon.damage_mod
@@ -39,6 +38,20 @@ function rangeAttack(target,weapon){
      objectAlerts('#character',
         damage.toString()+": " + charData['name']+' attacks '+ d3.select("#"+target.id).attr("name") +' with '+ weapon.name,
         color=charColor)
+     var dart = canvas
+        .append("circle")
+        .style("z-index", "8")
+        .classed("missile",true)
+        .attr("cx",d3.select("#character").attr("cx"))
+        .attr("cy",d3.select("#character").attr("cy"))
+        .attr("r",2)
+        .attr("fill","black")
+        .transition()
+        .ease(d3.easeBounce) 
+        .duration(1000)
+        .attr("cx",d3.select(target).attr("cx"))
+        .attr("cy",d3.select(target).attr("cy"))
+    console.log(dart)
 }
 
 function charattack(target){
