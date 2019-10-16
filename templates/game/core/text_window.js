@@ -48,6 +48,7 @@ function objectAlerts(subject,message,color="#000000",bg="white"){
         .style("top", y +"px").style("left",x +"px")
         .html("<p style='color:"+color+"'>"+message+"</p>")
         .transition()
+        .ease(d3.easeExpOut)
         .duration(2500)
         .style("top", ny +"px").style("left",nx +"px")
     objectAlert.transition()

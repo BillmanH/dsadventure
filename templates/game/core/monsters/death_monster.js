@@ -6,5 +6,5 @@ d3.select("#"+target.id)
     .attr("fill","red")
     .attr("damage",0)
 
-objectAlerts("#"+target.id,target.name+" was killed")
+objectAlerts("#"+target.id,"A "+d3.select("#"+target.id).attr("name")+" was killed")
 
