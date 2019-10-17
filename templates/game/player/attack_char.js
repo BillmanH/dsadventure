@@ -47,7 +47,6 @@ function rangeAttack(target,weapon){
         .attr("r",2)
         .attr("fill","black")
         .transition()
-        .ease(d3.easeBounce) 
         .duration(1000)
         .attr("cx",d3.select(target).attr("cx"))
         .attr("cy",d3.select(target).attr("cy"))
