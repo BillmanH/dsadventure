@@ -27,6 +27,7 @@ function switchDirection(t){
     else if (t==4){return [-1,1]}
 }
 
+n_messages = 0
 
 //objectAlerts takes an object (like the char) and sends out a quick text
 //accepts an object 'this' or playerChar or a class or id
@@ -37,8 +38,11 @@ function objectAlerts(subject,message,color="#000000",bg="white"){
     subj = d3.select(subject);
     x = subj.attr("cx");
     y = subj.attr("cy");
-    nx = (parseInt(x)+(randBetween(50,150)*direct[0])).toString()
-    ny = (parseInt(y)+(randBetween(50,150)*direct[1])).toString()
+    //nx = (parseInt(x)+(randBetween(50,150)*direct[0])).toString()
+    //ny = (parseInt(y)+(randBetween(50,150)*direct[1])).toString()
+    nx = width.toString()
+    ny = parseInt(n_messages*100).toString()
+    n_messages +=1
     var objectAlert = d3.select("body")
         .append("div")
         .style("z-index", "8")
@@ -49,11 +53,12 @@ function objectAlerts(subject,message,color="#000000",bg="white"){
         .html("<p style='color:"+color+"'>"+message+"</p>")
         .transition()
         .ease(d3.easeExpOut)
-        .duration(2500)
+        .duration(1500)
         .style("top", ny +"px").style("left",nx +"px")
     objectAlert.transition()
-        .duration(1500)
+        .duration(500)
         .style("opacity", 0)
-        .remove()    
+        .remove()
+        .on("end", function(){n_messages-=1});
 }
 
