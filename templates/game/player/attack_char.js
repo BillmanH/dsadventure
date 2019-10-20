@@ -69,6 +69,6 @@ function charattack(target){
            rangeAttack(target,weapon)
         }
     } else {
-        objectAlerts('#character',"You have no weapon at that range")
+        objectAlerts('#character',"You have no weapon at that range: "+r(range))
     }
 }

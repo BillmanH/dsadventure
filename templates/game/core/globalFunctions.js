@@ -1,10 +1,10 @@
-//returns [-1,1]  for multiplying with other coordinates and determine direction.
+//remove something from a dict
 function popvalues(a,m){
     delete a[m]
     return a
 }
 
-
+//returns [-1,1]  for multiplying with other coordinates and determine direction.
 function get_pos_neg(x,y){
     nx = x/Math.abs(x)
     ny = y/Math.abs(y)
@@ -17,11 +17,21 @@ function get_rnd_coord(){
         y = Math.floor(Math.random() * height) + 1;
         return [x,y]
 }
+
+// automatically rounds two decimal places
 function randBetween(min, max) {
     var x =  Math.random() * (max - min) + min;
     x = Math.round(x*100)/100
     return x
 }
+
+// rounds
+function r(x){
+    x = Math.round(x*100)/100
+    return x
+}
+
+
 
 //some additions to d3 that allow me to move them to the front and back.
 d3.selection.prototype.moveToFront = function() {
