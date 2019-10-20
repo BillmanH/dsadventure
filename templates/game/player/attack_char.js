@@ -63,7 +63,7 @@ function charattack(target){
     // checktoSee if a character has equipped items that do damage
     weapon = get_weapon_in_range(range)
     if(weapon.name!='none'){
-        if(range <= 10){
+        if(range <= 20){
           meleAttack(target) 
         } else {
            rangeAttack(target,weapon)
