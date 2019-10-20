@@ -50,6 +50,10 @@ function rangeAttack(target,weapon){
         .duration(1000)
         .attr("cx",d3.select(target).attr("cx"))
         .attr("cy",d3.select(target).attr("cy"))
+     dart.transition()
+        .duration(500)
+        .style("opacity", 0)
+        .remove()
     console.log(dart)
 }
 
