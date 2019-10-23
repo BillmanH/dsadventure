@@ -16,25 +16,11 @@ if(mapData['SArea']['terrain']!='void'){textWindow.append("div").attr("id", "sou
 if(mapData['WArea']['terrain']!='void'){textWindow.append("div").attr("id", "westText").html("")}
 textWindow.append("div").attr("id", "eventLog").html("")
 
-//noteDirection is a global that controlls the rolloff of the text (the direction)
-noteDirection = 1
-
-// change the direction of the objectAlert's message
-function switchDirection(t){
-    if(t==1){return [1,1]}
-    else if (t==2){return [1,-1]}
-    else if (t==3){return [-1,-1]}
-    else if (t==4){return [-1,1]}
-}
-
 n_messages = 0
 
 //objectAlerts takes an object (like the char) and sends out a quick text
 //accepts an object 'this' or playerChar or a class or id
 function objectAlerts(subject,message,color="#000000",bg="white"){
-    noteDirection++;
-    if(noteDirection>4){noteDirection=1};
-    direct = switchDirection(noteDirection);
     subj = d3.select(subject);
     x = subj.attr("cx");
     y = subj.attr("cy");
@@ -56,7 +42,7 @@ function objectAlerts(subject,message,color="#000000",bg="white"){
         .duration(1500)
         .style("top", ny +"px").style("left",nx +"px")
     objectAlert.transition()
-        .duration(500)
+        .duration(1000)
         .style("opacity", 0)
         .remove()
         .on("end", function(){n_messages-=1});
