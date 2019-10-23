@@ -25,7 +25,7 @@ function meleAttack(target,weapon){
     damage = 1
     assign_damage_to_target(target,damage)
     objectAlerts('#character',
-        damage.toString()+": " + charData['name']+' attacks '+ target.name +' with '+ weapon,
+        damage.toString()+": " + charData['name']+' attacks '+ d3.select("#"+target.id).attr("name") +' with '+ weapon.name,
         color=charColor)
 }
 
@@ -64,7 +64,7 @@ function charattack(target){
     weapon = get_weapon_in_range(range)
     if(weapon.name!='none'){
         if(range <= 20){
-          meleAttack(target) 
+          meleAttack(target,weapon) 
         } else {
            rangeAttack(target,weapon)
         }
