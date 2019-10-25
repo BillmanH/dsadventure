@@ -8,39 +8,14 @@ def mask_unknown(world):
     """
     df = world.df_features
     def masker(x):
-        if x.visited >= 1:
-            return x
-        elif "noble" in str(world.Character.title).lower():
-            x.terrain = 'unknown'
-            return x
-        elif "mountaneer" in world.Character.secondaryskills:
-            if x.terrain == 'mountain':
-                x.nation = 'unknown'
-                x['nation number'] = '0'
-                return x
-            else:
-                x.terrain = 'unknown'
-                x.nation = 'unknown'
-                x.feature = 'unknown'
-                x['nation number'] = '0'
-            return x
-        elif "desert survival" in world.Character.secondaryskills:
-            if x.terrain == "desert":
-                x.nation = 'unknown'
-                x['nation number'] = '0'
-                return x
-            else:
-                x.terrain = 'unknown'
-                x.nation = 'unknown'
-                x.feature = 'unknown'
-                x['nation number'] = '0'
+        if (x.visited >= 1)|(x.aware >= 1):
             return x
         else:
-            x.terrain = 'unknown'
-            x.nation = 'unknown'
-            x.feature = 'unknown'
-            x['nation number'] = '0'
-            return x
+                x.terrain = 'unknown'
+                x.nation = 'unknown'
+                x.feature = 'unknown'
+                x['nation number'] = '0'
+        return x
     df = df.apply(masker,axis=1)
     return df
     

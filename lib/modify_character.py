@@ -70,29 +70,37 @@ def set_char_origin(c,world):
     # a noble is born and raised in a capitol
     if c.background == 'Noble family':
         t = np.random.choice([t for t in world.towns if 'capitol' in str(t)])
-        c.birthplace = t.name
+        c.birthNation = t.nation
+        c.birthTown = t.name
+        c.languages.append(t.nation)
         c.title = f"Honerable court of {t.speaker}"
         c.location = [t.x,t.y]
         c.equipment['gold'] += 100
+        world.df_features.loc[world.df_features['nation']==t.nation,'aware'] = 1 
         c.message = f"You begin your adventure in {str(t)} </br> Your nobile family has ties with {t.speaker}. "
 
     if c.background == 'Pesant family':
         t = np.random.choice([t for t in world.towns if 'town' in str(t)])
-        c.birthplace = t.name
+        c.birthTown = t.town
+        c.birthNation = t.nation
+        c.languages.append(t.nation)
         c.location = [t.x,t.y]
         c.title = f"Pesant"
         c.message = f"You wake up on the streets of {str(t)}."
         
     if c.background == 'Temple orphan':
         t = np.random.choice([t for t in world.towns if 'town' in str(t)])
-        c.birthplace = t.name
+        c.birthTown = t.name
+        c.birthNation = t.nation
         c.location = [t.x,t.y]
+        c.languages.append(t.nation)
         c.title = f"Orphan"
         c.message = f"You wake up on the streets of {str(t)}."
 
     if c.background == 'Nomad family':
         l = world.get_filtered_chord(t=['mountain','land'])
-        c.birthplace = "the wilderness"
+        c.birthTown = "the wilderness"
+        c.birthNation = "none" 
         c.location = l
         c.title = f"Ranger"
         c.message = f"You wake up in the wilderness, {str(world.df_features.loc[c.get_location_key(),'terrain'])}."
@@ -120,7 +128,8 @@ def set_starting_eq(c,world):
                                     'damage':8,
                                     'damage_mod':3}]
 
-def set_skills(world,skill):
+def set_skills(world,character_dict):
+    skill = character_dict['secondaryskills']
     if skill == 'mountaneer':
         world.df_features.loc[world.df_features['terrain']=='mountain','aware'] = 1
     if skill == 'desert survival':
@@ -128,7 +137,7 @@ def set_skills(world,skill):
     if skill == 'hunting':
         world.Character.equipment['food'] = [{'rations':3}]
     if skill == 'additional language':   
-        np.random.choice([n.name for n in world.nations if n.name != world.df_features.loc[world.Character.get_location_key()].nation])
+        world.Character.languages.append(np.random.choice([n.name for n in world.nations if n.name != world.Character.birthNation]))
     
         
         
@@ -139,7 +148,9 @@ def create_character(character_dict,world):
     world.df_features.loc[:,'aware'] = 0
     set_char_origin(c,world)
     set_starting_eq(c,world)
+
     world.Character = c
+    set_skills(world,character_dict)
     world.df_features['visited'] = 0
     world.df_features.loc[world.Character.get_location_key(),'visited'] = 1
     #automatically speaks the language of that nation
