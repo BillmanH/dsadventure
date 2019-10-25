@@ -34,5 +34,7 @@ class bestiary(models.Model):
     perception = models.IntegerField()
     attack_type = models.CharField(max_length=250)
     damage = models.IntegerField()
+    xp = models.IntegerField()
+
 
 
