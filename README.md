@@ -1,6 +1,6 @@
 # Adventures in Data Science: an RPG built from the data science toolkit
 **always a work in progress**
-I'm still migrating a lot from my old flaskapp so I don't have a working demo online yet. I'll post the link here when I have it. 
+The core application is functional, but still has a long way to go before I have a _game_. I'm not guaranteeing that I'll keep it online 24/7 as I'm pretty actively building it out. I'm not even at the point where I'm posting the game link. PM me if you want to see it in action though. 
 
 # Infrastructure
 ## Django
@@ -14,8 +14,10 @@ urlpatterns = [
 ```
 
 You will also need:
-* settup for authentication
+* setup for authentication (mine is in the main prodweb django project, not this app)
+        * You couldn't just remove the `@login_required` decorators as the app uses the user accounts to get the custom world for each user. 
 * a sql-like database (I'm using Azure SQL even though the app is hosted on EC2) 
+* Google analytics tags, but that's pretty easy to just remove if you don't want it. 
 
 have a look at the [conda env](https://github.com/BillmanH/homepage/blob/master/prodweb_env.yaml) for more clues.
 ## Jupyter Notebooks
@@ -40,3 +42,17 @@ Each of these takes an optional argument `params` which customizes the world. De
 * culture = contains everything relating to the things built by civilizations such as people and towns. 
 
 There are specific modules for `nations`, `towns`, and `people` that all take input from either `landscape` or `culture`. All outputs should end up in the **`world`** object.
+
+### object hierarchy:
+world
+* cluture
+* landscape
+* towns
+        * people
+* nations
+* df_features
+* Character
+
+
+
+
