@@ -57,6 +57,9 @@ class Character():
             'arriveFrom':self.arriveFrom,
             'equipment':self.equipment
         }
+    
+    def characterSpeaksLanguage(self,world):
+        return world.df_features.loc[self.get_location_key()]['nation'] in world.Character.languages
 
     def get_location_key(self):
         l = self.location

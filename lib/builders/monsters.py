@@ -3,8 +3,9 @@ import pandas as pd
 
 def check_for_monsters(world):
     danger = world.df_features.loc[world.Character.get_location_key()].danger
-    #return np.random.rand() < danger
-    return True
+    #for dev purposes, set danger to one to make monsters always show up. 
+    #danger = 1
+    return np.random.rand() < danger
 
 def add_monsters_to_context(world,context):
     newcontext = context.copy()

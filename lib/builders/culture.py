@@ -54,3 +54,8 @@ class Culture:
                 str(np.random.choice(self.names.nameparts['2'])) + \
                 str(np.random.choice(self.names.nameparts['3']))
                ).capitalize()
+    
+    def gibberishGenerator(self,l=12):
+        characters = list('     aabcdeefghiijklmnoopqrstuuvwxyz')
+        gib = "".join(np.random.choice(characters,l)).strip().title()
+        return gib
