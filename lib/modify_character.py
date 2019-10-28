@@ -156,6 +156,7 @@ def create_character(character_dict,world):
     set_skills(world,character_dict)
     world.df_features['visited'] = 0
     world.df_features.loc[world.Character.get_location_key(),'visited'] = 1
+    world.df_features.loc[world.df_features['terrain']=='ocean','aware'] = 1
     #automatically speaks the language of that nation
     world.Character.languages.append(world.df_features.loc[world.Character.get_location_key()].nation)
     return world
