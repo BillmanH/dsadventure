@@ -84,7 +84,7 @@ def set_char_origin(c,world):
 
     if c.background == 'Pesant family':
         t = np.random.choice([t for t in world.towns if 'town' in str(t)])
-        c.birthTown = t.town
+        c.birthTown = t.name
         c.birthNation = t.nation
         c.languages.append(t.nation)
         c.location = [t.x,t.y]
