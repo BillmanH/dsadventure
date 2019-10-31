@@ -1,9 +1,12 @@
 var widthPadding = 200
+
 if(window.innerWidth <= 800){
      widthPadding=15;
    }
-    var width = window.innerWidth-widthPadding,
-        height = window.innerHeight-100,
+    //width = window.innerWidth-widthPadding,
+// window.innerHeight-100
+    var width = 1000
+        height = 500
         char_x = width /2,
         char_y = height / 2;
     var canvas = d3.select("body")
