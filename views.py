@@ -91,6 +91,13 @@ def core_view(request):
     return render(request, 'game/core_view.html',context)
 
 @login_required
+def equipment(request):
+    context = {}
+    world = b.get_world(request.user.get_username())
+    context['charData'] = world.Character.get_charData()
+    return render(request, 'game/equipment.html', context)
+
+@login_required
 def char_map(request):
     context = {}
     world = b.get_world(request.user.get_username())

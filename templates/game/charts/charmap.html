@@ -45,9 +45,6 @@ var featureColors =
    z-index: 5070;
    }
 </style>
-<button type="button" id="terrain">terrain</button>
-<button type="button" id="nations">nations</button>
-<button type="button" id="danger">danger</button>
 
 <script type="text/javascript">
     var maxNum = dim_1.length
@@ -59,7 +56,7 @@ var featureColors =
         gridSize = Math.floor(width / buckets),
         legendWidth = (gridSize/2 + 4)
    
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("#svg").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
