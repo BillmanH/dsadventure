@@ -10,6 +10,12 @@
         <p>{{ "Character "|add:charData.name }}</p>
         <p>{{ "Title "|add:charData.title }}</p>
         <p>{{ "Location "|add:charData.location }}</p>
+    <script>
+       {% include "game/player/weapons.js" with weapons=charData.equipment.weapons %} 
+    </script>
+    
     </body>
+
+    
 </html>
 
