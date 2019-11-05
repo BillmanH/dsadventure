@@ -31,7 +31,7 @@ def drawTerrain(df,cities=None):
         y='y:O',        
         color=alt.Color('terrain',
                        scale=alt.Scale(
-                domain=['land','mountain', 'ocean','city'],
+                domain=['plain','mountain', 'ocean','city'],
                 range=['green','brown', 'blue','black'])
                        )
     )
@@ -53,7 +53,7 @@ def landTypes(x,landscape):
     if x>=landscape.mountain_level:
         return 'mountain'
     else:
-        return 'land'
+        return 'plain'
 
 def allLandTypes(world,landscape):
     mapdata = meltMap(world['elevation'])
@@ -68,7 +68,7 @@ def drawTerrainTypes(df,landscape):
         y='y:O',
         color=alt.Color('terrain',
                        scale=alt.Scale(
-                domain=['land','mountain', 'ocean'],
+                domain=['plain','mountain', 'ocean'],
                 range=['green','brown', 'blue'])
                        )
     )
@@ -92,7 +92,7 @@ def drawCities(df):
         y='y:O',
         color=alt.Color('terrain',
                        scale=alt.Scale(
-                domain=['land','mountain', 'ocean','forest','desert','town'],
+                domain=['plain','mountain', 'ocean','forest','desert','town'],
                 range=['#53403B','brown', 'blue','#228b22','#edc9af','#000000'])
                        )
     )
@@ -127,7 +127,7 @@ def drawterrainadvanced(df):
         y='y:O',
         color=alt.Color('terrain',
                        scale=alt.Scale(
-                domain=['land','mountain', 'ocean','forest','desert'],
+                domain=['plain','mountain', 'ocean','forest','desert'],
                 range=['#53403B','brown', 'blue','#228b22','#edc9af'])
                        )
     )
