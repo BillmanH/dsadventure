@@ -8,6 +8,13 @@ class Events():
         else:
             self.events_df = pd.read_csv('game/lib/Datasets/events.csv',index_col=0)
 
+def raider_camp(world,nation):
+    key = world.get_filtered_chord(t=['plain','mountain','forrest'],
+                                   n=example_nation.name,
+                                   r='key')
+    
+    
+    
 def event_results(e,events,world,nations):
     choice = np.random.choice(events.index)
     event = events.loc[choice]

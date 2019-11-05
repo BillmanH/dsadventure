@@ -165,18 +165,26 @@ class World:
         coord = [x,y]
         return np.array(coord)
     
-    def get_filtered_chord(self,t=None):
+    def get_filtered_chord(self,t=None,n=None,r='coord'):
         """
-        t must be an list of acceptable land types
+        t = must be an list of acceptable land types
+        n = must ba a nation
+        r = 'coord' or 'key'
         will return a coord that meets filtered criteria 
         """
+        df = self.df_features.copy()
+        if n:
+            df = df[df['nation']==n]
         if t:
-            df = self.df_features[self.df_features['terrain'].isin(t)]
+            df = df[df['terrain'].isin(t)]
         else:
             df = self.df_features
         key = np.random.choice(df.index.tolist())
         l = df.loc[key]
-        return [l.x,l.y]
+        if r == 'coord':
+            return [l.x,l.y]
+        elif r == 'key':
+            return key
 
     def reindexMountain(self,c,m):
         m.index = np.pad([c[0]],(round(len(m.index)/2)
