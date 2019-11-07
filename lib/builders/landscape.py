@@ -1,7 +1,8 @@
 
 default_params = {'grid':[40,40],
                 'N_loc':0,
-                'N_std':1}
+                'N_std':1,
+                'water_level':20}
 
 class Landscape:
     """
@@ -19,7 +20,7 @@ class Landscape:
         self.peak_height = params.get('peak_height',5)
         self.mountain_level = params.get('mountain_level',25)
         #oceans
-        self.water_level = params.get('water_level',0)
+        self.water_level = params.get('water_level',5)
         self.rain_iter = params.get('rain_iter',8)
         self.rain_spread = params.get('rain_spread',100)
         #forests and deserts
