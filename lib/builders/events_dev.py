@@ -8,10 +8,11 @@ class Events():
         else:
             self.events_df = pd.read_csv('game/lib/Datasets/events.csv',index_col=0)
 
-def raider_camp(world,nation):
-    key = world.get_filtered_chord(t=['plain','mountain','forrest'],
+def spawn_feature(world,feature):
+    key = world.get_filtered_chord(t=['plain','mountain','forest'],
                                    n=example_nation.name,
                                    r='key')
+    word.df_features.loc[key,'feature'] = feature
     
     
     
