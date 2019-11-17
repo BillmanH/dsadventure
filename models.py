@@ -37,4 +37,23 @@ class bestiary(models.Model):
     xp = models.IntegerField()
 
 
+class buildings(models.Model):
+    key = models.CharField(max_length=100,primary_key=True)
+    name = models.CharField(max_length=100)
+    shape = models.CharField(max_length=50,default='rect')
+    door = models.CharField(max_length=50,default='open')
+    guards = models.CharField(max_length=50,default='none')
+    messages = models.CharField(max_length=250,default='welcome **name**')
+
+class events(models.Model):
+    key = models.CharField(max_length=100,primary_key=True)
+    n_subjects = models.IntegerField()
+    n_objects = models.IntegerField()
+    event = models.CharField(max_length=250)
+    effect_var = models.CharField(max_length=50,default='favor')
+    effect = models.DecimalField(max_digits=10, decimal_places=2)
+    message = models.CharField(max_length=250)
+    message_given = models.CharField(max_length=250)
+
+
 
