@@ -50,7 +50,8 @@ def add_chaos_to_world(world):
                                     )
     return world
 
-def implement_event_changes(world,a,o):
-    pass
 
+key = world.get_filtered_chord(t=['plain','mountain','forest'],
+                                   n=example_nation.name,
+                                   r='key')
     

@@ -165,18 +165,23 @@ class World:
         coord = [x,y]
         return np.array(coord)
     
-    def get_filtered_chord(self,t=None,n=None,r='coord'):
+    def get_filtered_chord(self,t=None,f=None,n=None,r='coord'):
         """
         t = must be an list of acceptable land types
+        f = feature (if left at None it will only search NA values)
         n = must ba a nation
         r = 'coord' or 'key'
-        will return a coord that meets filtered criteria 
+        will return a key 'x:y' that meets filtered criteria 
         """
         df = self.df_features.copy()
         if n:
             df = df[df['nation']==n]
         if t:
             df = df[df['terrain'].isin(t)]
+        if f:
+            df = df[df['feature'].isin(t)]
+        if f==False:
+            df = df[df['feature'].isnull()]
         else:
             df = self.df_features
         key = np.random.choice(df.index.tolist())
