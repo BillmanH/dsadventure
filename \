@@ -124,9 +124,9 @@ def place_building(a,o,event):
         t.add_building(event.key)
     return ''
 
-def place_feature(world,a,o,event):
+def place_feature(world,a,o,feature,amount):
     for n in a:
         key = world.get_filtered_chord(n=n.name,r='key')
-        world.df_features.loc[key,'feature'] = event.key
+        world.df_features.loc[key,'feature'] = 
         #TODO do something with e (effect amount)
         return world.df_features.loc[key,'terrain']

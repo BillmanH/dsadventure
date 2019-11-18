@@ -62,9 +62,12 @@ class Town:
             print(town.nation)
             
     def set_starting_fielty(self,world):
-            self.diplomacy['nation'] = world.df_features.loc[world.df_features['feature']==self.name,'nation'].values[0]
-            self.diplomacy['national fealty'] = world.culture.town_national_fielty
-            self.nation = self.diplomacy['nation']
+        self.diplomacy['nation'] = world.df_features.loc[world.df_features['feature']==self.name,'nation'].values[0]
+        self.diplomacy['national fealty'] = world.culture.town_national_fielty
+        self.nation = self.diplomacy['nation']
+
+    def add_building(self,b):
+        self.buildings.append(b)
 
 def keyChord(key):
     '''
