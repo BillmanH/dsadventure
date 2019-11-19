@@ -1,1 +1,2 @@
-{% extends 'game/core/terrain/render_scatter.js' %}
+{% extends 'game/core/terrain/render_snake.js' %}
+
