@@ -7,6 +7,7 @@ class terrain_items(models.Model):
     borderhex = models.CharField(max_length=50,default='#000000')
     size = models.IntegerField()
     spread = models.CharField(max_length=50)
+    spread_radius = models.IntegerField() 
     affect = models.CharField(max_length=50)
     size = models.IntegerField()
     affectText = models.CharField(max_length=250)

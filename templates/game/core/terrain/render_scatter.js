@@ -3,7 +3,7 @@ console.log({{ t|safe }})
 ti = {{ t.texture|safe }}
 //take imput paramerter from t and create an array of data objets for D3.
 function get_data_{{ t.texture.name|safe }}(){
-    scatter_spread = 8
+    scatter_spread = {{ t.texture.spread_radius|safe }}
     data = []
     for(j=0;j<{{ t.detail.abundance }}; j++){
     children = []
