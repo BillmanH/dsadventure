@@ -12,6 +12,7 @@ class Person:
         self.temperment = np.round_(np.random.random_sample(),2)        
         self.setLoyaltytoCrown()
         self.attributes = ['alive']
+        self.messages = ['Hello stranger.']
 
     def __repr__(self):
         return f"{self.name} the {self.role}"
@@ -21,10 +22,18 @@ class Person:
             'role':self.role,
             'loyalty':self.loyalty,
             'temperment':self.temperment,
-            'attributes':self.attributes}
+            'attributes':self.attributes,
+            'messages':self.messages}
         return d
     
     def setLoyaltytoCrown(self):
         if 'ruler' in self.role:
             self.loyalty = 1
-            
+    
+    def add_message(self,m):
+        self.messages.append(m)
+
+    def remove_message(self,m):
+        self.messages = [i for i in self.messages if m not in i]
+
+

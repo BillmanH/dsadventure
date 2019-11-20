@@ -17,6 +17,12 @@ class Events():
         else:
             self.events_df = pd.read_csv('game/lib/Datasets/events.csv',index_col=0)
 
+def give_message(message,world,event,a,o,t):
+    if event.message_given == 'a':
+        pass
+    pass
+
+
 def event_results(e,world,nations):
     choice = np.random.choice(get_possible_events())
     event = get_event(choice)
@@ -39,10 +45,14 @@ def event_results(e,world,nations):
         t = nations.place_feature(world,a,o,event)
     if event.effect_var == 'buildings':
         t = nations.place_building(a,o,event)
-    text = (str(e) + ': ' +event.event.replace('{o}',str(o))
-                                        .replace('{a}',str(a))
-                                        .replace('{t}',str(t))
-                                        ) 
+    def str_munge(x): 
+        return (x.replace('{o}',str(o))
+                .replace('{a}',str(a))
+                .replace('{t}',str(t))
+                ) 
+    text = str(e) + ': ' + str_munge(event.event)
+    message = str_munge(event.message)
+    give_message(message,world,event,a,o,t)
     return text
 
 #now to run through the eons and let fate happen
