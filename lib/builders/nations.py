@@ -79,6 +79,7 @@ class Nation:
         t = self.getCapitol_str(self.towns)
         self.ruler = person(f'ruler of {self.name}',t)
 
+
 # Politics !!
 treaties = pd.DataFrame([['sworn enemies',0],
            ['war',.1],

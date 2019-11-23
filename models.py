@@ -53,8 +53,8 @@ class events(models.Model):
     event = models.CharField(max_length=250)
     effect_var = models.CharField(max_length=50,default='favor')
     effect = models.DecimalField(max_digits=10, decimal_places=2)
-    message = models.CharField(max_length=250)
-    message_given = models.CharField(max_length=250)
+    a_message = models.CharField(max_length=250)
+    o_message = models.CharField(max_length=250)
 
 
 

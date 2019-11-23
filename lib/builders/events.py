@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 
 from game.models import events
+from game.lib.builders import nations
 
 def get_possible_events():
     return [str(i[0]) for i in events.objects.values_list('key')]
@@ -17,13 +18,28 @@ class Events():
         else:
             self.events_df = pd.read_csv('game/lib/Datasets/events.csv',index_col=0)
 
-def give_message(message,world,event,a,o,t):
-    if event.message_given == 'a':
-        pass
-    pass
+def str_munge(x,a,o,t):
+        return (x.replace('{o}',str(o))
+                .replace('{a}',str(a))
+                .replace('{t}',str(t))
+                ) 
 
+def give_message(world,event,a,o,t):
+    """
+    where
+        message - the text string to be delivered
+        a - the nation that is the subject (originator) of the event
+        o - the nation that is the object (reciever) of the event
+    """
+    for i in a:
+        for town in i.towns:
+            [p.add_message(str_munge(event.a_message, a,o,t)) for p in town.population]
+    for i in o:
+        for town in i.towns:
+            [p.add_message(str_munge(event.a_message, a,o,t)) for p in town.population]
+        
 
-def event_results(e,world,nations):
+def event_results(e,world):
     choice = np.random.choice(get_possible_events())
     event = get_event(choice)
     #QA step, if the event calls for more subjects than there are nations
@@ -45,22 +61,16 @@ def event_results(e,world,nations):
         t = nations.place_feature(world,a,o,event)
     if event.effect_var == 'buildings':
         t = nations.place_building(a,o,event)
-    def str_munge(x): 
-        return (x.replace('{o}',str(o))
-                .replace('{a}',str(a))
-                .replace('{t}',str(t))
-                ) 
-    text = str(e) + ': ' + str_munge(event.event)
-    message = str_munge(event.message)
-    give_message(message,world,event,a,o,t)
+    text = str(e) + ': ' + str_munge(event.event,a,o,t)
+    give_message(world,event,a,o,t)
     return text
 
 #now to run through the eons and let fate happen
-def pass_through_time(world,events,nations):
+def pass_through_time(world,events):
     all_events = []
     for e in range(world.culture.eons):
         if np.random.random_sample()<world.culture.chaos:
-            all_events.append(event_results(e,world,nations))
+            all_events.append(event_results(e,world))
         else:
             all_events.append(f'{e}: nothing happend during this period.')
     return all_events
@@ -71,7 +81,5 @@ def add_chaos_to_world(world):
                                     )
     return world
 
-def implement_event_changes(world,a,o):
-    pass
 
     
