@@ -41,10 +41,12 @@ function objectAlerts(subject,message,color="#000000",bg="white"){
         .ease(d3.easeExpOut)
         .duration(1500)
         .style("top", ny +"px").style("left",nx +"px")
+    if(message.length<30){
     objectAlert.transition()
         .duration(1000)
         .style("opacity", 0)
         .remove()
         .on("end", function(){n_messages-=1});
+       }
 }
 

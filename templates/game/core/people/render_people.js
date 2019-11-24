@@ -24,6 +24,7 @@ canvas.selectAll(".people")
                     .attr("r",5)
                     .style("fill","#778899")
                     .style("stroke","black")
+                    .attr("messages",function(d){return d.messages})
                     .on("mouseover", function(d){
                         return terrain_tooltip.style("visibility", "visible")
                             .html(d.name+", "+d.role);
