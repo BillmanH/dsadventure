@@ -51,11 +51,11 @@ def core_view(request):
         world.df_features.loc[context['old_location'],'aware'] = 1
         world.df_features.loc[context['old_location'],'turn_last_visited'] = world.Character.turn_number
         b.save_world(world,request.user.get_username())
-        #with the updated world, populate the context
     if "GET" == request.method:
         #world objects come from pickles, loaded from s3
         world = b.get_world(request.user.get_username())
-    context['worlds_visited'] = world.df_features['visited'].sum()
+    #with the updated world, populate the context
+    context['areas_visited'] = world.df_features['visited'].sum()
     #in bost POST(traveling) or GET(loading) the context is populated in the same way.
     context['charData'] = world.Character.get_charData()
     if 'old_location' in context.keys():
