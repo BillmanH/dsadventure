@@ -5,12 +5,18 @@ ti = {{ t.texture|safe }}
 function get_data_{{ t.texture.name|safe }}(){
     scatter_spread = {{ t.texture.spread_radius|safe }}
     data = []
-    for(j=0;j<{{ t.detail.abundance }}; j++){
+    tabundance =  {{ t.detail.abundance }}
+    if(ti.abundance_affected_by == 'elevation'){tabundance+=terrData.elevation}
+    if(ti.abundance_affected_by == 'rainfall'){tabundance+=terrData.rainfall}
+    for(j=0;j< tabundance ; j++){
     children = []
     cord = get_rnd_coord()
     direction = get_pos_neg(randBetween(-1,1)
                             ,randBetween(-1,1))
-        for (i=0;i< {{ t.detail.density}};i++) {
+    tdensity = {{ t.detail.density }}
+    if(ti.density_affected_by == 'elevation'){tdensity+=terrData.elevation}
+    if(ti.density_affected_by == 'rainfall'){tdensity+=terrData.rainfall}
+        for (i=0;i< tdensity ;i++) {
             ti.spawnOrigin_x = cord[0] + (randBetween(0,scatter_spread)*direction[0])
             ti.spawnOrigin_y = cord[1] + (randBetween(0,scatter_spread)*direction[1])
             cord[0] = ti.spawnOrigin_x

@@ -2,6 +2,8 @@ console.log({{ t|safe }})
 
 ti = {{ t.texture|safe }}
 //take imput paramerter from t and create an array of data objets for D3.
+
+//NOTE changes to density and abundance caused by pop and age are taken care of in lib.towns.modify_context()
 function get_data_{{ t.texture.name|safe }}(){
     scatter_spread = {{ t.texture.size }}
     data = []
