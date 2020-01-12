@@ -4,6 +4,16 @@ function popvalues(a,m){
     return a
 }
 
+//for tooltips, convert a dict to HTML
+function dictToHtml(d){
+    html = ""
+    for(var k in d){
+      html+=k+": "+d[k]+"<br>"
+    }
+    return html
+}
+
+
 //returns [-1,1]  for multiplying with other coordinates and determine direction.
 function get_pos_neg(x,y){
     nx = x/Math.abs(x)

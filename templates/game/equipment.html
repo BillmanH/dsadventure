@@ -3,16 +3,34 @@
     <head>
     <title>Stats and Equipment</title>
     {% include "prodweb/gatag.html" %}
+    <script>
+    {% include "game/core/globalFunctions.js" %}
+    </script>
     <link rel="stylesheet" type="text/css" href="{% static 'game/forms.css' %}">
     <script type="text/javascript" src="{% static 'prodweb/d3.js' %}"></script>
     </head>
     <body>
-        <p>{{ "Character "|add:charData.name }}</p>
-        <p>{{ "Title "|add:charData.title }}</p>
-        <p>{{ "Location "|add:charData.location }}</p>
-    <script>
+        <p>{{ "Character: "|add:charData.name }}</p>
+        <p>{{ "Title: "|add:charData.title }}</p>
+        <p>{{ "Location: "|add:charData.location }}</p>
+        <div clas="title">Weapons</div>
+        <div class="weaponScreen"></div>
+        <script>
+
+            var eq_tooltip = d3.select("body")
+                .append("div")
+                .attr("id", "eq-info")                
+                .style("position", "absolute")
+                .style("z-index", "10")
+                .style("visibility", "hidden")
+                .style("background-color", 'white')
+                .html("This will be the EQ data");
+
+
        {% include "game/player/weapons.js" with weapons=charData.equipment.weapons %} 
-    </script>
+        var charData = {{ charData | safe }}
+
+        </script>
     
     </body>
 
