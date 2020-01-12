@@ -52,6 +52,7 @@
                 .attr("composure", charData["composure"])
         .style("z-index", "9")
                 .on("mouseover", function(){
+                    char_tooltip.html(dictToHtml(charData))
                     char_tooltip.style("visibility", "visible");
                     })
                 .on("mousemove", function(){
