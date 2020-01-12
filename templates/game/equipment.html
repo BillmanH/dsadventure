@@ -3,13 +3,14 @@
     <head>
     <title>Stats and Equipment</title>
     {% include "prodweb/gatag.html" %}
-    <script>
-    {% include "game/core/globalFunctions.js" %}
-    </script>
     <link rel="stylesheet" type="text/css" href="{% static 'game/forms.css' %}">
     <script type="text/javascript" src="{% static 'prodweb/d3.js' %}"></script>
     </head>
     <body>
+    <script>
+    {% include "game/core/globalFunctions.js" %}
+    </script>
+ 
         <p>{{ "Character: "|add:charData.name }}</p>
         <p>{{ "Title: "|add:charData.title }}</p>
         <p>{{ "Location: "|add:charData.location }}</p>
