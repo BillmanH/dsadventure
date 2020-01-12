@@ -33,13 +33,11 @@ monster_group.selectAll()
                     .style("fill",function(d){return d.color})
                     .attr("stroke","black")
                     .on("mouseover", function(d){
+                        terrain_tooltip.html(dictToHtml(d3.select(this).datum()))
                         return terrain_tooltip.style("visibility", "visible")
-                            .html(d.name);
                         })
                     .on("mousemove", function(d){
                             return terrain_tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px")
-                        .html(d.name+"</br>"+
-                              d.health);
                         })
                     .on("mouseout", function(){
                         return terrain_tooltip.style("visibility", "hidden");

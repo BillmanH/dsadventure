@@ -27,11 +27,10 @@ canvas.selectAll(".people")
                     .attr("messages",function(d){return d.messages})
                     .on("mouseover", function(d){
                         return terrain_tooltip.style("visibility", "visible")
-                            .html(d.name+", "+d.role);
+                            .html(dictToHtml(d3.select(this).datum()));
                         })
                     .on("mousemove", function(d){
                             return terrain_tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px")
-                        .html(d.name+", "+d.role);
                         })
                     .on("mouseout", function(){
                         return terrain_tooltip.style("visibility", "hidden");
