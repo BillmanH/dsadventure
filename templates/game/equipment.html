@@ -14,8 +14,10 @@
         <p>{{ "Character: "|add:charData.name }}</p>
         <p>{{ "Title: "|add:charData.title }}</p>
         <p>{{ "Location: "|add:charData.location }}</p>
-        <div clas="title">Weapons</div>
+        <div class="title">Weapons</div>
         <div class="weaponScreen"></div>
+        <div class="title">Equipment</div>
+        <div class="equipScreen"></div>
         <script>
 
             var eq_tooltip = d3.select("body")
@@ -29,6 +31,7 @@
 
 
        {% include "game/player/weapons.js" with weapons=charData.equipment.weapons %} 
+       {% include "game/player/equipment.js" with equipment=charData.equipment %} 
         var charData = {{ charData | safe }}
 
         </script>

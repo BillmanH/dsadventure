@@ -13,7 +13,16 @@ var featureColors =
             "forest":"#228b22",
             "desert":"#edc9af"}
 
+var terrain_tooltip = d3.select("body")
+    .append("div")
+    .style("background-color", 'white')
+    .attr("id", "terrain-info")                
+    .style("position", "absolute")
+    .style("z-index", "10")
+    .style("visibility", "hidden")
+    .html("<p>Default Text</p>");
 
+{% include "game/core/globalFunctions.js" %}
 </script>
 <style>
    rect.bordered {
@@ -104,16 +113,23 @@ var featureColors =
            .attr("height", gridSize)
            .style("fill", mountainColors[0])
            .attr("class", "square")
-   
-       heatMap.transition()
-    .style("fill", function(d) { if(d['character']=='here'){return "#FFFF00"} else {return featureColors[d['terrain']];} });
-   
-       heatMap.append("title").text(function(d) { 
-           if(d['character']=='here'){return d['terrain']+ ", You are here"}
-                else if(d['terrain']=='ocean'){return d['terrain']}
-                else if(d['terrain']=='town'){return d['feature']+" , nation of "+d['nation']}
-                else{return d['terrain']+" , nation of "+d['nation']} 
-        })        
+           .style("fill", function(d) { if(d['character']=='here'){return "#FFFF00"} else {return featureColors[d['terrain']];} })
+                    .on("mouseover", function(d){
+                                                terrain_tooltip.html(dictToHtml(d3.select(this).datum()))
+                                                return terrain_tooltip.style("visibility", "visible")
+                                                })
+                    .on("mousemove", function(d){
+                                                    return terrain_tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px")
+                                                })
+                    .on("mouseout", function(){
+                                                return terrain_tooltip.style("visibility", "hidden");
+                                            })
+                    .on("click", function(d){
+                                                console.log(this,d);
+                                            })
+
+ 
+
     
    d3.select("#terrain").on("click", 
         function (d) {
