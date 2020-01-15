@@ -32,8 +32,8 @@
             .html("This will be the EQ data");
 
 
-        {% include "game/player/weapons.js" with weapons = charData.equipment.weapons %}
-        {% include "game/player/equipment.js" with equipment = charData.equipment %}
+        {% include "game/player/weapons.js" with weapons=charData.equipment.weapons %}
+        {% include "game/player/equipment.js" with equipment=charData.equipment %}
         var charData = {{ charData | safe }}
 
     </script>
