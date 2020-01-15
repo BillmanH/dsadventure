@@ -1,151 +1,157 @@
 <script>
-    var charData = {{ charData|safe }}
-    var df_features = {{ df_features|safe }} 
-    var dim_1 = {{ dim_1|safe }} 
-    var dim_2 = {{ dim_2|safe }} 
+    var charData = {{ charData| safe }}
+    var df_features = {{ df_features| safe }}
+    var dim_1 = {{ dim_1| safe }}
+    var dim_2 = {{ dim_2| safe }}
 
-var featureColors = 
-        {"plain":"#b2aa9d",
-            "town":"#435265",
-            "unkown":"000000",
-            "mountain":"#977c53",
-            "ocean":"#0077be",
-            "forest":"#228b22",
-            "desert":"#edc9af"}
+    var featureColors =
+    {
+        "plain": "#b2aa9d",
+        "town": "#435265",
+        "unkown": "000000",
+        "mountain": "#977c53",
+        "ocean": "#0077be",
+        "forest": "#228b22",
+        "desert": "#edc9af"
+    }
 
-var terrain_tooltip = d3.select("body")
-    .append("div")
-    .style("background-color", 'white')
-    .attr("id", "terrain-info")                
-    .style("position", "absolute")
-    .style("z-index", "10")
-    .style("visibility", "hidden")
-    .html("<p>Default Text</p>");
+    var terrain_tooltip = d3.select("body")
+        .append("div")
+        .style("background-color", 'white')
+        .attr("id", "terrain-info")
+        .style("position", "absolute")
+        .style("z-index", "10")
+        .style("visibility", "hidden")
+        .html("<p>Default Text</p>");
 
-{% include "game/core/globalFunctions.js" %}
+    {% include "game/core/globalFunctions.js" %}
 </script>
 <style>
-   rect.bordered {
-   stroke: #bbb;
-   stroke-width:1px;   
-   }
-   text.mono {
-   font-size: 9pt;
-   font-family: verdana;
-   fill: #aaa;
-   }
-   text.mono:hover {
-   font-size: 12pt;
-   font-family: verdana;
-   fill: #aaa;
-   font-weight: bold;
-   }
-   .square {
-   opacity: 0.9;
-   }
-   .square:hover {
-   opacity: 1.0;
-   }
-   .d3-tip {
-   font-family: Verdana;
-   background: rgba(0, 0, 0, 0.8);
-   padding: 8px;
-   color: #fff; 
-   z-index: 5070;
-   }
+    rect.bordered {
+        stroke: #bbb;
+        stroke-width: 1px;
+    }
+
+    text.mono {
+        font-size: 9pt;
+        font-family: verdana;
+        fill: #aaa;
+    }
+
+    text.mono:hover {
+        font-size: 12pt;
+        font-family: verdana;
+        fill: #aaa;
+        font-weight: bold;
+    }
+
+    .square {
+        opacity: 0.9;
+    }
+
+    .square:hover {
+        opacity: 1.0;
+    }
+
+    .d3-tip {
+        font-family: Verdana;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 8px;
+        color: #fff;
+        z-index: 5070;
+    }
 </style>
 
 <script type="text/javascript">
     var maxNum = dim_1.length
     var buckets = dim_1.length
-    
+
     var margin = { top: 50, right: 0, bottom: 100, left: 30 },
         width = 960 - margin.left - margin.right,
         height = 1500 - margin.top - margin.bottom,
         gridSize = Math.floor(width / buckets),
-        legendWidth = (gridSize/2 + 4)
-   
+        legendWidth = (gridSize / 2 + 4)
+
     var svg = d3.select("#svg").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    var mountainColors = ['#ecca96','#e9b97a','#e4a865','#dc9856','#d18954','#c7784c','#c0673f','#b85536','#ad4433'] 
-    var waterColors = ['#bed8ec','#a8cee5','#8fc1de','#74b2d7','#5ba3cf','#4592c6','#3181bd','#206fb2','#125ca4'] 
-    var dangerColors = ['#bed8ec','#a8cee5','#8fc1de','#74b2d7','#5ba3cf','#4592c6','#3181bd','#206fb2','#125ca4'] 
-    
-    var mountainScale = d3.scaleLinear().range(mountainColors).domain([d3.min(df_features,function(d){return d.elevation})
-                                                                    ,d3.max(df_features,function(d){return d.elevation})]); 
-    var dangerScale = d3.scaleLinear().range(mountainColors).domain([d3.min(df_features,function(d){return d.danger})
-                                                                    ,d3.max(df_features,function(d){return d.danger})]); 
-    var waterScale = d3.scaleLinear().range(waterColors).domain([d3.min(df_features,function(d){return d.rainfall})
-                                                                    ,d3.max(df_features,function(d){return d.rainfall})]); 
-                        
+    var mountainColors = ['#ecca96', '#e9b97a', '#e4a865', '#dc9856', '#d18954', '#c7784c', '#c0673f', '#b85536', '#ad4433']
+    var waterColors = ['#bed8ec', '#a8cee5', '#8fc1de', '#74b2d7', '#5ba3cf', '#4592c6', '#3181bd', '#206fb2', '#125ca4']
+    var dangerColors = ['#bed8ec', '#a8cee5', '#8fc1de', '#74b2d7', '#5ba3cf', '#4592c6', '#3181bd', '#206fb2', '#125ca4']
+
+    var mountainScale = d3.scaleLinear().range(mountainColors).domain([d3.min(df_features, function (d) { return d.elevation })
+        , d3.max(df_features, function (d) { return d.elevation })]);
+    var dangerScale = d3.scaleLinear().range(mountainColors).domain([d3.min(df_features, function (d) { return d.danger })
+        , d3.max(df_features, function (d) { return d.danger })]);
+    var waterScale = d3.scaleLinear().range(waterColors).domain([d3.min(df_features, function (d) { return d.rainfall })
+        , d3.max(df_features, function (d) { return d.rainfall })]);
+
     var dim1Labels = svg.selectAll(".dim1Label")
-       .data(dim_1)
-       .enter().append("text")
-       .text(function (d) { return d; })
-             .attr("x", 0)
-             .attr("y", function (d, i) { return i * gridSize; })
-             .style("text-anchor", "end")
-             .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
-             .attr("class","mono");
-   
-       var dim2Labels = svg.selectAll(".dim2Label")
-           .data(dim_2)
-           .enter().append("text")
-             .text(function(d) { return d; })
-             .attr("x", function(d, i) { return i * gridSize; })
-             .attr("y", 0)
-             .style("text-anchor", "middle")
-             .attr("transform", "translate(" + gridSize / 2 + ", -6)")
-             .attr("class","mono");
-   
-       var heatMap = svg.selectAll(".dim2")
-           .data(df_features)
-           .enter().append("rect")
-           .attr("x", function(d) { return (d.x) * gridSize; })
-           .attr("y", function(d) { return (d.y) * gridSize; })
-           .attr("rx", 4)
-           .attr("ry", 4)
-           .attr("class", "dim2 bordered")
-           .attr("width", gridSize)
-           .attr("height", gridSize)
-           .style("fill", mountainColors[0])
-           .attr("class", "square")
-           .style("fill", function(d) { if(d['character']=='here'){return "#FFFF00"} else {return featureColors[d['terrain']];} })
-                    .on("mouseover", function(d){
-                                                terrain_tooltip.html(dictToHtml(d3.select(this).datum()))
-                                                return terrain_tooltip.style("visibility", "visible")
-                                                })
-                    .on("mousemove", function(d){
-                                                    return terrain_tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px")
-                                                })
-                    .on("mouseout", function(){
-                                                return terrain_tooltip.style("visibility", "hidden");
-                                            })
-                    .on("click", function(d){
-                                                console.log(this,d);
-                                            })
+        .data(dim_1)
+        .enter().append("text")
+        .text(function (d) { return d; })
+        .attr("x", 0)
+        .attr("y", function (d, i) { return i * gridSize; })
+        .style("text-anchor", "end")
+        .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
+        .attr("class", "mono");
 
- 
+    var dim2Labels = svg.selectAll(".dim2Label")
+        .data(dim_2)
+        .enter().append("text")
+        .text(function (d) { return d; })
+        .attr("x", function (d, i) { return i * gridSize; })
+        .attr("y", 0)
+        .style("text-anchor", "middle")
+        .attr("transform", "translate(" + gridSize / 2 + ", -6)")
+        .attr("class", "mono");
 
-    
-   d3.select("#terrain").on("click", 
+    var heatMap = svg.selectAll(".dim2")
+        .data(df_features)
+        .enter().append("rect")
+        .attr("x", function (d) { return (d.x) * gridSize; })
+        .attr("y", function (d) { return (d.y) * gridSize; })
+        .attr("rx", 4)
+        .attr("ry", 4)
+        .attr("class", "dim2 bordered")
+        .attr("width", gridSize)
+        .attr("height", gridSize)
+        .style("fill", mountainColors[0])
+        .attr("class", "square")
+        .style("fill", function (d) { if (d['character'] == 'here') { return "#FFFF00" } else { return featureColors[d['terrain']]; } })
+        .on("mouseover", function (d) {
+            terrain_tooltip.html(dictToHtml(d3.select(this).datum()))
+            return terrain_tooltip.style("visibility", "visible")
+        })
+        .on("mousemove", function (d) {
+            return terrain_tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px")
+        })
+        .on("mouseout", function () {
+            return terrain_tooltip.style("visibility", "hidden");
+        })
+        .on("click", function (d) {
+            console.log(this, d);
+        })
+
+
+
+
+    d3.select("#terrain").on("click",
         function (d) {
             heatMap.transition()
-            .style("fill", function(d) { return featureColors[d['terrain']]; })
+                .style("fill", function (d) { return featureColors[d['terrain']]; })
         }
-   );
+    );
 
-  d3.select("#danger").on("click", 
+    d3.select("#danger").on("click",
         function (d) {
             heatMap.transition()
-                .style("fill", function(d) {if(d['terrain']=='unknown'){return "00000"}else{return dangerScale(d['danger']*10) }})
+                .style("fill", function (d) { if (d['terrain'] == 'unknown') { return "00000" } else { return dangerScale(d['danger'] * 10) } })
         }
-   );
-  
-        {% include "game/charts/nationmaps.js" %}
+    );
+
+    {% include "game/charts/nationmaps.js" %}
 
 </script>
-

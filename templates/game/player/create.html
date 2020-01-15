@@ -1,40 +1,44 @@
 {% load static %}
 <html>
-    <head>
+
+<head>
     {% include "prodweb/gatag.html" %}
     <link rel="stylesheet" type="text/css" href="{% static 'game/forms.css' %}">
     <script type="text/javascript" src="{% static 'prodweb/d3.js' %}"></script>
-    </head>
-    <body>
-        <h1>Create a new character</h1>
+</head>
+
+<body>
+    <h1>Create a new character</h1>
     <form action="createcharacter" method="post">
         {% csrf_token %}
         {{ form.non_field_errors }}
-    <div class="fieldWrapper">
-        {{ form.name.errors }}
-        <label for="{{ form.name.id_for_label }}">Your character's name?</label>
-        {{ form.name }}
-    </div>
+        <div class="fieldWrapper">
+            {{ form.name.errors }}
+            <label for="{{ form.name.id_for_label }}">Your character's name?</label>
+            {{ form.name }}
+        </div>
 
-    <div class="fieldWrapper">
-        {{ form.background.errors }}
-        <label for="{{ form.background.id_for_label }}">Your background determines where and how your story begins:</label>
-        {{ form.background }}
-    </div>
+        <div class="fieldWrapper">
+            {{ form.background.errors }}
+            <label for="{{ form.background.id_for_label }}">Your background determines where and how your story
+                begins:</label>
+            {{ form.background }}
+        </div>
 
-    <div class="fieldWrapper">
-        {{ form.coreskills.errors }}
-        <label for="{{ form.coreskills.id_for_label }}">Core skills reflect how you will get out of most situations:</label>
-        {{ form.coreskills }}
-    </div>
+        <div class="fieldWrapper">
+            {{ form.coreskills.errors }}
+            <label for="{{ form.coreskills.id_for_label }}">Core skills reflect how you will get out of most
+                situations:</label>
+            {{ form.coreskills }}
+        </div>
 
-    <div class="fieldWrapper">
-        {{ form.secondaryskills.errors }}
-        <label for="{{ form.secondaryskills.id_for_label }}">Secondary skills will give you some advantage:</label>
-        {{ form.secondaryskills }}
-    </div>
-    <input class="button-stack" type="submit" value="Submit">
+        <div class="fieldWrapper">
+            {{ form.secondaryskills.errors }}
+            <label for="{{ form.secondaryskills.id_for_label }}">Secondary skills will give you some advantage:</label>
+            {{ form.secondaryskills }}
+        </div>
+        <input class="button-stack" type="submit" value="Submit">
     </form>
-    </body>
-</html>
+</body>
 
+</html>

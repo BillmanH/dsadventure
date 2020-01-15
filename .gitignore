@@ -1,6 +1,9 @@
 #local world caches and other saved files
 pickles/*.pkl
 
+#visual studio junk
+.vscode/*
+
 #local pycs and other things
 *.pyc*
 __pycache__/*

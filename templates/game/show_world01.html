@@ -1,18 +1,20 @@
 {% load static %}
 <html>
-    <head>
+
+<head>
     {% include "prodweb/gatag.html" %}
     <link rel="stylesheet" type="text/css" href="{% static 'game/forms.css' %}">
     <script type="text/javascript" src="{% static 'prodweb/d3.js' %}"></script>
-    </head>
-    <body>
-        <p>Behold the world you have created</p>
-        <a class='button-stack' href='/game/createworld01'>delete and make annother</a>
-        <a class='button-stack' href='/game/createworld02'>save and continue to the next age</a>
-        <script>
-            var formData = {{ formData|safe }};
-        </script>
-    {% include "game/charts/heatmap.html" %}
-    </body>
-</html>
+</head>
 
+<body>
+    <p>Behold the world you have created</p>
+    <a class='button-stack' href='/game/createworld01'>delete and make annother</a>
+    <a class='button-stack' href='/game/createworld02'>save and continue to the next age</a>
+    <script>
+        var formData = {{ formData| safe }};
+    </script>
+    {% include "game/charts/heatmap.html" %}
+</body>
+
+</html>

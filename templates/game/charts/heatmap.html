@@ -1,142 +1,148 @@
 <script>
-var charData = {}
-var df_features = {{ df_features|safe }} 
-var dim_1 = {{ dim_1|safe }} 
-var dim_2 = {{ dim_2|safe }} 
+    var charData = {}
+    var df_features = {{ df_features| safe }}
+    var dim_1 = {{ dim_1| safe }}
+    var dim_2 = {{ dim_2| safe }}
 
-var featureColors = 
-        {"land":"#b2aa9d",
-         "plain":"#b2aa9d",
-            "mountain":"#977c53",
-            "ocean":"#0077be",
-            "forest":"#228b22",
-            "desert":"#edc9af"}
+    var featureColors =
+    {
+        "land": "#b2aa9d",
+        "plain": "#b2aa9d",
+        "mountain": "#977c53",
+        "ocean": "#0077be",
+        "forest": "#228b22",
+        "desert": "#edc9af"
+    }
 
 
 </script>
 <style>
-   rect.bordered {
-   stroke: #bbb;
-   stroke-width:3px;   
-   }
-   text.mono {
-   font-size: 9pt;
-   font-family: verdana;
-   fill: #aaa;
-   }
-   text.mono:hover {
-   font-size: 12pt;
-   font-family: verdana;
-   fill: #aaa;
-   font-weight: bold;
-   }
-   .square {
-   opacity: 0.9;
-   }
-   .square:hover {
-   opacity: 1.0;
-   }
-   .d3-tip {
-   font-family: Verdana;
-   background: rgba(0, 0, 0, 0.8);
-   padding: 8px;
-   color: #fff; 
-   z-index: 5070;
-   }
+    rect.bordered {
+        stroke: #bbb;
+        stroke-width: 3px;
+    }
+
+    text.mono {
+        font-size: 9pt;
+        font-family: verdana;
+        fill: #aaa;
+    }
+
+    text.mono:hover {
+        font-size: 12pt;
+        font-family: verdana;
+        fill: #aaa;
+        font-weight: bold;
+    }
+
+    .square {
+        opacity: 0.9;
+    }
+
+    .square:hover {
+        opacity: 1.0;
+    }
+
+    .d3-tip {
+        font-family: Verdana;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 8px;
+        color: #fff;
+        z-index: 5070;
+    }
 </style>
 <button type="button" id="elevation">elevation</button>
 <button type="button" id="rainfall">rainfall</button>
 <button type="button" id="terrain">terrain</button>
-   {% if phase == 2 %}
+{% if phase == 2 %}
 <button type="button" id="nations">nations</button>
-   {% endif %}
- 
+{% endif %}
+
 
 <script type="text/javascript">
     var maxNum = dim_1.length
     var buckets = dim_1.length
-    
+
     var margin = { top: 50, right: 0, bottom: 100, left: 30 },
         width = 960 - margin.left - margin.right,
         height = 1500 - margin.top - margin.bottom,
         gridSize = Math.floor(width / buckets),
-        legendWidth = (gridSize/2 + 4)
-   
+        legendWidth = (gridSize / 2 + 4)
+
     var svg = d3.select("body").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    var mountainColors = ['#ecca96','#e9b97a','#e4a865','#dc9856','#d18954','#c7784c','#c0673f','#b85536','#ad4433'] 
-    var waterColors = ['#bed8ec','#a8cee5','#8fc1de','#74b2d7','#5ba3cf','#4592c6','#3181bd','#206fb2','#125ca4'] 
-    
-    var mountainScale = d3.scaleLinear().range(mountainColors).domain([d3.min(df_features,function(d){return d.elevation})
-                                                                    ,d3.max(df_features,function(d){return d.elevation})]); 
-    var waterScale = d3.scaleLinear().range(waterColors).domain([d3.min(df_features,function(d){return d.rainfall})
-                                                                    ,d3.max(df_features,function(d){return d.rainfall})]); 
-                        
-    var dim1Labels = svg.selectAll(".dim1Label")
-       .data(dim_1)
-       .enter().append("text")
-       .text(function (d) { return d; })
-             .attr("x", 0)
-             .attr("y", function (d, i) { return i * gridSize; })
-             .style("text-anchor", "end")
-             .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
-             .attr("class","mono");
-   
-       var dim2Labels = svg.selectAll(".dim2Label")
-           .data(dim_2)
-           .enter().append("text")
-             .text(function(d) { return d; })
-             .attr("x", function(d, i) { return i * gridSize; })
-             .attr("y", 0)
-             .style("text-anchor", "middle")
-             .attr("transform", "translate(" + gridSize / 2 + ", -6)")
-             .attr("class","mono");
-   
-       var heatMap = svg.selectAll(".dim2")
-           .data(df_features)
-           .enter().append("rect")
-           .attr("x", function(d) { return (d.x) * gridSize; })
-           .attr("y", function(d) { return (d.y) * gridSize; })
-           .attr("rx", 4)
-           .attr("ry", 4)
-           .attr("class", "dim2 bordered")
-           .attr("width", gridSize)
-           .attr("height", gridSize)
-           .style("fill", mountainColors[0])
-           .attr("class", "square")
-   
-       heatMap.transition()
-           .style("fill", function(d) { return featureColors[d['terrain']]; });
-   
-       heatMap.append("title").text(function(d) { return d['terrain']; });
-   
-   d3.select("#elevation").on("click", 
-   function (d) {
-   heatMap.transition()
-           .style("fill", function(d) { return mountainScale(d['elevation']*10)})
-            }
-        );       
-   
-   d3.select("#rainfall").on("click", 
-        function (d) {
-            heatMap.transition()
-            .style("fill", function(d) { return waterScale(d['rainfall']*10) })
-        }
-   );
-   
-    
-   d3.select("#terrain").on("click", 
-        function (d) {
-            heatMap.transition()
-            .style("fill", function(d) { return featureColors[d['terrain']]; })
-        }
-   );
-    {% if phase == 2 %}
-        {% include "game/charts/nationmaps.js" %}
-    {% endif %}
- 
-</script>
+    var mountainColors = ['#ecca96', '#e9b97a', '#e4a865', '#dc9856', '#d18954', '#c7784c', '#c0673f', '#b85536', '#ad4433']
+    var waterColors = ['#bed8ec', '#a8cee5', '#8fc1de', '#74b2d7', '#5ba3cf', '#4592c6', '#3181bd', '#206fb2', '#125ca4']
 
+    var mountainScale = d3.scaleLinear().range(mountainColors).domain([d3.min(df_features, function (d) { return d.elevation })
+        , d3.max(df_features, function (d) { return d.elevation })]);
+    var waterScale = d3.scaleLinear().range(waterColors).domain([d3.min(df_features, function (d) { return d.rainfall })
+        , d3.max(df_features, function (d) { return d.rainfall })]);
+
+    var dim1Labels = svg.selectAll(".dim1Label")
+        .data(dim_1)
+        .enter().append("text")
+        .text(function (d) { return d; })
+        .attr("x", 0)
+        .attr("y", function (d, i) { return i * gridSize; })
+        .style("text-anchor", "end")
+        .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
+        .attr("class", "mono");
+
+    var dim2Labels = svg.selectAll(".dim2Label")
+        .data(dim_2)
+        .enter().append("text")
+        .text(function (d) { return d; })
+        .attr("x", function (d, i) { return i * gridSize; })
+        .attr("y", 0)
+        .style("text-anchor", "middle")
+        .attr("transform", "translate(" + gridSize / 2 + ", -6)")
+        .attr("class", "mono");
+
+    var heatMap = svg.selectAll(".dim2")
+        .data(df_features)
+        .enter().append("rect")
+        .attr("x", function (d) { return (d.x) * gridSize; })
+        .attr("y", function (d) { return (d.y) * gridSize; })
+        .attr("rx", 4)
+        .attr("ry", 4)
+        .attr("class", "dim2 bordered")
+        .attr("width", gridSize)
+        .attr("height", gridSize)
+        .style("fill", mountainColors[0])
+        .attr("class", "square")
+
+    heatMap.transition()
+        .style("fill", function (d) { return featureColors[d['terrain']]; });
+
+    heatMap.append("title").text(function (d) { return d['terrain']; });
+
+    d3.select("#elevation").on("click",
+        function (d) {
+            heatMap.transition()
+                .style("fill", function (d) { return mountainScale(d['elevation'] * 10) })
+        }
+    );
+
+    d3.select("#rainfall").on("click",
+        function (d) {
+            heatMap.transition()
+                .style("fill", function (d) { return waterScale(d['rainfall'] * 10) })
+        }
+    );
+
+
+    d3.select("#terrain").on("click",
+        function (d) {
+            heatMap.transition()
+                .style("fill", function (d) { return featureColors[d['terrain']]; })
+        }
+    );
+    {% if phase == 2 %}
+    {% include "game/charts/nationmaps.js" %}
+    {% endif %}
+
+</script>

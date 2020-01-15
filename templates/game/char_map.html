@@ -1,18 +1,20 @@
 {% load static %}
 <html>
-    <head>
+
+<head>
     <title>Map</title>
     {% include "prodweb/gatag.html" %}
     <link rel="stylesheet" type="text/css" href="{% static 'game/forms.css' %}">
     <script type="text/javascript" src="{% static 'prodweb/d3.js' %}"></script>
-    </head>
-    <body>
-        <p>The world as you know it.</p>
-        <button type="button" id="terrain">terrain</button>
-        <button type="button" id="nations">nations</button>
-        <button type="button" id="danger">danger</button>
+</head>
+
+<body>
+    <p>The world as you know it.</p>
+    <button type="button" id="terrain">terrain</button>
+    <button type="button" id="nations">nations</button>
+    <button type="button" id="danger">danger</button>
     <div id='svg'></div>
     {% include "game/charts/charmap.html" %}
-    </body>
-</html>
+</body>
 
+</html>

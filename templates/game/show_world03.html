@@ -1,30 +1,32 @@
 {% load static %}
 <html>
-    <head>
+
+<head>
     {% include "prodweb/gatag.html" %}
     <link rel="stylesheet" type="text/css" href="{% static 'game/forms.css' %}">
     <script type="text/javascript" src="{% static 'prodweb/d3.js' %}"></script>
-    </head>
-    <body>
-        <p>An age of prosperity was followed by an age of chaos and transformation</p>
-        <a class='button-stack' href='/game/createcharacter'>And yet, we know little about you. Tell us about yourself.</a>
-        <a class='button-stack' href='/game/createworld01'>discard this world and return to the forge</a>
-        <script>
-            
-        </script>
-        <h1>These are the events that happened before you began your quest</h1>
+</head>
+
+<body>
+    <p>An age of prosperity was followed by an age of chaos and transformation</p>
+    <a class='button-stack' href='/game/createcharacter'>And yet, we know little about you. Tell us about yourself.</a>
+    <a class='button-stack' href='/game/createworld01'>discard this world and return to the forge</a>
+    <script>
+
+    </script>
+    <h1>These are the events that happened before you began your quest</h1>
     <div class="infobox">
 
-    {% for event in events %}
+        {% for event in events %}
         <p class="nation events">{{ event }}</p>
-    {% endfor %}
+        {% endfor %}
     </div>
     <h1>These are the rulers of the realms</h1>
     <div>
         {% for person in rulers %}
-            <p class="nation person">{{ person }}</p>
+        <p class="nation person">{{ person }}</p>
         {% endfor %}
     </div>
-    </body>
-</html>
+</body>
 
+</html>
