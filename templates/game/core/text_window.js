@@ -20,7 +20,7 @@ n_messages = 0
 
 //objectAlerts takes an object (like the char) and sends out a quick text
 //accepts an object 'this' or playerChar or a class or id
-function objectAlerts(subject, message, color = "#000000", bg = "white") {
+function objectAlerts(subject, message, color = "#000000", bg = "white", decay = 1000) {
     subj = d3.select(subject);
     x = subj.attr("cx");
     y = subj.attr("cy");
@@ -40,13 +40,12 @@ function objectAlerts(subject, message, color = "#000000", bg = "white") {
         .transition()
         .ease(d3.easeExpOut)
         .duration(1500)
-        .style("top", ny + "px").style("left", nx + "px")
-    if (message.length < 30) {
-        objectAlert.transition()
-            .duration(1000)
+        .style("top", ny + "px").style("left", nx + "px");
+    objectAlert.transition()
+            .duration(decay)
             .style("opacity", 0)
             .remove()
             .on("end", function () { n_messages -= 1 });
-    }
+    
 }
 

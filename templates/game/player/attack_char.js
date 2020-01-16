@@ -38,7 +38,7 @@ function rangeAttack(target, weapon) {
 
     objectAlerts('#character',
         damage.toString() + ": " + charData['name'] + ' attacks ' + d3.select("#" + target.id).attr("name") + ' with ' + weapon.name,
-        color = charColor)
+        decay = 2000)
     var dart = canvas
         .append("circle")
         .style("z-index", "8")
