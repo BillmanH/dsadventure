@@ -16,6 +16,11 @@
     <p>{{ "Character: "|add:charData.name }}</p>
     <p>{{ "Title: "|add:charData.title }}</p>
     <p>{{ "Location: "|add:charData.location }}</p>
+    <div class="stats">
+    <p> composure (health): {{ charData.composure }}</p>
+    <p> size: {{ charData.composure }}</p>
+    <p> speed: {{ charData.composure }}</p>
+    </div>
     <div class="title">Weapons</div>
     <div class="weaponScreen"></div>
     <div class="title">Equipment</div>
@@ -37,7 +42,11 @@
         var charData = {{ charData | safe }}
 
     </script>
-
+    <div class="money">
+        <p class="gold">Gold: {{ charData.equipment.gold }}</p>
+        <p class="silver">Silver: {{ charData.equipment.silver }}</p>
+        <p class="copper">Copper: {{ charData.equipment.coper }}</p>
+    </div>
 </body>
 
 

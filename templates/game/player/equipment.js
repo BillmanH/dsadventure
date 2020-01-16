@@ -1,9 +1,5 @@
 var equipment = {{ equipment | safe }}
-function eqData(equipment) {
 
-}
-
-console.log(equipment)
 
 var window_equipment = d3.select(".equipScreen")
     .append("svg")
