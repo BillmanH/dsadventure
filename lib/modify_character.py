@@ -59,6 +59,8 @@ class Character():
         }
     
     def characterSpeaksLanguage(self,world):
+        #Determintes that the character speeks the language in the place where they are.
+        #returns TRUE or FALSE
         return world.df_features.loc[self.get_location_key()]['nation'] in world.Character.languages
 
     def get_location_key(self):

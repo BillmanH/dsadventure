@@ -22,6 +22,10 @@ def modify_context(world,context):
     town_data['type'] = town.type
     newcontext['terrData']['town'] = town_data
     newcontext['terrData']['people'] = [p.get_person_data() for p in town.population]
+    if world.Character.characterSpeaksLanguage(world):
+        for p in newcontext['terrData']['people']:
+            for m in p['messages']:
+                m = world.culture.gibberishGenerator(l=len(m))
     return newcontext  
     
 class Town:
