@@ -21,27 +21,34 @@ actual user `world` objects are stored in `\pickles\` as `.pkl` rather than `p`.
         charData = yaml.load(request.POST['charData'])
 ```
 2. get the old world (before the update)
-world = b.get_world(request.user.get_username())
+```world = b.get_world(request.user.get_username())
 context['old_location'] = world.Character.get_location_key()
+```
 3. update the charData with this function (keeps the update out of the users's hands)
-world.Character = modify_character.update_charData(world,charData)
+```
+world.Character = modify_character.update_charData(world,charData)\
+```
 4. the location is now where the character will be
 ```
 new_location = world.Character.get_location_key()
 world.Character.turn_number += 1
 ```
 5. keeping track of whether or not the character has been there
+```
 world.df_features.loc[context['old_location'],'visited'] = 1
 world.df_features.loc[context['old_location'],'aware'] = 1
 world.df_features.loc[context['old_location'],'turn_last_visited'] = world.Character.turn_number
-
+```
 6. Save that pickle
+```
 save_world(world,request.user.get_username())
+```
 7. with the updated world, populate the context
+```
 context['areas_visited'] = world.df_features['visited'].sum()
 context['charData'] = world.Character.get_charData()
 context['terrData'] = world.df_features.loc[world.Character.get_location_key()].fillna("none").to_dict()
-
+```
 8. terrain details come from Azure SQL
 ```
 tdt = terrain_details.objects.values().get(name=context['terrData']['terrain'])
