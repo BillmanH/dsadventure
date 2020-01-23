@@ -54,6 +54,8 @@ def core_view(request):
     if "GET" == request.method:
         #world objects come from pickles, loaded from s3
         world = b.get_world(request.user.get_username())
+        if hasattr(world, 'Character')==False:
+            return HttpResponseRedirect('createcharacter')
     #with the updated world, populate the context
     context['areas_visited'] = world.df_features['visited'].sum()
     #in bost POST(traveling) or GET(loading) the context is populated in the same way.
