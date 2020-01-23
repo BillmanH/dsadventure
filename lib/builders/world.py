@@ -182,8 +182,6 @@ class World:
             df = df[df['feature'].isin(t)]
         if f==False:
             df = df[df['feature'].isnull()]
-        else:
-            df = self.df_features
         key = np.random.choice(df.index.tolist())
         l = df.loc[key]
         if r == 'coord':
