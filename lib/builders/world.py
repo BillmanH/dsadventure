@@ -303,3 +303,8 @@ class World:
         # mdf == a df of a mountain
         self.grid_elevation = self.grid_elevation.add(mdf.reindex_like(self.grid_elevation).fillna(0))
 
+    #world politics and diplomacy
+    def get_world_diplomacy(self):
+        nations = self.nations
+        diplomacy = pd.concat([n.get_deplomacy_df() for n in nations],sort=False).reset_index(drop=True)
+        return diplomacy

@@ -73,7 +73,13 @@ class Nation:
         otherNations = [n for n in nations.values() if n != self.name]
         for o in otherNations:
             diplomacy[o] = {'favor':.8,'stance':'peace'}
-        return diplomacy 
+        return diplomacy
+    
+    def get_deplomacy_df(self):
+        d = pd.DataFrame(self.diplomacy).T.reset_index(drop=False)
+        d['nation'] = self.name
+        d.columns = ['neighbor','favor','stance','nation']
+        return d[['nation','neighbor','favor','stance']]
             
     def appointRuler(self,person):
         t = self.getCapitol_str(self.towns)
@@ -123,7 +129,7 @@ def place_building(a,o,event):
         t = np.random.choice(n.towns)
         print(t.buildings)
         t.add_building(event.key)
-    return ''
+    return t
 
 def place_feature(world,a,o,event):
     for n in a:

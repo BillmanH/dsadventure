@@ -53,7 +53,8 @@ def event_results(world):
     if event.effect_var == 'feature':
         t = nations.place_feature(world,a,o,event)
     if event.effect_var == 'buildings':
-        t = nations.place_building(a,o,event)
+        twn = nations.place_building(a,o,event)
+        t = twn.name
     text = '{e}: ' + str_munge(event.event,a,o,t)
     give_message(world,event,a,o,t)
     return text
