@@ -308,3 +308,26 @@ class World:
         nations = self.nations
         diplomacy = pd.concat([n.get_deplomacy_df() for n in nations],sort=False).reset_index(drop=True)
         return diplomacy
+    
+def get_people_where_char_has_visited(world):
+    """
+    returns a dictionary of {{"town":[<obj>],"people":[<obj>]}
+    filtered to where the character has been. 
+    """
+    where_the_char_has_been = world.df_features.loc[(world.df_features['visited']==1)&
+                                                    (world.df_features['terrain']=='town')]
+    towns_and_people = [{"town":T,
+                         "people":[t for t in T.population]} 
+                        for T in world.towns if T.name in np.unique(where_the_char_has_been['feature'])]
+    return towns_and_people
+
+def get_relationships_node_map(world):
+    nodes = [{'name':r['town'].name,
+             'children': [{'name':p.name,
+                          'role':p.role,
+                          'temperment':p.temperment,
+                          'loyalty':p.loyalty,} for p in r['people']]} 
+             for r in get_people_where_char_has_visited(world)]
+    return nodes
+        
+        

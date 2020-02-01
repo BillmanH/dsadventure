@@ -100,6 +100,15 @@ def equipment(request):
     return render(request, 'game/equipment.html', context)
 
 @login_required
+def journal(request):
+    context = {'relationships':{},
+            'diplomacy':{}}
+    world = b.get_world(request.user.get_username())
+    context['relationships'] = w.get_relationships_node_map(world)
+    return render(request, 'game/journal.html', context)
+
+
+@login_required
 def char_map(request):
     context = {}
     world = b.get_world(request.user.get_username())
