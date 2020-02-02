@@ -4,6 +4,11 @@ var width = 960,
         height = 500,
         root;
 
+var vLayout = d3.forceSimulation()
+            .force('link', d3.forceLink().id(function (d) { return d.id; }))
+            .force('charge', d3.forceManyBody())
+            .force('center', d3.forceCenter(width / 2, height / 2));
+
 relationship_canvas = d3.select('body').append('svg')
     .attr("width", width)
     .attr("height", height);
@@ -14,17 +19,17 @@ d3.select('svg .clusters').append('g').classed('links',true)
 d3.select('svg .clusters').append('g').classed('nodes',true)
 
 var root = d3.hierarchy(relationships);
+var vNodes = root.descendants();
+var vLinks = root.links();
 
 var roleColors ={
             "commoner": "#b2aa9d",
     }
 
-var treeLayout = d3.tree().size([width-20,height-20]);
-
-treeLayout(root);
 
 
-d3.select('svg g.nodes')
+
+node = d3.select('svg g.nodes')
   .selectAll('circle.node')
   .data(root.descendants())
   .enter()
@@ -48,9 +53,7 @@ d3.select('svg g.nodes')
   })
 
 
-
-
-d3.select('svg g.links')
+link = d3.select('svg g.links')
   .selectAll('line.link')
   .data(root.links())
   .enter()
@@ -61,6 +64,9 @@ d3.select('svg g.links')
   .attr('x2', function(d) {return d.target.x;})
   .attr('y2', function(d) {return d.target.y;})
   .style("stroke", "#ccc");
+
+vLayout.nodes(vNodes).on('tick', tick);
+vLayout.force('link').links(vLinks);
 
 // now to move them. 
 function tick() {
