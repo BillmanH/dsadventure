@@ -4,9 +4,20 @@ function popvalues(a, m) {
     return a
 }
 
+function limitDict(d) {
+    var things_we_dont_print = [
+                                'children',
+                                'equipment']
+    for(i in things_we_dont_print){
+        d = popvalues(d,things_we_dont_print[i])
+    }
+    return d
+}
+
 //for tooltips, convert a dict to HTML
 function dictToHtml(d) {
     html = ""
+    d = limitDict(d)
     for (var k in d) {
         html += k + ": " + d[k] + "<br>"
     }

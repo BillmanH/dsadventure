@@ -315,7 +315,7 @@ def get_people_where_char_has_visited(world):
     filtered to where the character has been. 
     """
     where_the_char_has_been = world.df_features.loc[(world.df_features['visited']==1)&
-                                                    (world.df_features['terrain']=='town')]
+                                                    (world.df_features['terrain']=='town')].dropna()
     towns_and_people = [{"town":T,
                          "people":[t for t in T.population]} 
                         for T in world.towns if T.name in np.unique(where_the_char_has_been['feature'])]
