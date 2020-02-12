@@ -18,6 +18,8 @@
         .style("z-index", "10")
         .style("visibility", "hidden")
         .html("<p>Default Text</p>");
+
+        var charData = {{ charData | safe }}      
         {% include "game/core/globalFunctions.js" %}
         
         {% include "game/charts/relationships.js" with relationships=relationships %}
