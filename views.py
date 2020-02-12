@@ -68,7 +68,7 @@ def core_view(request):
     #terrain items for each item in the terrain textures. 
     context['mapData'] = w.get_area_data(world)
     #td is the lists of textures for the world, not the details
-    td = yaml.safe_load(tdt['terrain_textures'],Loader=yaml.SafeLoader)
+    td = yaml.safe_load(tdt['terrain_textures'])
     #ti is the list of items 
     ti = [t['name'] for t in td]
     tt = list(terrain_items.objects.values().filter(pk__in=ti))
