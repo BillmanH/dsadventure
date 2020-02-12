@@ -37,7 +37,7 @@ def core_view(request):
     context = {}
     if "POST" == request.method:
         #get the updated character data from the userform
-        charData = yaml.load(request.POST['charData'])
+        charData = yaml.safe_load(request.POST['charData'])
         #get the old world (before the update)
         world = b.get_world(request.user.get_username())
         context['old_location'] = world.Character.get_location_key()
@@ -68,7 +68,7 @@ def core_view(request):
     #terrain items for each item in the terrain textures. 
     context['mapData'] = w.get_area_data(world)
     #td is the lists of textures for the world, not the details
-    td = yaml.load(tdt['terrain_textures'],Loader=yaml.SafeLoader)
+    td = yaml.safe_load(tdt['terrain_textures'],Loader=yaml.SafeLoader)
     #ti is the list of items 
     ti = [t['name'] for t in td]
     tt = list(terrain_items.objects.values().filter(pk__in=ti))
