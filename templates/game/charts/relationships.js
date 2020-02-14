@@ -25,9 +25,13 @@ var vNodes = root.descendants();
 var vLinks = root.links();
 
 var roleColors ={
-            "commoner": "#b2aa9d",
-    }
-
+    "commoner": "#F5D040",
+}
+var typeColors = {
+    "capitol": "#000000",
+    "town": "#A8A8A8",
+    "nation": "#00C0AF"
+}
 
 node = d3.select('svg g.nodes')
   .selectAll('circle.node')
@@ -40,7 +44,7 @@ node = d3.select('svg g.nodes')
   .attr('r', function(d) {if(d.data.type=='person'){return 10}else{return 30}})
   .style("stroke","black")
   .attr("id", function(d,i){return "t"+String(i)})
-  .attr('fill',function(d){return roleColors[d.data.role]})
+  .attr('fill',function(d){if(d.data.type=='person'){return roleColors[d.data.role]}else{return typeColors[d.data.type]}})
   .on("mouseover", function(d){
       //console.log(d3.select(this).datum().data);
       return terrain_tooltip.style("visibility", "visible")
@@ -68,6 +72,7 @@ link = d3.select('svg g.links')
 
 vLayout.nodes(vNodes).on('tick', tick);
 vLayout.force('link').links(vLinks);
+
 
 // now to move them. 
 function tick() {
