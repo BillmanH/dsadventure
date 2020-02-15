@@ -1,5 +1,7 @@
 var relationships = {'name':'Character','type':'person','children':{{ relationships | safe }}}
 
+console.log(relationships);
+
 var width = 500,
         height = 500,
         root;
@@ -7,7 +9,7 @@ var width = 500,
 var vLayout = d3.forceSimulation()
             .force('link', d3.forceLink()
                             .id(function(d){return d.id;})
-                            .distance(function(d){return 60}))
+                            .distance(function(d){return 100}))
             .force('charge', d3.forceManyBody())
             .force('center', d3.forceCenter(width / 2, height / 2));
 

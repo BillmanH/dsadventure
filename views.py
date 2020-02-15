@@ -104,7 +104,7 @@ def journal(request):
     context = {'relationships':{},
             'diplomacy':{}}
     world = b.get_world(request.user.get_username())
-    context['relationships'] = w.get_relationships_node_map(world)
+    context['relationships'] = w.get_relationships_all(world)
     context['charData'] = world.Character.get_charData()
     return render(request, 'game/journal.html', context)
 

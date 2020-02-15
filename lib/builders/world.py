@@ -338,3 +338,8 @@ def get_relationships_node_map(world):
              for r in get_people_where_char_has_visited(world)]
     return nodes
         
+
+def get_relationships_all(world):
+    nodes = get_relationships_node_map(world)
+    nations = [s['nation'] for s in nodes]
+    return [{'nation':i,'children':[t for t in nodes if t['nation']==i]} for i in nations]
