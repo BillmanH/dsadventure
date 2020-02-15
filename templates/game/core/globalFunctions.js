@@ -7,7 +7,12 @@ function popvalues(a, m) {
 function limitDict(d) {
     var things_we_dont_print = [
                                 'children',
-                                'equipment']
+                                'equipment',
+                                'spawn_x',
+                                'spawn_y',
+                                'messages',
+                                'y','x',
+                                'current situation']
     for(i in things_we_dont_print){
         d = popvalues(d,things_we_dont_print[i])
     }
