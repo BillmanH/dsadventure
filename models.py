@@ -50,6 +50,7 @@ class buildings(models.Model):
 
 class events(models.Model):
     key = models.CharField(max_length=100,primary_key=True)
+    agent_type = models.CharField(max_length=100,default='nation')
     n_subjects = models.IntegerField()
     n_objects = models.IntegerField()
     event = models.CharField(max_length=250)
