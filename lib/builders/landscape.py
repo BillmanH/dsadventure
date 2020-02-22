@@ -29,4 +29,5 @@ class Landscape:
         #other params that aren't used as variables
         self.N_loc = params.get('N_loc',0)
         self.N_std = params.get('N_std',1)
+        # static things that don't ever change, regardless of format. 
         
