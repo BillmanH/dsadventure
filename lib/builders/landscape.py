@@ -30,4 +30,6 @@ class Landscape:
         self.N_loc = params.get('N_loc',0)
         self.N_std = params.get('N_std',1)
         # static things that don't ever change, regardless of format. 
-        
+        # Land types must exist as it is a global that is referenced in other places. 
+        self.land_types = ['mountain','plain','desert','forest']
+        self.terrain_types = ['ocean','mountain','plain','desert','forest']

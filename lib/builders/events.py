@@ -25,10 +25,10 @@ def give_message(world,event,a,o,t):
         o - the nation that is the object (reciever) of the event
     """
     for i in a:
-        for town in i.towns:
+        for town in i.get_all_towns(world):
             [p.add_message(str_munge(event.a_message, a,o,t)) for p in town.population]
     for i in o:
-        for town in i.towns:
+        for town in i.get_all_towns(world):
             [p.add_message(str_munge(event.a_message, a,o,t)) for p in town.population]
         
 
@@ -53,7 +53,7 @@ def event_results(world):
     if event.effect_var == 'feature':
         t = nations.place_feature(world,a,o,event)
     if event.effect_var == 'buildings':
-        twn = nations.place_building(a,o,event)
+        twn = nations.place_building(world,a,o,event)
         t = twn.name
     text = '{e}: ' + str_munge(event.event,a,o,t)
     give_message(world,event,a,o,t)

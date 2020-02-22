@@ -28,16 +28,16 @@ def get_town(towns,name):
     else:
         return t
 
-def keyChord(key):
+def keycoord(key):
     '''
-    takes a key "1,1", returns a coord [1,1]
+    takes a key "1:1", returns a coord [1,1]
     '''
     coord = key.split(":")
     return [int(coord[0]),int(coord[1])]
 
-def chordKey(coord):
+def coordkey(coord):
     '''
-    takes a key [1,1], returns key "1,1"
+    takes a coord [1,1], returns key "1:1"
     '''
     key = ":".join([str(i) for i in coord])
     return key
@@ -98,10 +98,12 @@ class World:
         self.landscape = landscape
         #geopolitics is set in the second eara
         self.culture = None
-        self.towns = None
-        self.nations = None
+        self.people = []
+        self.towns = []
+        self.nations = []
         self.land_shifts = []
         self.peaks = []
+        self.year = 0
 
         self.grid_elevation = self.build_blank_grid(landscape) 
         self.grid_rainfall = self.build_blank_grid(landscape)
