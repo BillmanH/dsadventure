@@ -109,6 +109,13 @@ class World:
         self.grid_rainfall = self.build_blank_grid(landscape)
         self.df_features = pd.DataFrame()
 
+    def keycoord(self,key):
+        '''
+        takes a key "1:1", returns a coord [1,1]
+        '''
+        coord = key.split(":")
+        return [int(coord[0]),int(coord[1])]
+    
     #returns information that is relevant to the cleint. 
     # REQUIRES self.character
     def get_areaData(self):

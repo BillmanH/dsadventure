@@ -26,7 +26,8 @@ class Person:
 
     def set_born_in(self, world):
         t_born = world.df_features.loc[self.location, "terrain"]
-        if t_born == "town":
+        print(self.location,t_born)
+        if t_born == 'town':
             return world.df_features.loc[self.location, "feature"]
         else:
             if self.role == "commoner":

@@ -53,21 +53,22 @@ class Town:
         self.population = [self.speaker]
         self.culture = world.culture
         self.buildings = ["great_hall"]
+        world.df_features.loc[self.key,'terrain']='town'
+        world.df_features.loc[self.key,'feature']=self.name
 
     def __repr__(self):
         return f"{self.type} of {self.name}: population: {self.pop} location: [{self.x},{self.y}] founded {self.founded}"
+    
+    def get_population(self,world):
+        return [p for p in world.people if p.location == self.key]
 
     def appoint_speaker(self, world,people):
         return people.Person(world, role=f"Speaker of {self.name}", location=self.key)
 
-    def population_growth(self, birthrate, people):
-        if np.random.uniform() < birthrate:
+    def population_growth(self, world, people):
+        if np.random.uniform() < world.culture.town_birthrate:
             self.pop += 1
-            self.population.append(people.Person(self.culture, location=self.name))
-
-    def haveDiplomacy(self, towns):
-        for i in towns:
-            print(town.nation)
+            self.population.append(people.Person(world, location=self.key))
 
     def set_starting_fielty(self, world):
         self.diplomacy["nation"] = world.df_features.loc[
@@ -79,13 +80,6 @@ class Town:
     def add_building(self, b):
         self.buildings.append(b)
         
-        
-def keyChord(key):
-    '''
-    takes a key "1,1", returns a coord [1,1]
-    '''
-    coord = key.split(":")
-    return [int(coord[0]),int(coord[1])]
 
 def build_towns(world,people):
     df = world.df_features
@@ -93,10 +87,10 @@ def build_towns(world,people):
     for i in range(world.culture.eons):
         for s in range(int(np.round(np.random.normal(2, 1)))):
             key = np.random.choice(df[df['terrain']!='ocean'].index)
-            towns.append(Town(keyChord(key),i,world,people))
+            towns.append(Town(world.keycoord(key),i,world,people))
 
         for t in towns:
-            t.population_growth(world.culture.town_birthrate,people)
+            t.population_growth(world,people)
     return towns
 
 def get_town(towns,name):
