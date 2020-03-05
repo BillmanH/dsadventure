@@ -39,6 +39,7 @@ class Town:
         )
 
     def __init__(self, coord, year, world, people):
+        #TODO: Make self.pop into a method
         self.x = coord[0]
         self.y = coord[1]
         self.key = f"{str(coord[0])}:{str(coord[1])}"

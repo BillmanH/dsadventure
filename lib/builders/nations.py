@@ -34,7 +34,8 @@ class Nation:
             # Requires the integer value used when creating the world.
             self.cast_nation(world, kwargs.get("k"))
         self.diplomacy = {}
-        
+        self.capitol = None
+
     def cast_nation(self, world, k):
         world.df_features.loc[
             world.df_features["nation number"] == k, "nation"
@@ -44,29 +45,25 @@ class Nation:
         nation_name = world.culture.townNameGenerator()
         return nation_name
 
+    def init_ruler(self, world):
+        Person(world)
+
     def __repr__(self):
         return f"Nation of {self.name}"
 
-    def get_capitol(self,world):
-        capitol = [
-                    t
-                    for t in world.towns
-                    if (
-                        t.name
-                        in world.df_features.loc[
-                            (world.df_features["nation"] == self.name)
-                            & (world.df_features["terrain"] == "town"),
-                            "feature",
-                        ].values
-                    )
-                    & (t.type == "capitol")
-                ]
-        return capitol
+    def set_capitol(self, world):
+        ts = self.get_all_towns(world)
+        cap = [
+            t for t in ts if len(t.population) == max([len(t.population) for t in ts])
+        ][0]
+        cap.type = "capitol"
+        self.capitol = cap
 
     def get_all_towns(self, world):
         all_towns = world.df_features.loc[
-            (world.df_features["nation"] == self.name) & (world.df_features["terrain"] == "town"),
-        "feature",
+            (world.df_features["nation"] == self.name)
+            & (world.df_features["terrain"] == "town"),
+            "feature",
         ].unique()
         return [t for t in world.towns if t.name in all_towns]
 
@@ -88,6 +85,7 @@ class Nation:
     def appointRuler(self, person):
         t = self.getCapitol_str(self.towns)
         self.ruler = person(f"ruler of {self.name}", t)
+
 
 
 # nation = Nation(world,k=0)
