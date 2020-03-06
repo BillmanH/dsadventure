@@ -4,11 +4,11 @@ import pandas as pd
 #TODO: Namegen has bug that can't convert blank values to str. Change to import as STR not NaN.
 
 class Names:
-    def __init__(self,paths=None):
-        if paths == "notebooks":
+    def __init__(self):
+        try:
             self.nameparts = pd.read_csv('../lib/Datasets/namegen.csv')
             self.townnameparts = pd.read_csv('../lib/Datasets/townnameparts.csv')
-        else:
+        except FileNotFoundError:
             self.nameparts = pd.read_csv('game/lib/Datasets/namegen.csv')
             self.townnameparts = pd.read_csv('game/lib/Datasets/townnameparts.csv')
         self.prefixes = self.townnameparts['prefix'].tolist()
@@ -34,7 +34,7 @@ class Culture:
         self.town_national_fielty = 1
         
         #names are hard cast at the moment
-        self.names = Names(paths)
+        self.names = Names()
         
         #divine forces
         self.chaos = params.get('chaos',.6)

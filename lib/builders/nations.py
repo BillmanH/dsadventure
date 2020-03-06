@@ -1,90 +1,95 @@
 import numpy as np
 import pandas as pd
-
-#ML Libraries
 from sklearn.cluster import KMeans
 
-def getNation(nations,a):
-    return [n for n in nations if n.name ==a][0]
-
-def assignNation(x,world):
-    nationName = world.nations.get(x,np.nan)
-    return nationName
-
-def labelNations(k,culture):
-    """
-    lables a list of nations from a k-means cluster
-    """
-    nations = {}
-    for n in np.unique(k.labels_):
-        nations[n] = culture.townNameGenerator()
-    return nations,k
-
+n_init_clusters = 30
 def cluster_nations(world):
-    cities = world.df_features[world.df_features['terrain']=='town']
-    k_means = KMeans(init='k-means++', n_clusters=world.culture.n_nations, n_init=10)
-    k_means.fit(cities[['x','y']])
-    #once the labels are ready you can fetch the nation names:
-    nations = labelNations(k_means,world.culture)
-    return nations
+    cities = world.df_features[world.df_features["terrain"] == "town"]
+    world.nations = []
+    world.df_features["nation number"] = np.nan
+    world.df_features["nation"] = np.nan
+    #     world.df_features["nation number"] = world.df_features["nation number"].
+    k = KMeans(init="k-means++", n_clusters=world.culture.n_nations, n_init=n_init_clusters).fit(
+        cities[["x", "y"]]
+    )
+    world.nations_k = k
+    predict_nations(world)
+    world.nations = [
+        Nation(world, cluster=True, k=i) for i in np.unique(world.nations_k.labels_)
+    ]
+    return k
 
-def predict_nations(k_means,world):
-    df = world.df_features
-    predicted_nations = k_means.predict(df.loc[(df['terrain']!='ocean')]
-                                        [['x','y']]
-                                       )
-    df.loc[(df['terrain']!='ocean'),'nation number'] = predicted_nations
-    
-    df['nation'] = df['nation number'].apply(lambda x: assignNation(x,world))
-    return world.df_features
+
+def predict_nations(world):
+    world.df_features["nation number"] = world.nations_k.predict(
+        world.df_features[["x", "y"]]
+    )
+
 
 class Nation:
-    def __init__(self,name,world,culture,people):
-        self.name = name
-        self.towns = self.addTowns(world.towns)
-        self.diplomacy = self.addDiplomacy(world.nations)
-        self.ruler = people.Person(culture,role=f'Ruler of the nation of {self.name}',location=self.get_capitol().name)
-        self.get_capitol().population.append(self.ruler)
-        
-        
+    def __init__(self, world, **kwargs):
+        self.name = self.name_nation(world)
+        if kwargs.get("cluster", None):
+            # Kmeans is the default (when the world is created)
+            # Requires the integer value used when creating the world.
+            self.cast_nation(world, kwargs.get("k"))
+        self.diplomacy = {}
+        self.capitol = None
+
+    def cast_nation(self, world, k):
+        world.df_features.loc[
+            world.df_features["nation number"] == k, "nation"
+        ] = self.name
+
+    def name_nation(self, world):
+        nation_name = world.culture.townNameGenerator()
+        return nation_name
+
+    def init_ruler(self, world):
+        Person(world)
+
     def __repr__(self):
         return f"Nation of {self.name}"
-       
-    def addTowns(self,towns):
-        towns = [town for town in towns 
-                 if town.diplomacy.get('nation','none')==self.name]
-        return towns
-        
-    def get_capitol(self):
-        c = [t for t in self.towns if t.type == 'capitol'][0]
-        return c
-    
+
+    def set_capitol(self, world):
+        ts = self.get_all_towns(world)
+        cap = [
+            t for t in ts if len(t.population) == max([len(t.population) for t in ts])
+        ][0]
+        cap.type = "capitol"
+        self.capitol = cap
+
+    def get_all_towns(self, world):
+        all_towns = world.df_features.loc[
+            (world.df_features["nation"] == self.name)
+            & (world.df_features["terrain"] == "town"),
+            "feature",
+        ].unique()
+        return [t for t in world.towns if t.name in all_towns]
+
     def get_random_town(self):
         return np.random.choice(self.towns)
 
-    def getRuler_str(self):
-        return self.ruler.name
-    
     def getRuler(self):
-        return self.ruler
-    
-    def addDiplomacy(self,nations):
-        diplomacy = {}
-        otherNations = [n for n in nations.values() if n != self.name]
-        for o in otherNations:
-            diplomacy[o] = {'favor':.8,'stance':'peace'}
-        return diplomacy
-    
+        if self.ruler:
+            return self.ruler
+        else:
+            return None
+
     def get_deplomacy_df(self):
         d = pd.DataFrame(self.diplomacy).T.reset_index(drop=False)
-        d['nation'] = self.name
-        d.columns = ['neighbor','favor','stance','nation']
-        return d[['nation','neighbor','favor','stance']]
-            
-    def appointRuler(self,person):
-        t = self.getCapitol_str(self.towns)
-        self.ruler = person(f'ruler of {self.name}',t)
+        d["nation"] = self.name
+        d.columns = ["neighbor", "favor", "stance", "nation"]
+        return d[["nation", "neighbor", "favor", "stance"]]
 
+    def appointRuler(self, person):
+        t = self.getCapitol_str(self.towns)
+        self.ruler = person(f"ruler of {self.name}", t)
+
+
+
+# nation = Nation(world,k=0)
+# print(nation)
 
 # Politics !!
 treaties = pd.DataFrame([['sworn enemies',0],
@@ -115,7 +120,11 @@ def alter_favor(s,o,a):
         if type(s)!=list:
             s = [s]
         for j in s:
-            if i!=j:   
+            if i!=j: 
+                if j.name not in i.diplomacy.keys():
+                    i.diplomacy[j.name]={}
+                if 'favor' not in i.diplomacy[j.name].keys():
+                    i.diplomacy[j.name]['favor'] = .6
                 i.diplomacy[j.name]['favor'] += a
                 if i.diplomacy[j.name]['favor'] < 0:
                     i.diplomacy[j.name]['favor'] = .01
@@ -124,10 +133,9 @@ def alter_favor(s,o,a):
                 i.diplomacy[j.name]['stance'] = set_treaties(i.diplomacy[j.name]['favor'])
 
 #events
-def place_building(a,o,event):
+def place_building(world,a,o,event):
     for n in a:
-        t = np.random.choice(n.towns)
-        print(t.buildings)
+        t = np.random.choice(n.get_all_towns(world))
         t.add_building(event.key)
     return t
 
