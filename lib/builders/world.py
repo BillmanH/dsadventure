@@ -333,12 +333,11 @@ def get_people_where_char_has_visited(world):
 def get_relationships_node_map(world):
     nodes = [{'name':r['town'].name,
               'title':str(r['town']).split(":")[0],
-              'nation':r['town'].diplomacy['nation'],
+              'nation':r['town'].nation,
               'population':r['town'].pop,
               'type':r['town'].type,
               'location':r['town'].key,
               'founded year':r['town'].founded,
-              'national fealty':r['town'].diplomacy['national fealty'],
              'children': [{'name':p.name,
                           'role':p.role,
                           'temperment':p.temperment,
