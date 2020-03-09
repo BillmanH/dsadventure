@@ -317,7 +317,10 @@ class World:
         nations = self.nations
         diplomacy = pd.concat([n.get_deplomacy_df() for n in nations],sort=False).reset_index(drop=True)
         return diplomacy
-    
+
+def appoint_ruler(world,nation):
+    pass
+
 def get_people_where_char_has_visited(world):
     """
     returns a dictionary of {{"town":[<obj>],"people":[<obj>]}

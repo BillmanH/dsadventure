@@ -25,6 +25,7 @@ def the_second_age(world, default_params, c=c):
     world.towns = all_towns
     k = nations.cluster_nations(world)
     [n.set_capitol(world) for n in world.nations]
+    [nations.appoint_ruler(world, n, people) for n in world.nations]
     return world
 
 #params for culture and world should be set. the only thing here is to unravle the events that create the people, buildings and adventure.

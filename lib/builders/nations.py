@@ -45,8 +45,6 @@ class Nation:
         nation_name = world.culture.townNameGenerator()
         return nation_name
 
-    def init_ruler(self, world):
-        Person(world)
 
     def __repr__(self):
         return f"Nation of {self.name}"
@@ -58,6 +56,11 @@ class Nation:
         ][0]
         cap.type = "capitol"
         self.capitol = cap
+        
+    def get_capitol(self, world):
+        ts = self.get_all_towns(world)
+        cap = [t for t in ts if t.type == "capitol"][0]
+        return cap
 
     def get_all_towns(self, world):
         all_towns = world.df_features.loc[
@@ -82,10 +85,9 @@ class Nation:
         d.columns = ["neighbor", "favor", "stance", "nation"]
         return d[["nation", "neighbor", "favor", "stance"]]
 
-    def appointRuler(self, person):
-        t = self.getCapitol_str(self.towns)
-        self.ruler = person(f"ruler of {self.name}", t)
-
+def appoint_ruler(world, n, people):
+    t = n.get_capitol(world)
+    n.ruler = people.Person(world, role=f"ruler of {n.name}", location=t.key)
 
 
 # nation = Nation(world,k=0)
