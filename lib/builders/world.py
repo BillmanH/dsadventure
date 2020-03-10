@@ -104,6 +104,7 @@ class World:
         self.land_shifts = []
         self.peaks = []
         self.year = 0
+        self.season = 'spring'
 
         self.grid_elevation = self.build_blank_grid(landscape) 
         self.grid_rainfall = self.build_blank_grid(landscape)

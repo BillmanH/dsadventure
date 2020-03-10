@@ -63,16 +63,18 @@ def event_results(world):
 def pass_through_time(world):
     all_events = []
     for e in range(world.culture.eons):
+        world.year += 1
         if np.random.random_sample()<world.culture.chaos:
-            all_events.append(event_results(world).replace('{e}',str(e)))
+            all_events.append(event_results(world).replace('{e}',str(world.year)))
         else:
-            all_events.append(f'{e}: nothing happend during this period.')
+            all_events.append(f'{world.year}: nothing happend during this period.')
     return all_events
 
 def add_chaos_to_world(world):
     world.df_features['danger'] = (world.df_features['key']
                                    .apply(lambda x: np.round(np.random.normal(world.culture.chaos, .3),3))
                                     )
+    world.df_features.loc[world.df_features['terrain']=='ocean','danger'] = world.df_features.loc[world.df_features['terrain']=='ocean','danger'] -.3
     return world
 
 

@@ -33,3 +33,10 @@ class Landscape:
         # Land types must exist as it is a global that is referenced in other places. 
         self.land_types = ['mountain','plain','desert','forest']
         self.terrain_types = ['ocean','mountain','plain','desert','forest']
+        # Static landscape items:
+        self.seasons = {
+            0:'summer',
+            1:'autumn',
+            2:'winter',
+            3:'spring'
+        }
