@@ -88,8 +88,8 @@ def build_towns(world,people):
     for i in range(world.culture.eons):
         for s in range(int(np.round(np.random.normal(2, 1)))):
             key = np.random.choice(df[df['terrain']!='ocean'].index)
-            towns.append(Town(world.keycoord(key),i,world,people))
-
+            towns.append(Town(world.keycoord(key),world.year,world,people))
+            world.year += 1
         for t in towns:
             t.population_growth(world,people)
     return towns

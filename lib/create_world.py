@@ -15,7 +15,7 @@ def the_first_age(default_params):
     world.build_df_features()
     #once df_features is created you can do more fine-tuned details.
     world.df_features['terrain'] = world.df_features.apply(lambda x: w.set_ecology(x,landscape),axis = 1)
-    world.year = 100
+    world.year = 1000
     return world
 
 #the second age (and after) require a world object and modify it
@@ -27,7 +27,7 @@ def the_second_age(world, default_params, c=c):
     k = nations.cluster_nations(world)
     [n.set_capitol(world) for n in world.nations]
     [nations.appoint_ruler(world, n, people) for n in world.nations]
-    world.year += 1000
+    world.year += 100
     return world
 
 #params for culture and world should be set. the only thing here is to unravle the events that create the people, buildings and adventure.
