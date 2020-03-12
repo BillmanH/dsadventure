@@ -1,8 +1,7 @@
 /*
-    Adding text when needed. This global function takes a d3 object, appends some text and that text dissapears when the function is complete. 
-    It runs asynchronosly, so you can have multiple objects sending messages simultaniously. 
+text window : All of the text panels for messages, updates and special function buttons that you need to do actions in the world.  
 
-    */
+*/
 
 textWindow = d3.select("body")
     .append("div")
@@ -10,13 +9,27 @@ textWindow = d3.select("body")
     .html(charData["current situation"] + ".</br>"
         + charData['message'])
 
-if (mapData['NArea']['terrain'] != 'void') { textWindow.append("div").attr("id", "northText").html("") }
-if (mapData['EArea']['terrain'] != 'void') { textWindow.append("div").attr("id", "eastText").html("") }
-if (mapData['SArea']['terrain'] != 'void') { textWindow.append("div").attr("id", "southText").html("") }
-if (mapData['WArea']['terrain'] != 'void') { textWindow.append("div").attr("id", "westText").html("") }
+{% if mapData.NArea.terrain != 'void'%}
+    textWindow.append("div").attr("id", "northText").html("")
+{% endif %}
+
+{% if mapData.SArea.terrain != 'void'%}
+    textWindow.append("div").attr("id", "southText").html("")
+{% endif %}
+
+{% if mapData.WArea.terrain != 'void'%}
+    textWindow.append("div").attr("id", "westText").html("")
+{% endif %}
+
+{% if mapData.EArea.terrain != 'void'%}
+    textWindow.append("div").attr("id", "eastText").html("")
+{% endif %}
+
+
 textWindow.append("div").attr("id", "eventLog").html("")
 
-n_messages = 0
+
+var n_messages = 0
 
 //objectAlerts takes an object (like the char) and sends out a quick text
 //accepts an object 'this' or playerChar or a class or id
@@ -45,7 +58,5 @@ function objectAlerts(subject, message, color = "#000000", bg = "white", decay =
             .duration(decay)
             .style("opacity", 0)
             .remove()
-            .on("end", function () { n_messages -= 1 });
-    
+            .on("end", function() { n_messages -= 1 });
 }
-

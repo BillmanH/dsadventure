@@ -58,7 +58,7 @@ def get_character_context(world,context):
 def get_features_or_NA(world,coord):
     try:
         l = world.df_features.loc[
-                chordKey([
+                coordkey([
                     int(coord[0]),int(coord[1])
                     ])
                 ].fillna("none").to_dict(),
@@ -116,41 +116,6 @@ class World:
         '''
         coord = key.split(":")
         return [int(coord[0]),int(coord[1])]
-    
-    #returns information that is relevant to the cleint. 
-    # REQUIRES self.character
-    def get_areaData(self):
-        #wrapping the world (if character goes of to the east they show up in the west again)
-        coord = self.character.location
-        x = coord[0]
-        y = coord[1]
-
-        worldDim = {
-            "x":[0,self.landscape.grid[0]],
-            "y":[0,self.landscape.grid[1]]}
-
-        NArea = [x,y-1]
-        if NArea[1] < worldDim['y'][0]:
-            NArea = [x,worldDim['y'][1]]
-        EArea = [x+1,y]
-        #if the x in the east is greater than the max x, change max x to min x.
-        if EArea[0] > worldDim['x'][1]:
-            NArea = [worldDim['x'][0],y]
-        SArea = [x,y+1]
-        if SArea[1] > worldDim['y'][1]:
-            SArea = [x,worldDim['y'][0]]
-        WArea = [x-1,y]
-        if WArea[0] < worldDim['x'][0]:
-            WArea = [worldDim['x'][1],y]
-        area = [x,y]
-    
-        return {
-            "area":data[str(x)+":"+str(y)],
-            "NArea":data[str(NArea[0])+":"+str(NArea[1])],
-            "EArea":data[str(EArea[0])+":"+str(EArea[1])],
-            "SArea":data[str(SArea[0])+":"+str(SArea[1])],
-            "WArea":data[str(WArea[0])+":"+str(WArea[1])] 
-        }
     
     #little builders (like mountains)
     def getMountain(self,height=2):

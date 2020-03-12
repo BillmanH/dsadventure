@@ -74,7 +74,8 @@ def add_chaos_to_world(world):
     world.df_features['danger'] = (world.df_features['key']
                                    .apply(lambda x: np.round(np.random.normal(world.culture.chaos, .3),3))
                                     )
-    world.df_features.loc[world.df_features['terrain']=='ocean','danger'] = world.df_features.loc[world.df_features['terrain']=='ocean','danger'] -.3
+    #water is less dangerous than land
+    world.df_features.loc[world.df_features['terrain']=='ocean','danger'] = world.df_features.loc[world.df_features['terrain']=='ocean','danger'] -.5
     return world
 
 
