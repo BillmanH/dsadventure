@@ -9,8 +9,8 @@ def modify_context(world,context):
     newcontext['n_ter_items'] = []
     for t in context['n_ter_items']:
         if t['detail']['name'] == 'building':
-            t['detail']['abundance'] = town.pop
-            t['detail']['density'] = world.culture.eons-town.founded
+            t['detail']['abundance'] = len(town.get_population(world))
+            t['detail']['density'] = town.founded-1000
             newcontext['n_ter_items'].append(t)
         else:
             newcontext['n_ter_items'].append(t)
@@ -20,7 +20,7 @@ def modify_context(world,context):
     town_data['nation'] = town.nation
     town_data['type'] = town.type
     newcontext['terrData']['town'] = town_data
-    newcontext['terrData']['people'] = [p.get_person_data() for p in town.population]
+    newcontext['terrData']['people'] = [p.get_person_data() for p in town.get_population(world)]
     if world.Character.characterSpeaksLanguage(world):
         for p in newcontext['terrData']['people']:
             for m in p['messages']:
@@ -43,7 +43,6 @@ class Town:
         self.x = coord[0]
         self.y = coord[1]
         self.key = f"{str(coord[0])}:{str(coord[1])}"
-        self.pop = 1
         self.name = world.culture.townNameGenerator()
         self.founded = year
         self.diplomacy = {}
@@ -51,7 +50,6 @@ class Town:
         self.type = "town"
         # the speaker is a member of the population, but also an important role in the town.
         self.speaker = self.appoint_speaker(world, people)
-        self.population = [self.speaker]
         self.culture = world.culture
         self.buildings = ["great_hall"]
         world.df_features.loc[self.key,'terrain']='town'
@@ -68,7 +66,6 @@ class Town:
 
     def population_growth(self, world, people):
         if np.random.uniform() < world.culture.town_birthrate:
-            self.pop += 1
             self.population.append(people.Person(world, location=self.key))
 
     def set_starting_fielty(self, world):
