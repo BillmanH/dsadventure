@@ -20,6 +20,7 @@ def the_first_age(default_params):
 
 #the second age (and after) require a world object and modify it
 def the_second_age(world, default_params, c=c):
+    world.year += 100
     world.culture = c.Culture(params=default_params)
     all_towns = towns.build_towns(world, people)
     world.add_features(all_towns)
@@ -27,7 +28,6 @@ def the_second_age(world, default_params, c=c):
     k = nations.cluster_nations(world)
     [n.set_capitol(world) for n in world.nations]
     [nations.appoint_ruler(world, n, people) for n in world.nations]
-    world.year += 100
     return world
 
 #params for culture and world should be set. the only thing here is to unravle the events that create the people, buildings and adventure.

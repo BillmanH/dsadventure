@@ -26,10 +26,10 @@ def give_message(world,event,a,o,t):
     """
     for i in a:
         for town in i.get_all_towns(world):
-            [p.add_message(str_munge(event.a_message, a,o,t)) for p in town.population]
+            [p.add_message(str_munge(event.a_message, a,o,t)) for p in town.get_population(world)]
     for i in o:
         for town in i.get_all_towns(world):
-            [p.add_message(str_munge(event.a_message, a,o,t)) for p in town.population]
+            [p.add_message(str_munge(event.a_message, a,o,t)) for p in town.get_population(world)]
         
 
 def event_results(world):

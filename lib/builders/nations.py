@@ -36,10 +36,13 @@ class Nation:
         self.diplomacy = {}
         self.capitol = None
 
+
     def cast_nation(self, world, k):
         world.df_features.loc[
             world.df_features["nation number"] == k, "nation"
         ] = self.name
+        for t in self.get_all_towns(world):
+            t.nation = self.name
 
     def name_nation(self, world):
         nation_name = world.culture.townNameGenerator()
@@ -52,7 +55,7 @@ class Nation:
     def set_capitol(self, world):
         ts = self.get_all_towns(world)
         cap = [
-            t for t in ts if len(t.population) == max([len(t.population) for t in ts])
+            t for t in ts if len(t.get_population(world)) == max([len(t.get_population(world)) for t in ts])
         ][0]
         cap.type = "capitol"
         self.capitol = cap

@@ -10,7 +10,7 @@ def modify_context(world,context):
     for t in context['n_ter_items']:
         if t['detail']['name'] == 'building':
             t['detail']['abundance'] = len(town.get_population(world))
-            t['detail']['density'] = town.founded-1000
+            t['detail']['density'] = world.year-town.founded
             newcontext['n_ter_items'].append(t)
         else:
             newcontext['n_ter_items'].append(t)
@@ -56,7 +56,7 @@ class Town:
         world.df_features.loc[self.key,'feature']=self.name
 
     def __repr__(self):
-        return f"{self.type} of {self.name}: population: {self.pop} location: [{self.x},{self.y}] founded {self.founded}"
+        return f"{self.type} of {self.name}. Location: [{self.key}]. Founded {self.founded} </br>In the nation of {self.nation}"
     
     def get_population(self,world):
         return [p for p in world.people if p.location == self.key]
@@ -66,7 +66,7 @@ class Town:
 
     def population_growth(self, world, people):
         if np.random.uniform() < world.culture.town_birthrate:
-            self.population.append(people.Person(world, location=self.key))
+            p = people.Person(world, location=self.key)
 
     def set_starting_fielty(self, world):
         self.diplomacy["nation"] = world.df_features.loc[
