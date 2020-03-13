@@ -295,7 +295,7 @@ def get_people_where_char_has_visited(world):
     where_the_char_has_been = world.df_features.loc[(world.df_features['visited']==1)&
                                                     (world.df_features['terrain']=='town')].dropna()
     towns_and_people = [{"town":T,
-                         "people":[t for t in T.population]} 
+                         "people":[t for t in T.get_population(world)]} 
                         for T in world.towns if T.name in np.unique(where_the_char_has_been['feature'])]
     return towns_and_people
 
@@ -303,7 +303,7 @@ def get_relationships_node_map(world):
     nodes = [{'name':r['town'].name,
               'title':str(r['town']).split(":")[0],
               'nation':r['town'].nation,
-              'population':r['town'].pop,
+              'population':len(r['town'].get_population(world)),
               'type':r['town'].type,
               'location':r['town'].key,
               'founded year':r['town'].founded,
