@@ -184,7 +184,7 @@ def create_world_01(request):
             world = the_first_age(context['formData'])
             user = request.user.get_username()
             b.save_world(world, user)
-        if context['formData']['phase'] = 1:
+        if context['formData']['phase'] == 1:
             world = the_first_age(context['formData'])
             user = request.user.get_username()
             b.save_world(world, user)
