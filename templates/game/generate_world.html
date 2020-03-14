@@ -1,0 +1,46 @@
+{% load static %}
+
+<html>
+
+<head>
+    <title>1: The age of elements</title>
+    {% include "prodweb/gatag.html" %}
+    <link rel="stylesheet" type="text/css" href="{% static 'game/createworld.css' %}">
+</head>
+
+<body>
+    <form action='showworld01' method='post' id='newCharacter'>
+        {% csrf_token %}
+        <div class="slidecontainer">
+            <p>How many mountain ranges:</p>
+            <input type="range" min="1" max="10" value="5" class="earth slider" id="drop_iter"
+                oninput="sliderChange(this.id,this.value)">
+            <p>How long should the ranges be:</p>
+            <input type="range" min="30" max="100" value="80" class="earth slider" id="spread_iter"
+                oninput="sliderChange(this.id,this.value)">
+            <p>How high should the peaks be:</p>
+            <input type="range" min="1" max="10" value="5" class="earth slider" id="peak_height"
+                oninput="sliderChange(this.id,this.value)">
+            <p>----------------------</p>
+            <p>How high the water level:</p>
+            <input type="range" min="-5" max="30" value="20" class="water slider" id="water_level"
+                oninput="sliderChange(this.id,this.value)">
+            <p>How strong the rainfall:</p>
+            <input type="range" min="1" max="10" value="5" class="water slider" id="rain_iter"
+                oninput="sliderChange(this.id,this.value)">
+            <input class='formData' id="formData" type='hidden' name='formData' value='{}'>
+            <button id="create" type='submit' value='submit'>Forge this world!</button>
+        </div>
+    </form>
+    <div>
+    </div>
+</body>
+<script>
+    var landscape = {};
+    function sliderChange(n, v) {
+        landscape[n] = parseInt(v)
+        document.getElementById("formData").value = JSON.stringify(landscape);
+    }
+</script>
+
+</html>
