@@ -66,7 +66,7 @@
     var margin = { top: 50, right: 0, bottom: 100, left: 30 },
         width = 960 - margin.left - margin.right,
         gridSize = Math.floor(width / buckets),
-        height = gridSize - margin.top - margin.bottom,
+        height = (gridSize * buckets) + margin.top + margin.bottom,
         legendWidth = (gridSize / 2 + 4)
 
     var svg = d3.select("body").append("svg")
