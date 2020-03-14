@@ -181,10 +181,12 @@ def create_world_01(request):
         context['formData'] = yaml.load(request.POST.get(
             "formData", "No data found"), yaml.SafeLoader)
         if context['formData']['phase'] == 1:
+            context['phase'] = 1
             world = the_first_age(context['formData'])
             user = request.user.get_username()
             b.save_world(world, user)
         if context['formData']['phase'] == 1:
+            context['phase'] = 1
             world = the_first_age(context['formData'])
             user = request.user.get_username()
             b.save_world(world, user)

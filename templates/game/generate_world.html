@@ -35,6 +35,10 @@
             <input type="range" min="1" max="10" value="5" class="water slider" id="rain_iter"
                 oninput="sliderChange(this.id,this.value)">
             <input class='formData' id="formData" type='hidden' name='formData' value='{"phase":{{ phase| safe }}}'>
+            <div>
+                <p>Continue to the next age:</p>
+                <input type="checkbox" id="continue_age" onclick="advance_age()">
+            </div>
             <button id="create" type='submit' value='submit'>Forge this world!</button>
         </div>
     </form>
@@ -42,10 +46,18 @@
     </div>
 </body>
 <script>
-    var landscape = {};
+    var landscape = { "phase": {{ phase| safe }}};
     function sliderChange(n, v) {
         landscape[n] = parseInt(v)
         document.getElementById("formData").value = JSON.stringify(landscape);
+    }
+    function advance_age() {
+        var checkBox = document.getElementById("continue_age");
+        if (checkBox.checked == true) {
+            landscape["continue"] = true;
+        } else {
+            landscape["continue"] = false;
+        }
     }
 </script>
 
