@@ -168,8 +168,9 @@ def create_world_01(request):
     context = {}
     if "GET" == request.method:
         context['phase'] = 1
+        context['formData'] = {}
         world = b.get_world(request.user.get_username())
-        wa = [world.df_features.loc[m].to_dict()
+        wa = [world.df_features.loc[m].fillna("").to_dict()
               for m in world.df_features.index]
         context['df_features'] = wa
         context['dim_1'] = np.unique(world.df_features['x']).tolist()
