@@ -61,7 +61,7 @@ def core_view(request):
             return HttpResponseRedirect('createcharacter')
     # with the updated world, populate the context
     context['areas_visited'] = world.df_features['visited'].sum()
-    # in bost POST(traveling) or GET(loading) the context is populated in the same way.
+    # in POST(traveling) or GET(loading) the context is populated in the same way.
     context['charData'] = world.Character.get_charData()
     if 'old_location' in context.keys():
         context['charData']['old_location'] = context['old_location']
@@ -165,8 +165,15 @@ def create_character(request):
 
 @login_required
 def create_world_01(request):
-    context = {"foo": "bar"}
+    context = {}
     if "GET" == request.method:
+        context['phase'] = 1
+        world = b.get_world(request.user.get_username())
+        wa = [world.df_features.loc[m].to_dict()
+              for m in world.df_features.index]
+        context['df_features'] = wa
+        context['dim_1'] = np.unique(world.df_features['x']).tolist()
+        context['dim_2'] = np.unique(world.df_features['y']).tolist()
         return render(request, 'game/generate_world.html', context)
     else:
         return render(request, 'game/generate_world.html', context)
@@ -178,7 +185,7 @@ def show_world_01(request):
         context = {'phase': 1}
         context['formData'] = yaml.load(request.POST.get(
             "formData", "No data found"), yaml.SafeLoader)
-        world = the_first_age(context['formData'])
+        world = the_first_age({})
         # post the `world` to an s3 bucket, using the username as the key
         user = request.user.get_username()
         b.save_world(world, user)
