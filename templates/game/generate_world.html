@@ -9,13 +9,13 @@
 
 <body>
     <p>The world, to know it is the greatest adventure</p>
-    <a class='button-stack' href='/game/startscreen'>delete and make annother</a>
+    <a class='button-stack' href='/game/startscreen'>Back the the home screen</a>
     <script>
         var formData = {{ formData| safe }};
     </script>
     {% include "game/charts/heatmap.html" %}
 
-    <form action='generate_world' method='post' id='newCharacter'>
+    <form action='createworld01' method='post' id='newCharacter'>
         {% csrf_token %}
         <div class="slidecontainer">
             <p>How many mountain ranges:</p>
