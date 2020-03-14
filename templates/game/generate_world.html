@@ -8,15 +8,14 @@
 </head>
 
 <body>
-    <p>Behold the world you have created</p>
-    <a class='button-stack' href='/game/createworld01'>delete and make annother</a>
-    <a class='button-stack' href='/game/createworld02'>save and continue to the next age</a>
+    <p>The world, to know it is the greatest adventure</p>
+    <a class='button-stack' href='/game/startscreen'>delete and make annother</a>
     <script>
         var formData = {{ formData| safe }};
     </script>
     {% include "game/charts/heatmap.html" %}
 
-    <form action='showworld01' method='post' id='newCharacter'>
+    <form action='generate_world' method='post' id='newCharacter'>
         {% csrf_token %}
         <div class="slidecontainer">
             <p>How many mountain ranges:</p>
