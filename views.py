@@ -194,7 +194,8 @@ def create_world_01(request):
         context['df_features'] = wa
         context['dim_1'] = np.unique(world.df_features['x']).tolist()
         context['dim_2'] = np.unique(world.df_features['y']).tolist()
-        context['formData'].pop('continue')
+        if 'continue' in context['formData'].keys():
+            context['formData'].pop('continue')
         return render(request, 'game/generate_world.html', context)
 
 
