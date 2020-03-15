@@ -164,7 +164,7 @@ def create_character(request):
 #         return render(request, 'game/create_world01.html')
 
 @login_required
-def create_world_01(request):
+def generate_world(request):
     context = {}
     user = request.user.get_username()
     if "GET" == request.method:
