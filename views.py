@@ -174,6 +174,8 @@ def generate_world(request):
             context['formData'] = {'phase': 1}
         if 'phase' not in context['formData'].keys():
             context['formData']['phase'] = 1
+        if len(context['formData'].keys()) == 0:
+            context['formData'] = {'phase': 1}
         context['formData'] = yaml.load(request.POST.get(
             "formData", "No data found"), yaml.SafeLoader)
         if context['formData'].get('continue', False):
