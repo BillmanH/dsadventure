@@ -168,7 +168,7 @@ def create_world_01(request):
     context = {}
     if "GET" == request.method:
         # on a get request, the user may or may not have an existing map
-        context['formData'] = {}
+        context['formData'] = {'phase': 1}
         user = request.user.get_username()
         world = b.get_world(request.user.get_username())
         wa = [world.df_features.loc[m].fillna("").to_dict()
