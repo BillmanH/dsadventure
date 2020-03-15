@@ -170,6 +170,7 @@ def create_world_01(request):
         # on a get request, the user may or may not have an existing map
         context['phase'] = 1
         context['formData'] = {}
+        user = request.user.get_username()
         world = b.get_world(request.user.get_username())
         wa = [world.df_features.loc[m].fillna("").to_dict()
               for m in world.df_features.index]
@@ -180,15 +181,14 @@ def create_world_01(request):
     else:
         context['formData'] = yaml.load(request.POST.get(
             "formData", "No data found"), yaml.SafeLoader)
+        if context['formData']['continue']:
+            context['phase'] += 1
         if context['formData']['phase'] == 1:
-            context['phase'] = 1
             world = the_first_age(context['formData'])
-            user = request.user.get_username()
             b.save_world(world, user)
-        if context['formData']['phase'] == 1:
-            context['phase'] = 1
-            world = the_first_age(context['formData'])
-            user = request.user.get_username()
+        if context['formData']['phase'] == 2:
+            world = b.get_world(request.user.get_username())
+            world = the_second_age(world, context['formData'])
             b.save_world(world, user)
         wa = [world.df_features.loc[m].to_dict()
               for m in world.df_features.index]
