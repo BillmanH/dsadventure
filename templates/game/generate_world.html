@@ -16,7 +16,7 @@
     {% include "game/charts/heatmap.html" %}
 
     {% if formData.phase == 1 %}
-    <form action='createworld01' method='post' id='newCharacter'>
+    <form action='generateworld' method='post' id='newCharacter'>
         {% csrf_token %}
         <div class="slidecontainer">
             <p>How many mountain ranges:</p>
@@ -47,7 +47,7 @@
     {% endif %}
 
     {% if formData.phase == 2 %}
-    <form action='showworld02' method='post' id='newCharacter'>
+    <form action='generateworld' method='post' id='newCharacter'>
         {% csrf_token %}
         <div class="slidecontainer">
             <p>How many eons of population growth?</p>
