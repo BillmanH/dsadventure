@@ -168,7 +168,6 @@ def create_world_01(request):
     context = {}
     if "GET" == request.method:
         # on a get request, the user may or may not have an existing map
-        context['phase'] = 1
         context['formData'] = {}
         user = request.user.get_username()
         world = b.get_world(request.user.get_username())
@@ -182,7 +181,7 @@ def create_world_01(request):
         context['formData'] = yaml.load(request.POST.get(
             "formData", "No data found"), yaml.SafeLoader)
         if context['formData']['continue']:
-            context['phase'] += 1
+            context['formData']['phase'] += 1
         if context['formData']['phase'] == 1:
             world = the_first_age(context['formData'])
             b.save_world(world, user)

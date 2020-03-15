@@ -141,7 +141,7 @@
                 .style("fill", function (d) { return featureColors[d['terrain']]; })
         }
     );
-    {% if phase == 2 %}
+    {% if formData.phase == 2 %}
     {% include "game/charts/nationmaps.js" %}
     {% endif %}
 
