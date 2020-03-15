@@ -170,6 +170,8 @@ def generate_world(request):
         context['dim_2'] = np.unique(world.df_features['y']).tolist()
         return render(request, 'game/generate_world.html', context)
     else:
+        if 'phase' not in context['formData'].keys():
+            'phase' = 1
         context['formData'] = yaml.load(request.POST.get(
             "formData", "No data found"), yaml.SafeLoader)
         if context['formData'].get('continue', False):
