@@ -189,7 +189,7 @@ def create_world_01(request):
             world = b.get_world(request.user.get_username())
             world = the_second_age(world, context['formData'])
             b.save_world(world, user)
-        wa = [world.df_features.loc[m].to_dict()
+        wa = [world.df_features.loc[m].fillna("").to_dict()
               for m in world.df_features.index]
         context['df_features'] = wa
         context['dim_1'] = np.unique(world.df_features['x']).tolist()
