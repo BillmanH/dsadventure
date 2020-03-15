@@ -155,14 +155,6 @@ def create_character(request):
         return render(request, 'game/player/create.html', {'form': form})
 
 
-# @login_required
-# def create_world_01(request):
-#     context = {"foo": "bar"}
-#     if "GET" == request.method:
-#         return render(request, 'game/create_world01.html')
-#     else:
-#         return render(request, 'game/create_world01.html')
-
 @login_required
 def generate_world(request):
     context = {}
