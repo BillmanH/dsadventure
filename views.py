@@ -166,10 +166,10 @@ def create_character(request):
 @login_required
 def create_world_01(request):
     context = {}
+    user = request.user.get_username()
     if "GET" == request.method:
         # on a get request, the user may or may not have an existing map
         context['formData'] = {'phase': 1}
-        user = request.user.get_username()
         world = b.get_world(request.user.get_username())
         wa = [world.df_features.loc[m].fillna("").to_dict()
               for m in world.df_features.index]
