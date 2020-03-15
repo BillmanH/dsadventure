@@ -15,6 +15,7 @@
     </script>
     {% include "game/charts/heatmap.html" %}
 
+    {% if formData.phase == 1 %}
     <form action='createworld01' method='post' id='newCharacter'>
         {% csrf_token %}
         <div class="slidecontainer">
@@ -43,8 +44,30 @@
             <button id="create" type='submit' value='submit'>Forge this world!</button>
         </div>
     </form>
-    <div>
-    </div>
+    {% endif %}
+
+    {% if formData.phase == 2 %}
+    <form action='showworld02' method='post' id='newCharacter'>
+        {% csrf_token %}
+        <div class="slidecontainer">
+            <p>How many eons of population growth?</p>
+            <input type="range" min="1" max="30" value="10" class="culture slider" id="eons"
+                oninput="sliderChange(this.id,this.value)">
+            <p>How likely a new town is formed?</p>
+            <input type="range" min="3" max="10" value="3" class="culture slider" id="town_spawn"
+                oninput="sliderChange_pct(this.id,this.value)">
+            <p>How likely that a population will grow?</p>
+            <input type="range" min="1" max="10" value="3" class="culture slider" id="town_birthrate"
+                oninput="sliderChange_pct(this.id,this.value)">
+            <p>Each nation should have how many cities?</p>
+            <input type="range" min="1" max="10" value="4" class="culture slider" id="n_nations"
+                oninput="sliderChange(this.id,this.value)">
+            <input class='formData' id="formData" type='hidden' name='formData' value='{}'>
+            <button id="create" type='submit' value='submit'>Begin the age of mortals!</button>
+        </div>
+    </form>
+    {% endif %}
+
 </body>
 <script>
     var landscape = { "phase": {{ formData.phase| safe }}};
