@@ -180,7 +180,7 @@ def create_world_01(request):
     else:
         context['formData'] = yaml.load(request.POST.get(
             "formData", "No data found"), yaml.SafeLoader)
-        if context['formData']['continue']:
+        if context['formData'].get('continue', False):
             context['formData']['phase'] += 1
         if context['formData']['phase'] == 1:
             world = the_first_age(context['formData'])

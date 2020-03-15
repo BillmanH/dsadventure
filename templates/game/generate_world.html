@@ -34,7 +34,8 @@
             <p>How strong the rainfall:</p>
             <input type="range" min="1" max="10" value="5" class="water slider" id="rain_iter"
                 oninput="sliderChange(this.id,this.value)">
-            <input class='formData' id="formData" type='hidden' name='formData' value='{"phase":{{ phase| safe }}}'>
+            <input class='formData' id="formData" type='hidden' name='formData'
+                value='{"phase":{{ formData.phase| safe }}}'>
             <div>
                 <p>Continue to the next age:</p>
                 <input type="checkbox" id="continue_age" onclick="advance_age()">
@@ -46,7 +47,7 @@
     </div>
 </body>
 <script>
-    var landscape = { "phase": {{ phase| safe }}};
+    var landscape = { "phase": {{ formData.phase| safe }}};
     function sliderChange(n, v) {
         landscape[n] = parseInt(v)
         document.getElementById("formData").value = JSON.stringify(landscape);
