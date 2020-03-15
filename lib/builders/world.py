@@ -320,3 +320,27 @@ def get_relationships_all(world):
     nodes = get_relationships_node_map(world)
     nations = [s['nation'] for s in nodes]
     return [{'nation':i,'children':[t for t in nodes if t['nation']==i]} for i in nations]
+
+def get_all_nodes(world):
+    where_the_char_has_been = world.df_features.dropna()
+    people = [{'name':str(t),'type':'person'} for t in world.people]
+    nations = [{'name':str(t),'type':'nation'} for t in world.nations]
+    towns = [{'name':f"{t.type} of {t.name}",'type':'town'} for t in world.towns]
+    return towns + nations + people
+
+def get_all_nodes(world):
+    people = [{'id':str(t),'type':'person'} for t in world.people]
+    nations = [{'id':str(t),'type':'nation'} for t in world.nations]
+    towns = [{'id':f"{t.type} of {t.name}",'type':'town'} for t in world.towns]
+    return towns + nations + people
+
+def get_all_links(world):
+    all_links = []
+    town_links = [[all_links.append({'source':str(n),'target':f"{t.type} of {t.name}"}) for t in n.get_all_towns(world)] for n in world.nations]
+    people_links = [[all_links.append({'source':f"{n.type} of {n.name}",'target':str(t)}) for t in n.get_population(world)] for n in world.towns]
+    return all_links
+
+
+def get_nodes_and_links(world):
+    return {'nodes':get_all_nodes(world),
+           'links':get_all_links(world)}

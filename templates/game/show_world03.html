@@ -8,11 +8,36 @@
 </head>
 
 <body>
+    <style>
+        circle {
+          fill: cadetblue;
+        }
+        line {
+          stroke: #ccc;
+        }
+        text {
+          text-anchor: middle;
+          font-family: "Helvetica Neue", Helvetica, sans-serif;
+          fill: #666;
+          font-size: 16px;
+        }
+    </style>
     <p>An age of prosperity was followed by an age of chaos and transformation</p>
+    <div>
     <a class='button-stack' href='/game/createcharacter'>And yet, we know little about you. Tell us about yourself.</a>
     <a class='button-stack' href='/game/generateworld'>discard this world and return to the forge</a>
+        </div>
+    <div>
+            <svg width="1500" height="1000">
+                <g class="links"></g>
+                <g class="nodes"></g>
+            </svg>
+        </div>
     <script>
+        var relationships = {{ relationships|safe }}
 
+        {% include 'game/charts/nodemap.js' %}
+        
     </script>
     <h1>These are the events that happened before you began your quest</h1>
     <div class="infobox">

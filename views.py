@@ -189,6 +189,7 @@ def generate_world(request):
             world = b.get_world(request.user.get_username())
             world, events = the_third_age(world)
             b.save_world(world, user)
+            context['relationships'] = w.get_nodes_and_links(world)
             context['events'] = events
             context['rulers'] = [str(n.ruler) for n in world.nations]
             context['loyalty'] = [str(n) for n in world.nations]

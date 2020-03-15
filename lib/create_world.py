@@ -21,6 +21,7 @@ def the_first_age(default_params):
 #the second age (and after) require a world object and modify it
 def the_second_age(world, default_params, c=c):
     world.year += 100
+    world.towns = []
     world.culture = c.Culture(params=default_params)
     all_towns = towns.build_towns(world, people)
     world.add_features(all_towns)

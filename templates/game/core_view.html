@@ -1,0 +1,52 @@
+{% load static %}
+<html>
+
+    <head>
+            <title>{{ "The main quest" }}</title>
+                {% include "prodweb/gatag.html" %}
+                    <script type="text/javascript" src="{% static 'prodweb/d3.js' %}"></script>
+                        <link rel="stylesheet" type="text/css" href="{% static 'game/forms.css' %}">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    </head>
+
+    <body>
+            <script>
+
+                        {% include "game/core/dataLayer.js" %}
+        {% include "game/core/home_screen.js" %}
+        {% include "game/core/globalFunctions.js" %}
+        {% include "game/core/text_window.js" %}
+// most of the work is done in js, but some templates are built in HTML
+    </script>
+        {% include "game/core/menu_buttons.html" %}
+            <script>
+                        // the core character module
+                        //sub modules for the character are loaded within this module
+                        //templates are in /player/
+                        {% include "game/player/core_character.js" %}
+        {% include "game/core/terrain_textures.js" %}
+
+
+        // Objects that have complex interaction 
+        {% if terrData.monsters %}
+        {% include "game/core/monsters/random_monsters.js" %}
+        {% endif %}
+
+        {% if terrData.town %}
+        {% include "game/core/people/townsfolk.js" %}
+        {% endif %}
+
+
+        // Scripts that govern interaction between objects
+        {% include "game/core/interaction_terrain_char.js" %}
+
+        {% include "game/core/activity_map_boarder.js" %}
+
+    </script>
+        <!- Finally, the inevitable death of the character->
+
+                {% include "game/core/charModifiers/chardeath.html" %}
+
+    </body>
+
+</html>
