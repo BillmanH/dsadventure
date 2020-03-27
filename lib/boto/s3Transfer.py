@@ -9,23 +9,24 @@ import os
 
 
 #conn = boto.connect_s3()
-
-try:
-    conn = S3Connection()
-except:
-    # for local loading, probably removed in production
-    myKeys = yaml.safe_load(
-        open(r'C:\Users\willi\OneDrive\Documents\keyfile.txt', 'r'))
-    AWSSecretKey = myKeys['AWSSecretKey']
-    AWSAccessKeyId = myKeys['AWSAccessKeyId']
-    conn = S3Connection(AWSAccessKeyId, AWSSecretKey)
+def get_s3():
+    try:
+        conn = S3Connection()
+    except:
+        # for local loading, probably removed in production
+        myKeys = yaml.safe_load(
+            open(r'C:\Users\willi\OneDrive\Documents\keyfile.txt', 'r'))
+        AWSSecretKey = myKeys['AWSSecretKey']
+        AWSAccessKeyId = myKeys['AWSAccessKeyId']
+        conn = S3Connection(AWSAccessKeyId, AWSSecretKey)
+    return conn
 
 
 def save_world(world, user):
-    conn = S3Connection()
-    mybucket = conn.get_bucket('dsadventure')
+    # Removing S3 functions as they aren't needed at current scale.
+    #conn = get_s3()
+    #mybucket = conn.get_bucket('dsadventure')
     # save the bucket locally
-    place = os.listdir()
     pickled_world = open('game/pickles/' + user + 'world.pkl', 'wb')
     pickle.dump(world, pickled_world)
     #myKey = mybucket.get_key('world/' + user + 'world.pkl')
