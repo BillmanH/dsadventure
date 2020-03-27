@@ -33,6 +33,9 @@ def save_world(world, user):
 
 
 def get_world(user):
-    with (open('game/pickles/' + user + 'world.pkl', 'rb')) as pickle_file:
-        world = pickle.load(pickle_file)
+    try:
+        with (open('game/pickles/' + user + 'world.pkl', 'rb')) as pickle_file:
+            world = pickle.load(pickle_file)
+    except FileNotFoundError:
+        return None
     return world

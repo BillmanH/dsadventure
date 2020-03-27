@@ -163,6 +163,8 @@ def generate_world(request):
         # on a get request, the user may or may not have an existing map
         context['formData'] = {'phase': 1}
         world = b.get_world(request.user.get_username())
+        if not world:
+            world = the_first_age(context['formData'])
         wa = [world.df_features.loc[m].fillna("").to_dict()
               for m in world.df_features.index]
         context['df_features'] = wa
