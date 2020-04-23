@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'game.apps.gameConfig'
     ]
 ```
+**note** that I'm using `game` as the cloned repository folder, which may be different than the name of this repository. If you cloned your repository under a different name, then you need to change `game` to your git rep folder name.
 
 You will also need:
 * setup for authentication (mine is in the main prodweb django project, not this app)
