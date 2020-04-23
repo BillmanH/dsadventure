@@ -14,11 +14,16 @@ class Person:
         self.loyalty = 0.5
         # temperment determines the 'viciousness' of a person's decisons
         self.temperment = np.round_(np.random.random_sample(), 2)
+        # opinion_of_player (-/+) determines the likelyhood that the person will do anything for player. 
+        self.opinion_of_player = 0
         self.born_in = self.set_born_in(world)
         self.setLoyaltytoCrown()
         self.attributes = ["alive"]
         self.messages = ["Hello stranger."]
         self.type = "person"
+        # current activities of the person
+        self.doing = 'nothing'
+        self.finishdate = None
         world.people.append(self)
 
     def __repr__(self):
@@ -47,10 +52,34 @@ class Person:
             "role": self.role,
             "loyalty": self.loyalty,
             "temperment": self.temperment,
+            "opinion_of_player":self.opinion_of_player,
             "attributes": self.attributes,
             "messages": self.messages,
+            "doing": self.doing,
         }
         return d
+    
+    def start_task(self,task,finishdate,stop_current=True):
+        '''
+        stop_current : boolian, do nothing if set to False
+        '''
+        if (self.doing=='nothing')|stop_current:
+            self.doing=task
+            self.finishdate=finishdate
+            
+    def stop_task(self):
+        self.doing='nothing'
+        self.finishdate=None
+            
+    def check_complete(self,world):
+        if self.finishdate:
+            if self.finishdate<world.year:
+                self.doing='nothing'
+                return True
+            else:
+                return False
+        else:
+            return False
 
     def setLoyaltytoCrown(self):
         if "ruler" in self.role:
