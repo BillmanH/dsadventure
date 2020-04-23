@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from .forms import playerCharacterForm
 
 # functions that generate the world
-from .lib.create_world import *
+from .lib import create_world
 
 # builders are the modules that get and put data into the right places
 from .lib.builders import world as w
@@ -20,6 +20,8 @@ from .lib import modify_character
 # libraries to save and load files
 from .lib.boto import s3Transfer as b
 import yaml
+import numpy as np
+import pandas as pd
 
 # models pulled in from Azure SQL Server
 from .models import bestiary, terrain_details, terrain_items
@@ -164,7 +166,7 @@ def generate_world(request):
         context['formData'] = {'phase': 1}
         world = b.get_world(request.user.get_username())
         if not world:
-            world = the_first_age(context['formData'])
+            world = create_world.the_first_age(context['formData'])
         wa = [world.df_features.loc[m].fillna("").to_dict()
               for m in world.df_features.index]
         context['df_features'] = wa
@@ -181,15 +183,15 @@ def generate_world(request):
         if context['formData'].get('continue', False):
             context['formData']['phase'] += 1
         if context['formData']['phase'] == 1:
-            world = the_first_age(context['formData'])
+            world = create_world.the_first_age(context['formData'])
             b.save_world(world, user)
         if context['formData']['phase'] == 2:
             world = b.get_world(request.user.get_username())
-            world = the_second_age(world, context['formData'])
+            world = create_world.the_second_age(world, context['formData'])
             b.save_world(world, user)
         if context['formData']['phase'] == 3:
             world = b.get_world(request.user.get_username())
-            world, events = the_third_age(world)
+            world, events = create_world.the_third_age(world)
             b.save_world(world, user)
             context['relationships'] = w.get_nodes_and_links(world)
             context['events'] = events
