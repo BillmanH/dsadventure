@@ -119,8 +119,8 @@
         .attr("width", gridSize)
         .attr("height", gridSize)
         .style("fill", mountainColors[0])
-        .attr("class", "square")
-        .style("fill", function (d) { if (d['character'] == 'here') { return "#FFFF00" } else { return featureColors[d['terrain']]; } })
+        .attr("class", function (d) { return "square " + d['terrain']; })
+        .style("fill", function (d) { return featureColors[d['terrain']]; })
         .on("mouseover", function (d) {
             terrain_tooltip.html(dictToHtml(d3.select(this).datum()))
             return terrain_tooltip.style("visibility", "visible")
@@ -134,6 +134,49 @@
         .on("click", function (d) {
             console.log(this, d);
         })
+    //Select the towns
+    svg.selectAll(".dim2").data(df_features.filter(function (d) { return d['terrain'] == 'town'; })).enter().append("circle")
+        .attr("cx", function (d) { return (d.x) * gridSize + (gridSize / 2); })
+        .attr("cy", function (d) { return (d.y) * gridSize + (gridSize / 2); })
+        .attr("r", 15)
+        .style('stroke', 'black')
+        .style("fill", 'grey')
+        .on("mouseover", function (d) {
+            terrain_tooltip.html(dictToHtml(d3.select(this).datum()))
+            return terrain_tooltip.style("visibility", "visible")
+        })
+        .on("mousemove", function (d) {
+            return terrain_tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px")
+        })
+        .on("mouseout", function () {
+            return terrain_tooltip.style("visibility", "hidden");
+        })
+        .on("click", function (d) {
+            console.log(this, d);
+        })
+
+    //Select character & Special People
+    svg.selectAll(".dim2").data(df_features.filter(function (d) { return d['character'] == 'here'; })).enter().append("circle")
+        .attr("cx", function (d) { return (d.x) * gridSize + (gridSize / 2); })
+        .attr("cy", function (d) { return (d.y) * gridSize + (gridSize / 2); })
+        .attr("r", 4)
+        .style('stroke', 'black')
+        .style("fill", 'yellow')
+        .on("mouseover", function (d) {
+            terrain_tooltip.html(dictToHtml(d3.select(this).datum()))
+            return terrain_tooltip.style("visibility", "visible")
+        })
+        .on("mousemove", function (d) {
+            return terrain_tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px")
+        })
+        .on("mouseout", function () {
+            return terrain_tooltip.style("visibility", "hidden");
+        })
+        .on("click", function (d) {
+            console.log(this, d);
+        })
+
+
 
 
 

@@ -322,11 +322,7 @@ def get_relationships_node_map(world):
               'type':r['town'].type,
               'location':r['town'].key,
               'founded year':r['town'].founded,
-              'children': [{'name': p.name,
-                            'role': p.role,
-                            'temperment': p.temperment,
-                            'loyalty': p.loyalty,
-                            'type': 'person'} for p in r['people']]}
+              'children': [p.get_person_data() for p in r['people']]}
              for r in get_people_where_char_has_visited(world)]
     return nodes
 

@@ -15,8 +15,8 @@ d3.select("#nations")
         function (d) {
             heatMap.transition().style("fill", function (d) {
                 if (d['terrain'] == 'unknown') { return '#000000' }
+                else if (d['terrain'] == 'ocean') { return '#0077be' }
                 else if (d['nation'] != '') { return nationColors[d['nation number']] }
-                else if (d['terrain'] == 'town') { return '#808080' }
                 else { return '#AARRGGBB' }
             });
             heatMap.selectAll("title").text(function (d) {

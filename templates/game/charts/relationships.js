@@ -1,4 +1,7 @@
-var relationships = { 'name': 'Character', 'type': 'person', 'children': {{ relationships | safe }}}
+var relationships = {
+    'name': 'Character',
+    'type': 'person',
+    'children': {{ relationships | safe }}}
 
 console.log(relationships);
 
