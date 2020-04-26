@@ -90,6 +90,9 @@ class Person:
         else:
             self.loyalty = 0.5
 
+    def shift_opinion_of_player(self, n):
+        self.opinion_of_player += n
+
     def add_message(self, m):
         self.messages.append(m)
 

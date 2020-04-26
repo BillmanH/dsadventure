@@ -122,7 +122,13 @@ class World:
 
     def tranquilize_area(self, trophies, oldLocation):
         reduction = len(trophies)/10
+        coord = self.keycoord(oldLocation)
         self.df_features.loc[oldLocation, 'danger'] -= reduction
+        closest = self.get_closest_terrain(coord, 'town')
+        close_towns = [t for t in self.towns if t.name ==
+                       self.df_features.loc[closest, 'feature']]
+        [[p.shift_opinion_of_player(reduction) for p in pop] for pop in [p for p in [
+            t.get_population(self) for t in close_towns]]]
 
     def keycoord(self, key):
         '''
@@ -153,6 +159,12 @@ class World:
         y = np.random.choice(df.columns.tolist(), 1)[0]
         coord = [x, y]
         return np.array(coord)
+
+    def get_closest_terrain(self, coord, terr):
+        df = self.df_features[self.df_features['terrain'] == terr]
+        coord = np.array(coord)
+        closest = (abs(df['x'] - coord[0])+abs(df['y'] - coord[1])).idxmin()
+        return closest
 
     def get_filtered_chord(self, t=None, f=None, n=None, r='coord'):
         """
