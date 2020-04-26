@@ -2,6 +2,17 @@
 **always a work in progress**
 The core application is functional, but still has a long way to go before I have a _game_. I'm not guaranteeing that I'll keep it online 24/7 as I'm actively building it out. I'm not even at the point where I'm posting the game link. PM me if you want to see it in action though. 
 
+# How to play:
+## Create a world
+The world you create is your own. It's your own saved world with it's own history, people and problems. In the creation phase you can tweak the parameters of the world to make the world that you want to play in. 
+
+## Create a character
+Coose the starting characteristics. You will start with the most basic skills and gear, you will have to find out how to get better skills and gear.
+
+## Have adventures
+* Killing monstors out in the world makes the world safer, and people like you more.
+    * plus you might get some cool loot.
+
 # Infrastructure
 ## Django
 The core app is written using Django. You can clone this app directly into your existing Django project by cloning this repo into your project directory and adding the URLs to your production urls.py view. The tutorial on the Django website should show you how create a Django project if you don't have one.

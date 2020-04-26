@@ -56,7 +56,7 @@ class Person:
             "temperment": self.temperment,
             "opinion_of_player": self.opinion_of_player,
             "attributes": self.attributes,
-            "messages": self.messages,
+            "messages": "|".join(self.messages),
             "doing": self.doing,
             "type": "person"
         }
