@@ -5,15 +5,20 @@ import os
 from .updaters.character_message import update_char_message
 
 
-def update_charData(world, charData):
+def update_charData(world, charData, oldLocation):
     char = world.Character
     char.arriveFrom = charData['arriveFrom']
     char.composure = charData['composure']
     # coerce values to int
     l = charData['location'].split(":")
     char.location = [int(l[0]), int(l[1])]
+    # count Kills and xp.
+    trophies = [x for x in charData['attributes'] if 'killed:' in x]
+    char.xp += len(trophies)
+    if len(trophies) > 0:
+        world.tranquilize_area(trophies, oldLocation)
+    char.attributes = [x for x in charData['attributes'] if x not in trophies]
     # update attributes that may or may not have changed
-    char.attributes = charData['attributes']
     char.title = charData['title']
     char.message = update_char_message(world)
     if 'meta' in charData.keys():
@@ -21,7 +26,7 @@ def update_charData(world, charData):
     else:
         charData['meta'] = {}
         charData['meta']['n_turns'] = 1
-    return char
+    return world
 
 
 class Character():
@@ -163,7 +168,7 @@ def create_character(character_dict, world):
     world.df_features.loc[:, 'aware'] = 0
     set_char_origin(c, world)
     set_starting_eq(c, world)
-
+    print(c.get_charData())
     world.Character = c
     set_skills(world, character_dict)
     world.df_features['visited'] = 0

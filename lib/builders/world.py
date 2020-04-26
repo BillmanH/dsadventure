@@ -120,6 +120,10 @@ class World:
         self.grid_rainfall = self.build_blank_grid(landscape)
         self.df_features = pd.DataFrame()
 
+    def tranquilize_area(self, trophies, oldLocation):
+        reduction = len(trophies)/10
+        self.df_features.loc[oldLocation, 'danger'] -= reduction
+
     def keycoord(self, key):
         '''
         takes a key "1:1", returns a coord [1,1]

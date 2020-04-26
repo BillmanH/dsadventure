@@ -46,13 +46,14 @@ def core_view(request):
         world = b.get_world(request.user.get_username())
         context['old_location'] = world.Character.get_location_key()
         # update the charData with this function (keeps the update out of the users's hands)
-        world.Character = modify_character.update_charData(world, charData)
+        world = modify_character.update_charData(
+            world, charData, context['old_location'])
         #new_location = world.Character.get_location_key()
         world.Character.turn_number += 1
         # TODO: game starts on "unvisitied location" change first place to visited by default.
         # keeping track of whether or not the character has been there
-        world.df_features.loc[context['old_location'], 'visited'] = 1
-        world.df_features.loc[context['old_location'], 'aware'] = 1
+        world.df_features.loc[context['old_location'],
+                              ['visited', 'aware']] = 1
         world.df_features.loc[context['old_location'],
                               'turn_last_visited'] = world.Character.turn_number
         b.save_world(world, request.user.get_username())
