@@ -317,40 +317,25 @@ def appoint_ruler(world, nation):
     pass
 
 
-def get_people_where_char_has_visited(world):
-    """
-    returns a dictionary of {{"town":[<obj>],"people":[<obj>]}
-    filtered to where the character has been. 
-    """
-    where_the_char_has_been = world.df_features.loc[(world.df_features['visited'] == 1) &
+# generic info getter
+def get_towns_where_char_has_visited(world):
+    towns_the_char_has_been = world.df_features.loc[(world.df_features['visited'] == 1) &
                                                     (world.df_features['terrain'] == 'town')].dropna()
-    towns_and_people = [{"town": T,
-                         "people": [t for t in T.get_population(world)]}
-                        for T in world.towns if T.name in np.unique(where_the_char_has_been['feature'])]
+    towns_and_people = [T.get_town_data(world) for T in world.towns if T.name in np.unique(
+        towns_the_char_has_been['feature'])]
     return towns_and_people
 
 
-def get_relationships_node_map(world):
-    nodes = [{'name': r['town'].name,
-              'title':str(r['town']).split(":")[0],
-              'nation':r['town'].nation,
-              'population':len(r['town'].get_population(world)),
-              'type':r['town'].type,
-              'location':r['town'].key,
-              'founded year':r['town'].founded,
-              'children': [p.get_person_data() for p in r['people']]}
-             for r in get_people_where_char_has_visited(world)]
+# Used in the Journal Tab (creates Hierarchy tree)
+def get_relationships_all(world):
+    nodes = get_towns_where_char_has_visited(world)
+    for c in nodes:
+        c["children"] = c.pop("people")
     return nodes
 
 
-def get_relationships_all(world):
-    nodes = get_relationships_node_map(world)
-    nations = [s['nation'] for s in nodes]
-    return [{'nation': i, 'children': [t for t in nodes if t['nation'] == i]} for i in nations]
-
-
+# used in list of links and nodes
 def get_all_nodes(world):
-    where_the_char_has_been = world.df_features.dropna()
     people = [{'name': str(t), 'type': 'person'} for t in world.people]
     nations = [{'name': str(t), 'type': 'nation'} for t in world.nations]
     towns = [{'name': f"{t.type} of {t.name}", 'type': 'town'}
@@ -358,23 +343,17 @@ def get_all_nodes(world):
     return towns + nations + people
 
 
-def get_all_nodes(world):
-    people = [{'id': str(t), 'type': 'person'} for t in world.people]
-    nations = [{'id': str(t), 'type': 'nation'} for t in world.nations]
-    towns = [{'id': f"{t.type} of {t.name}", 'type': 'town'}
-             for t in world.towns]
-    return towns + nations + people
-
-
+# used in list of links and nodes
 def get_all_links(world):
     all_links = []
-    town_links = [[all_links.append({'source': str(n), 'target': f"{t.type} of {t.name}"})
-                   for t in n.get_all_towns(world)] for n in world.nations]
-    people_links = [[all_links.append({'source': f"{n.type} of {n.name}", 'target': str(
+    [[all_links.append({'source': str(n), 'target': f"{t.type} of {t.name}"})
+      for t in n.get_all_towns(world)] for n in world.nations]
+    [[all_links.append({'source': f"{n.type} of {n.name}", 'target': str(
         t)}) for t in n.get_population(world)] for n in world.towns]
     return all_links
 
 
+# used in list of links and nodes
 def get_nodes_and_links(world):
     return {'nodes': get_all_nodes(world),
             'links': get_all_links(world)}

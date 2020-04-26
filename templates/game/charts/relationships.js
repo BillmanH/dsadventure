@@ -1,18 +1,18 @@
 var relationships = {
     'name': 'Character',
     'type': 'person',
+    'role': 'hero',
     'children': {{ relationships | safe }}}
-
 console.log(relationships);
 
-var width = 500,
-    height = 500,
+var width = 1000,
+    height = 1000,
     root;
 
 var vLayout = d3.forceSimulation()
-    .force('link', d3.forceLink()
+    .force('links', d3.forceLink()
         .id(function (d) { return d.id; })
-        .distance(function (d) { return 200 }))
+        .distance(function (d) { return 50 }))
     .force('charge', d3.forceManyBody())
     .force('center', d3.forceCenter(width / 2, height / 2));
 
@@ -31,7 +31,9 @@ var vLinks = root.links();
 
 var roleColors = {
     "commoner": "#F5D040",
+    "hero": "#00FFFF"
 }
+
 var typeColors = {
     "capitol": "#000000",
     "town": "#A8A8A8",
@@ -49,7 +51,10 @@ node = d3.select('svg g.nodes')
     .attr('r', function (d) { if (d.data.type == 'person') { return 10 } else { return 30 } })
     .style("stroke", "black")
     .attr("id", function (d, i) { return "t" + String(i) })
-    .attr('fill', function (d) { if (d.data.type == 'person') { return roleColors[d.data.role] } else { return typeColors[d.data.type] } })
+    .attr('fill', function (d) {
+        if (d.data.type == 'person') { return roleColors[d.data.role] }
+        else { return typeColors[d.data.type] }
+    })
     .on("mouseover", function (d) {
         //console.log(d3.select(this).datum().data);
         return terrain_tooltip.style("visibility", "visible")
@@ -76,7 +81,6 @@ link = d3.select('svg g.links')
     .style("stroke", "#ccc");
 
 vLayout.nodes(vNodes).on('tick', tick);
-vLayout.force('link').links(vLinks);
 
 
 // now to move them. 
