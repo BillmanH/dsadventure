@@ -21,7 +21,9 @@
 
         var charData = {{ charData | safe }}      
         {% include "game/core/globalFunctions.js" %}
-        
+    </script>
+<p>The people and towns known today</p>
+    <script>
         {% include "game/charts/relationships.js" with relationships=relationships %}
         {% include "game/charts/diplomacy.js" with diplomacy=diplomacy %}
 
