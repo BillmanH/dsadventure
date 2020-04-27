@@ -5,7 +5,8 @@ function popvalues(a, m) {
 }
 
 function limitDict(d) {
-    var things_we_dont_print = [
+    var things_we_dont_print = ['speaker',
+                                'diplomacy',
                                 'children',
                                 'equipment',
                                 'spawn_x',

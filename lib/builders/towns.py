@@ -15,16 +15,11 @@ def modify_context(world, context):
             newcontext['n_ter_items'].append(t)
         else:
             newcontext['n_ter_items'].append(t)
-    town_data = {'name': context['mapData']['area']['feature']}
+    town_data = town.get_town_data(world)
     town_data['str'] = str(town)
-    town_data['diplomacy'] = town.diplomacy
-    town_data['nation'] = town.nation
-    town_data['type'] = town.type
     newcontext['terrData']['town'] = town_data
-    newcontext['terrData']['people'] = [p.get_person_data()
-                                        for p in town.get_population(world)]
     if world.Character.characterSpeaksLanguage(world):
-        for p in newcontext['terrData']['people']:
+        for p in newcontext['terrData']['town']['people']:
             for m in p['messages']:
                 m = world.culture.gibberishGenerator(l=len(m))
     return newcontext
@@ -60,6 +55,9 @@ class Town:
 
     def __repr__(self):
         return f"{self.type} of {self.name}. Location: [{self.key}]. Founded {self.founded} </br>In the nation of {self.nation}"
+
+
+
 
     def get_town_data(self, world):
         p = [p.get_person_data() for p in self.get_population(world)]
