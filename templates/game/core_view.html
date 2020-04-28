@@ -33,7 +33,14 @@
         {% endif %}
 
         {% if terrData.town %}
-        {% include "game/core/people/townsfolk.js" %}
+            {% include "game/core/people/townsfolk.js" %}
+            {% if terrData.town.buildings %}
+                {% for i in terrData.town.buildings %}
+                    {% with "game/core/buildings/"|add:i|add:".js" as template %}
+                        {% include template %}
+                    {% endwith %}
+                {% endfor %}
+            {% endif %}
         {% endif %}
 
 
