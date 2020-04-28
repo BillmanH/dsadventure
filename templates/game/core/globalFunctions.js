@@ -25,7 +25,16 @@ function dictToHtml(d) {
     html = ""
     d = limitDict(d)
     for (var k in d) {
-        html += k + ": " + d[k] + "<br>"
+        x = k.replace(/_/g," ")
+        y = d[k]
+        if(typeof(y)=="string"){
+            y = d[k].replace(/_/g," ")
+        }else if(typeof(y)=="number"){
+            y = r(y)
+        } else if(typeof(y)=="object"){
+            y = d[k].toString().replace(/_/g," ")
+        }
+        html += x + ": " + y + "<br>"
     }
     return html
 }

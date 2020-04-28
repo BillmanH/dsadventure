@@ -23,7 +23,7 @@ great_hall
                         })
                     .on("mousemove", function(d){
                             return terrain_tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px")
-                        .html(d.name);
+                            .html("The great hall of "+terrData['town']['name']);
                         })
                     .on("mouseout", function(){
                         return terrain_tooltip.style("visibility", "hidden");
