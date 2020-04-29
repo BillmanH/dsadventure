@@ -1,17 +1,31 @@
 # Adventures in Data Science: an RPG built from the data science toolkit
 **always a work in progress**
+
+
+![Alt text](/docs/screenshot_start.png?raw=true "overland map")
+
+
 The core application is functional, but still has a long way to go before I have a _game_. I'm not guaranteeing that I'll keep it online 24/7 as I'm actively building it out. I'm not even at the point where I'm posting the game link. PM me if you want to see it in action though. 
 
 # How to play:
 ## Create a world (you'll need to create an account)
 The world you create is your own. It's your own saved world with its own history, people and problems. In the creation phase you can tweak the parameters of the world to make the world that you want to play in. 
 
+![Alt text](/docs/screenshot_map.png?raw=true "overland map")
+
 ## Create a character
 Choose the starting characteristics. You will start with the most basic skills and gear; you will have to find out how to get better skills and gear.
+
+![Alt text](/docs/Screenshot_moutnain.png?raw=true "overland map")
+
 
 ## Have adventures
 * Killing monsters out in the world makes the world safer, and people like you more.
     * plus you might get some cool loot.
+
+
+![Alt text](/docs/screeshot_forest.png?raw=true "overland map")
+
 
 # Infrastructure
 ## Django
