@@ -89,5 +89,8 @@ world
 * Character - the player character object, equipment and experience
 
 
-
-
+### TODO: Ideas that I have, jot them down quickly so that I can think of them later. 
+* Time advances in a weekly manner
+    * Has seasons
+    * Add snow to terrain in wintertime
+* Population birthrate is set to sum of danger area surrounding town. 

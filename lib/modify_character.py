@@ -21,11 +21,6 @@ def update_charData(world, charData, oldLocation):
     # update attributes that may or may not have changed
     char.title = charData['title']
     char.message = update_char_message(world)
-    if 'meta' in charData.keys():
-        charData['meta']['n_turns'] += 1
-    else:
-        charData['meta'] = {}
-        charData['meta']['n_turns'] = 1
     return world
 
 

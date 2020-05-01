@@ -56,6 +56,7 @@ def core_view(request):
                               ['visited', 'aware']] = 1
         world.df_features.loc[context['old_location'],
                               'turn_last_visited'] = world.Character.turn_number
+        w.update_world(world)
         b.save_world(world, request.user.get_username())
     if "GET" == request.method:
         # world objects come from pickles, loaded from s3

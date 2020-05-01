@@ -74,6 +74,25 @@ def get_features_or_NA(world, coord):
     return l[0]
 
 
+def get_season(world):
+    if (world.year % 1 < .1) | (world.year % 1 >= .8):
+        world.season = "winter"
+    if (world.year % 1 >= .1) & (world.year % 1 < .3):
+        world.season = "spring"
+    if (world.year % 1 >= .3) & (world.year % 1 < .5):
+        world.season = "summer"
+    if (world.year % 1 >= .5) & (world.year % 1 < .8):
+        world.season = "autum"
+
+
+def update_world(world, time_passed=.1):
+    '''
+    time_passed: Percent of one year
+    '''
+    world.year += time_passed
+    get_season(world)
+
+
 def set_ecology(x, landscape):
     if x.terrain == "ocean":
         return x.terrain
