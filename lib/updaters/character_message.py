@@ -14,5 +14,5 @@ def update_char_message(world):
     area = world.df_features.loc[world.Character.get_location_key()]
     if area.terrain == "town":
         long_description = str(get_town(world.towns, area.feature))
-    message = f"{world.Character.name} is standing in {area.terrain}: {area.key}. {long_description}"
+    message = f"{world.Character.name} is standing in {area.terrain}: {area.key}. {long_description} <br> It is {world.season}"
     return message

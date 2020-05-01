@@ -46,17 +46,8 @@ ter_group_{{ t.texture.name|safe }}.selectAll()
                     .attr("name",function(d){return d.name})
                     .classed("terrain", true)
                     .classed("circle", true)
+                    .style("opacity", .3)
                     .attr("r",function(d){return d.size})
                     .style("fill",function(d){return d.hexcolor})
                     .style("stroke",function(d){return d.borderhex})
-                    .on("mouseover", function(d){
-                        return terrain_tooltip.style("visibility", "visible")
-                            .html(d.name);
-                        })
-                    .on("mousemove", function(d){
-                            return terrain_tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px")
-                        .html(d.name);
-                        })
-                    .on("mouseout", function(){
-                        return terrain_tooltip.style("visibility", "hidden");
-                    })
+

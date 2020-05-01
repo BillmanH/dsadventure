@@ -82,12 +82,13 @@ def get_season(world):
     if (world.year % 1 >= .3) & (world.year % 1 < .5):
         world.season = "summer"
     if (world.year % 1 >= .5) & (world.year % 1 < .8):
-        world.season = "autum"
+        world.season = "fall"
 
 
-def update_world(world, time_passed=.1):
+def update_world(world, time_passed=.025):
     '''
     time_passed: Percent of one year
+    .025 is about 10 days or (356*.025)
     '''
     world.year += time_passed
     get_season(world)
