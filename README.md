@@ -31,6 +31,8 @@ Choose the starting characteristics. You will start with the most basic skills a
 ## Django
 The core app is written using Django. You can clone this app directly into your existing Django project by cloning this repo into your project directory and adding the URLs to your production urls.py view. The tutorial on the Django website should show you how create a Django project if you don't have one.
 
+**NOTE** that this is a django `app` that you can add to your django `project`. Not a stand-alone django project. 
+
 Example snippet to add to your `urlpatterns` in your `urls.py`:
 ```
 urlpatterns = [

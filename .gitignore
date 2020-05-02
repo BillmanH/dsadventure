@@ -98,3 +98,5 @@ db.sqlite3
 .ipynb_checkpoints
 notebooks/.ipynb_checkpoints
 
+migrations_old/*
+
