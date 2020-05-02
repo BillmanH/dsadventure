@@ -1,6 +1,9 @@
 import numpy as np
 import pandas as pd
 
+def new_year_growth(world,people):
+    for t in world.towns:
+        t.population_growth(world,people)
 
 def mask_unknown(world):
     """
@@ -85,12 +88,15 @@ def get_season(world):
         world.season = "fall"
 
 
-def update_world(world, time_passed=.025):
+def update_world(world,people, time_passed=.025):
     '''
     time_passed: Percent of one year
     .025 is about 10 days or (356*.025)
     '''
+    old_year = np.floor(world.year)
     world.year += time_passed
+    if old_year!=np.floor(world.year):
+        new_year_growth(world,people)
     get_season(world)
 
 

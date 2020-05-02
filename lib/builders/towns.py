@@ -52,12 +52,19 @@ class Town:
         self.buildings = ["great_hall"]
         world.df_features.loc[self.key, 'terrain'] = 'town'
         world.df_features.loc[self.key, 'feature'] = self.name
+        
 
     def __repr__(self):
         return f"{self.type} of {self.name}. Location: [{self.key}]. Founded {self.founded} </br>In the nation of {self.nation}"
 
-
-
+    def get_surrounding_area(self,world):
+        coord = world.keycoord(self.key)
+        surrounding_area = world.df_features.loc[(world.df_features['x'].isin([coord[0],coord[0]+1,coord[0]-1]))&(world.df_features['y'].isin([coord[1],coord[1]+1,coord[1]-1]))]
+        return surrounding_area
+    
+    def get_birthrate(self,world):
+        birthrate = 1 - self.get_surrounding_area(world)['danger'].mean()
+        return birthrate
 
     def get_town_data(self, world):
         p = [p.get_person_data() for p in self.get_population(world)]
@@ -71,6 +78,7 @@ class Town:
             "nation": self.nation,
             "loyalty": np.mean([pi['loyalty'] for pi in p]),
             "temperment": np.mean([pi['temperment'] for pi in p]),
+            "danger": self.get_surrounding_area(world)['danger'].mean(),
             "buildings": self.buildings,
             "diplomacy": self.diplomacy,
             "type": self.type
@@ -84,6 +92,10 @@ class Town:
         return people.Person(world, role=f"Speaker of {self.name}", location=self.key)
 
     def population_growth(self, world, people):
+        if np.random.uniform() < self.get_birthrate(world):
+            p = people.Person(world, location=self.key)
+
+    def population_gen(self, world, people):
         if np.random.uniform() < world.culture.town_birthrate:
             p = people.Person(world, location=self.key)
 
@@ -107,7 +119,7 @@ def build_towns(world, people):
             towns.append(Town(world.keycoord(key), world.year, world, people))
             world.year += 1
         for t in towns:
-            t.population_growth(world, people)
+            t.population_gen(world, people)
     return towns
 
 
@@ -119,3 +131,4 @@ def get_town(towns, name):
         return t[0]
     else:
         return t
+

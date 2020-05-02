@@ -48,7 +48,7 @@ def core_view(request):
         # update the charData with this function (keeps the update out of the users's hands)
         world = modify_character.update_charData(
             world, charData, context['old_location'])
-        #new_location = world.Character.get_location_key()
+        #A new turn has begun
         world.Character.turn_number += 1
         # TODO: game starts on "unvisitied location" change first place to visited by default.
         # keeping track of whether or not the character has been there
@@ -56,7 +56,7 @@ def core_view(request):
                               ['visited', 'aware']] = 1
         world.df_features.loc[context['old_location'],
                               'turn_last_visited'] = world.Character.turn_number
-        w.update_world(world)
+        w.update_world(world, builders.people)
         b.save_world(world, request.user.get_username())
     if "GET" == request.method:
         # world objects come from pickles, loaded from s3
