@@ -22,3 +22,5 @@ ter_group_tree
         .on("mouseout", function(){
             return terrain_tooltip.style("visibility", "hidden");
         })
+
+ter_group_tree.moveToBack()

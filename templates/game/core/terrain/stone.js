@@ -1,2 +1,2 @@
-{% extends 'game/core/terrain/render_scatter.js' %}
+{% include 'game/core/terrain/render_scatter.js' %}
 
