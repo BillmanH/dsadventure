@@ -43,9 +43,15 @@
 
     </script>
     <div class="money">
-        <p class="gold">Gold: {{ charData.equipment.gold }}</p>
-        <p class="silver">Silver: {{ charData.equipment.silver }}</p>
-        <p class="copper">Copper: {{ charData.equipment.coper }}</p>
+        {% if charData.equipment.gold %}
+            <p class="gold">Gold: {{ charData.equipment.gold }}</p>
+        {% endif %}
+        {% if charData.equipment.silver %}
+            <p class="silver">Silver: {{ charData.equipment.silver }}</p>
+        {% endif %}
+        {% if charData.equipment.coper %}
+            <p class="copper">Copper: {{ charData.equipment.coper }}</p>
+        {% endif %}
     </div>
 </body>
 

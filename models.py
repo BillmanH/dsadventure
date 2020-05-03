@@ -13,6 +13,7 @@ class terrain_items(models.Model):
     affectText = models.CharField(max_length=250)
     abundance_affected_by = models.CharField(max_length=50)
     density_affected_by = models.CharField(max_length=50)
+    render_index = models.IntegerField(default='-1')
 
 class terrain_details(models.Model):
    name = models.CharField(max_length=50,primary_key=True)

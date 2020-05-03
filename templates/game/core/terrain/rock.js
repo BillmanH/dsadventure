@@ -9,6 +9,7 @@ ter_group_rock
         .attr('xlink:href', 'https://s3-us-west-2.amazonaws.com/www.williamjeffreyharding.com/images/rock.png')
         .attr('width', function(d){return d.size*2})
         .attr('height', function(d){return d.size*2})
+        .style('z-index',function(d){return d.render_index} )
         .attr("x",function(d){return d.spawnOrigin_x-(d.size)})
         .attr("y",function(d){return d.spawnOrigin_y-(d.size)})
         .on("mouseover", function(d){
@@ -22,3 +23,5 @@ ter_group_rock
         .on("mouseout", function(){
             return terrain_tooltip.style("visibility", "hidden");
         })
+
+ter_group_rock.moveToBack()

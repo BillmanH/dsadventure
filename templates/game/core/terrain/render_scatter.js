@@ -31,13 +31,14 @@ var ter_group_{{ t.texture.name|safe }} = canvas.selectAll("{{ t.texture.name|sa
             .append("g")
             .classed("terrain",true)
             .classed("{{ t.texture.name|safe }}",true)
+            .style('z-index',"{{ t.texture.render_index|safe }}")
        
        
 ter_group_{{ t.texture.name|safe }}.selectAll()
     .data(function(d){return d})
         .enter()
         .append("circle")
-                    .style('z-index',-1)
+        .style('z-index',function(d){return d.render_index} )
                     .attr("cx",function(d){return d.spawnOrigin_x})
                     .attr("cy",function(d){return d.spawnOrigin_y})
                     .attr("affect",function(d){return d.affect})
