@@ -3,11 +3,14 @@ relationships['children'] = {{ relationships | safe }}
 relationships['role'] = 'hero'
 relationships['type'] = 'person'
 
-// var relationships = {
-//     'name': 'Character',
-//     'type': 'person',
-//     'role': 'hero',
-//     'children': {{ relationships | safe }}}
+var terrain_tooltip = d3.select("body")
+.append("div")
+.style("background-color", 'white')
+.attr("id", "terrain-info")
+.style("position", "absolute")
+.style("z-index", "10")
+.style("visibility", "hidden")
+.html("<p>Default Text</p>");
 
 var roleColors = {
     "commoner": "#0ee0f7",

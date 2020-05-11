@@ -27,16 +27,11 @@
     <a class='button-stack' href='/game/createcharacter'>And yet, we know little about you. Tell us about yourself.</a>
     <a class='button-stack' href='/game/generateworld'>discard this world and return to the forge</a>
         </div>
-    <div>
-            <svg width="1500" height="1000">
-                <g class="links"></g>
-                <g class="nodes"></g>
-            </svg>
-        </div>
-    <script>
-        var relationships = {{ relationships|safe }}
 
-        {% include 'game/charts/nodemap.js' %}
+    <script>
+        var charData = {"type": "person","name":"you"} 
+        {% include "game/core/globalFunctions.js" %}
+        {% include 'game/charts/relationships.js' %}
         
     </script>
     <h1>These are the events that happened before you began your quest</h1>
