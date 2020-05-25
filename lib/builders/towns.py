@@ -67,10 +67,14 @@ class Town:
         return birthrate
 
     def get_town_data(self, world):
-        p = [p.get_person_data() for p in self.get_population(world)]
+        if self.get_surrounding_area(world)['danger'].mean()>.45:
+            self.add_message_to_people(world, f"{self.name} is so dangerous! Won't anyone help us?" , onlyMessage=True)
+        else:
+            self.add_message_to_people(world, f"Thank you {world.Character.name}!" , onlyMessage=True)
+        p = [person.get_person_data(world) for person in self.get_population(world)]
         d = {
             "name": self.name,
-            "speaker": self.speaker.get_person_data(),
+            "speaker": self.speaker.get_person_data(world),
             "founded": self.founded,
             "population": len(self.get_population(world)),
             "people": p,
@@ -93,11 +97,11 @@ class Town:
 
     def population_growth(self, world, people):
         if np.random.uniform() < self.get_birthrate(world):
-            p = people.Person(world, location=self.key)
+            people.Person(world, location=self.key)
 
     def population_gen(self, world, people):
         if np.random.uniform() < world.culture.town_birthrate:
-            p = people.Person(world, location=self.key)
+            people.Person(world, location=self.key)
 
     def set_starting_fielty(self, world):
         self.diplomacy["nation"] = world.df_features.loc[
@@ -108,6 +112,11 @@ class Town:
 
     def add_building(self, b):
         self.buildings.append(b)
+
+    def add_message_to_people(self,world, message,role=None, onlyMessage=True):
+        for p in self.get_population(world):
+            if message not in p.get_messages(world):
+                p.add_message(message, onlyMessage=True)
 
 
 def build_towns(world, people):

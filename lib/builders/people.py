@@ -48,7 +48,7 @@ class Person:
                 t=world.landscape.land_types, r="key")
             return key
 
-    def get_person_data(self):
+    def get_person_data(self, world):
         d = {
             "name": self.name,
             "role": self.role,
@@ -56,7 +56,7 @@ class Person:
             "temperment": self.temperment,
             "opinion_of_player": self.opinion_of_player,
             "attributes": self.attributes,
-            "messages": "|".join(self.messages),
+            "messages": self.get_messages(world),
             "doing": self.doing,
             "type": "person"
         }
@@ -93,7 +93,13 @@ class Person:
     def shift_opinion_of_player(self, n):
         self.opinion_of_player += n
 
-    def add_message(self, m):
+    def get_messages(self,world):
+        messages = "|".join([m for m in self.messages if m!='None'])
+        return messages
+
+    def add_message(self, m, onlyMessage=False):
+        if onlyMessage:
+            self.messages = []
         self.messages.append(m)
 
     def remove_message(self, m):
