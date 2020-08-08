@@ -1,4 +1,0 @@
-,n_subjects,n_objects,event,effect_var,effect
-raiders,1,3,"raiders from {a}, plundered {o}",favor,-0.15
-marrage,1,1,a noble from {o} was married to a noble in {a},favor,0.3
-temple,1,0,a great temple was founded in the nation of {a},buildings,temple
