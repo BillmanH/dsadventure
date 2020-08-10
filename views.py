@@ -1,30 +1,17 @@
+# Standard libraries
+import yaml
+import numpy as np
+import pandas as pd
+
 # Django libraries
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 
 # forms
-from .forms import playerCharacterForm
 
-# functions that generate the world
-from .lib import create_world
-
-# builders are the modules that get and put data into the right places
-from .lib.builders import world as w
-from .lib import builders
-from .lib.builders import monsters
-
-# modify_character also contains the Character() class
-from .lib import modify_character
-
-# libraries to save and load files
-from .lib.boto import s3Transfer as b
-import yaml
-import numpy as np
-import pandas as pd
-
-# models pulled in from Azure SQL Server
-from .models import bestiary, terrain_details, terrain_items
+# models
+#from .models import *
 
 
 @login_required
@@ -34,21 +21,17 @@ def start_screen(request):
 
 @login_required
 def core_view(request):
-    """
-    b = loading and saving functions
-    w = world module
-    """
     context = {}
     if "POST" == request.method:
         # get the updated character data from the userform
-        charData = yaml.safe_load(request.POST['charData'])
+        formData = yaml.safe_load(request.POST['formData'])
         # get the old world (before the update)
         world = b.get_world(request.user.get_username())
         context['old_location'] = world.Character.get_location_key()
         # update the charData with this function (keeps the update out of the users's hands)
         world = modify_character.update_charData(
             world, charData, context['old_location'])
-        #A new turn has begun
+        # A new turn has begun
         world.Character.turn_number += 1
         # TODO: game starts on "unvisitied location" change first place to visited by default.
         # keeping track of whether or not the character has been there
