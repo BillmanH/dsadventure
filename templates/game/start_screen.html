@@ -1,0 +1,14 @@
+{% load static %}
+
+<head>
+    {% include "prodweb/gatag.html" %}
+    <link rel="stylesheet" type="text/css" href="{% static 'game/forms.css' %}">
+</head>
+<body>
+    <p>Welcome commander!</p>
+    <a class='button-stack' href='generateworld'>Start a new game</a>
+    <a class='button-stack' href='coreview'>Load a current game</a>
+    <a class='button-stack' href='createcharacter'>create a new character using the existing world</a>
+    <a class='button-stack' href='../accounts/logout/'>Logout</a>
+</body>
+
