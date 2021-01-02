@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 
-from game.models import events
-from game.lib.builders import nations
+from dsadventure.models import events
+from dsadventure.lib.builders import nations
 
 
 def get_possible_events():
