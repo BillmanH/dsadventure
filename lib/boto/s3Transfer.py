@@ -31,14 +31,14 @@ def save_world(world, user):
     # conn = get_s3()
     # mybucket = conn.get_bucket('dsadventure')
     # save the bucket locally
-    pickled_world = open("game/pickles/" + user + "world.pkl", "wb")
+    pickled_world = open("dsadventure/pickles/" + user + "world.pkl", "wb")
     pickle.dump(world, pickled_world)
     # myKey = mybucket.get_key('world/' + user + 'world.pkl')
 
 
 def get_world(user):
     try:
-        with (open("game/pickles/" + user + "world.pkl", "rb")) as pickle_file:
+        with (open("dsadventure/pickles/" + user + "world.pkl", "rb")) as pickle_file:
             world = pickle.load(pickle_file)
     except FileNotFoundError:
         return None
