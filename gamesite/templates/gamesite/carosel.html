@@ -1,6 +1,6 @@
 {% load static %}
 <div class="slideshow-container">
-<link rel="stylesheet" type="text/css" href="{% static 'prodweb/carosel/desktop_index.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'gamesite/carosel/desktop_index.css' %}">
 <div class="slidesContainer" id="slidesContainer">
 {% for c in articles %}
 <div class="mySlides fade" id="widget{{ forloop.counter }}">
@@ -10,7 +10,7 @@
             {{ c.title }}
         </a></p>
     <div class="contentText">{{ c.subtext }}</div>
-    {% include "prodweb/carosel_widget.html" %}
+    {% include "gamesite/carosel_widget.html" %}
 </div>
 
 {% endfor %}
@@ -28,7 +28,7 @@
 
 </div>
 
-<script src="{% static 'prodweb/carosel/carosel_desktop.js' %}"></script>
+<script src="{% static 'gamesite/carosel/carosel_desktop.js' %}"></script>
 <script>
     console.log({{ notebooks | safe }})
 </script>

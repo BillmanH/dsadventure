@@ -13,7 +13,7 @@ from .forms import SignUpForm
 
 def index(request):
     carosel_items = []
-    template = loader.get_template('prodweb/index.html')
+    template = loader.get_template('gamesite/index.html')
     notebooks = blogs.get_notebooks_as_content()
     for notebook in notebooks:
         carosel_items.append({"title":notebook['title'],
@@ -24,7 +24,7 @@ def index(request):
         'articles':carosel_items,
         'notebooks':notebooks
     }    
-    return render(request,'prodweb/index.html',context)
+    return render(request,'gamesite/index.html',context)
 
 
 def notebook_article(request):
@@ -32,9 +32,9 @@ def notebook_article(request):
     fname = request.GET.get('article', 'article_not_found.html')
     if fname not in [i['filename'] for i in notebooks]:
         fname = 'article_not_found.html'
-    article = "prodweb/notebooks/"+fname
+    article = "gamesite/notebooks/"+fname
     context = {"article":article}
-    return render(request,'prodweb/jupyter_notebook.html',context)
+    return render(request,'gamesite/jupyter_notebook.html',context)
 
 
 def signup(request):
@@ -53,4 +53,4 @@ def signup(request):
     return render(request, 'registration/signup.html', {'form': form})
 
 def ads_text(request):
-    return  render(request, 'prodweb/ads.txt')
+    return  render(request, 'gamesite/ads.txt')
