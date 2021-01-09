@@ -10,7 +10,7 @@ git clone https://github.com/BillmanH/dsadventure.git`
 Install the settings file:
 
 ```
-cp gamesite/settings.bak gamesite/settings.bak`
+cp gamesite/TEMPLATE.bak gamesite/settings.bak`
 ```
 
 Migrate:
