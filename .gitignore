@@ -1,5 +1,6 @@
 #local world caches and other saved files
 pickles/*.pkl
+dsadventure/pickles/*
 
 #visual studio junk
 .vscode/*
@@ -108,3 +109,4 @@ migrations/*
 static*
 db.sqlite3*
 dsadventure/migrations/*
+
