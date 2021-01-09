@@ -1,0 +1,57 @@
+div {
+    border:1px solid black;
+    border-radius: 10px;
+    font-family: sans-serif;
+}
+
+.titleText {
+    text-align:center;
+    font-family: sans-serif;
+}
+
+li {
+    margin-bottom: 1px;
+    background-color: #eee;
+    list-style-type:none;
+    border:1px solid black;
+    border-radius: 5px;
+    text-align: center
+}
+
+li a {
+    text-decoration: none;
+}
+
+.numberText {
+
+}
+
+#codeToggleButton {
+    z-index: 100;
+    position: fixed;
+    top: 60px;
+}
+
+img {
+    margin:0 auto;
+    display:block;
+    text-align: center;
+    border-radius: 40%;
+    width: 30%
+}
+
+.slideshow-container {
+    border: 1px solid black;
+}
+
+.contentText {
+    border: none;
+}
+
+.mySlides {
+    border: none;
+}
+
+.dots {
+    border: none;
+}
