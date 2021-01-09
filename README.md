@@ -4,13 +4,13 @@
 Clone the repository:
 
 ```
-git clone https://github.com/BillmanH/dsadventure.git` 
+git clone https://github.com/BillmanH/dsadventure.git
 ```
 
 Install the settings file:
 
 ```
-cp gamesite/TEMPLATE.bak gamesite/settings.bak`
+cp gamesite/TEMPLATE.bak gamesite/settings.py
 ```
 
 Migrate:
