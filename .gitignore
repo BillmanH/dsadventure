@@ -100,3 +100,4 @@ notebooks/.ipynb_checkpoints
 
 migrations_old/*
 
+*settings*.py
