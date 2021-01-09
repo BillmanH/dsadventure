@@ -1,0 +1,379 @@
+[
+    {
+        "model": "game.terrain_items",
+        "pk": "background-land",
+        "fields": {
+            "hexcolor": "#599259",
+            "borderhex": "#000000",
+            "spread": "background",
+            "spread_radius": 8,
+            "affect": "no",
+            "size": 1,
+            "affectText": "none",
+            "abundance_affected_by": "elevation",
+            "density_affected_by": "elevation",
+            "render_index": -1
+        }
+    },
+    {
+        "model": "game.terrain_items",
+        "pk": "boulder",
+        "fields": {
+            "hexcolor": "#7B7B7B",
+            "borderhex": "#000000",
+            "spread": "scatter",
+            "spread_radius": 13,
+            "affect": "bump",
+            "size": 8,
+            "affectText": "** hit a boulder",
+            "abundance_affected_by": "none",
+            "density_affected_by": "elevation",
+            "render_index": 1
+        }
+    },
+    {
+        "model": "game.terrain_items",
+        "pk": "building",
+        "fields": {
+            "hexcolor": "#a5a5a5",
+            "borderhex": "#000000",
+            "spread": "block",
+            "spread_radius": 8,
+            "affect": "bump",
+            "size": 30,
+            "affectText": "** hit a building",
+            "abundance_affected_by": "population",
+            "density_affected_by": "age",
+            "render_index": 1
+        }
+    },
+    {
+        "model": "game.terrain_items",
+        "pk": "grass",
+        "fields": {
+            "hexcolor": "#006400",
+            "borderhex": "#006400",
+            "spread": "scatter",
+            "spread_radius": 8,
+            "affect": "no",
+            "size": 1,
+            "affectText": "none",
+            "abundance_affected_by": "rainfall",
+            "density_affected_by": "rainfall",
+            "render_index": -1
+        }
+    },
+    {
+        "model": "game.terrain_items",
+        "pk": "lake",
+        "fields": {
+            "hexcolor": "#008D97",
+            "borderhex": "#337A7F",
+            "spread": "scatter",
+            "spread_radius": 1,
+            "affect": "bump",
+            "size": 25,
+            "affectText": "** in in a lake",
+            "abundance_affected_by": "rainfall",
+            "density_affected_by": "rainfall",
+            "render_index": -1
+        }
+    },
+    {
+        "model": "game.terrain_items",
+        "pk": "land",
+        "fields": {
+            "hexcolor": "#599259",
+            "borderhex": "#000000",
+            "spread": "background",
+            "spread_radius": 8,
+            "affect": "no",
+            "size": 1,
+            "affectText": "none",
+            "abundance_affected_by": "elevation",
+            "density_affected_by": "elevation",
+            "render_index": -1
+        }
+    },
+    {
+        "model": "game.terrain_items",
+        "pk": "rock",
+        "fields": {
+            "hexcolor": "#5A4D41",
+            "borderhex": "#000000",
+            "spread": "scatter",
+            "spread_radius": 20,
+            "affect": "none",
+            "size": 4,
+            "affectText": "** hit a rock",
+            "abundance_affected_by": "elevation",
+            "density_affected_by": "elevation",
+            "render_index": -2
+        }
+    },
+    {
+        "model": "game.terrain_items",
+        "pk": "sand",
+        "fields": {
+            "hexcolor": "#000000",
+            "borderhex": "#000000",
+            "spread": "scatter",
+            "spread_radius": 8,
+            "affect": "no",
+            "size": 1,
+            "affectText": "none",
+            "abundance_affected_by": "elevation",
+            "density_affected_by": "elevation",
+            "render_index": -1
+        }
+    },
+    {
+        "model": "game.terrain_items",
+        "pk": "stone",
+        "fields": {
+            "hexcolor": "#8e877f",
+            "borderhex": "#000000",
+            "spread": "scatter",
+            "spread_radius": 8,
+            "affect": "none",
+            "size": 4,
+            "affectText": "none",
+            "abundance_affected_by": "elevation",
+            "density_affected_by": "elevation",
+            "render_index": -1
+        }
+    },
+    {
+        "model": "game.terrain_items",
+        "pk": "tree",
+        "fields": {
+            "hexcolor": "#1e5603",
+            "borderhex": "#113102",
+            "spread": "jitter",
+            "spread_radius": 8,
+            "affect": "bump",
+            "size": 20,
+            "affectText": "** hit a tree",
+            "abundance_affected_by": "rainfall",
+            "density_affected_by": "none",
+            "render_index": -1
+        }
+    },
+    {
+        "model": "game.terrain_details",
+        "pk": "desert",
+        "fields": {
+            "land_type": "dry",
+            "description": "a dry desert",
+            "creatures": "scorpion",
+            "terrain_textures": "[{'name':'background-land','color':'#edc9af','condition':'none'},{'name':'sand','abundance':150,'density':1},{'name':'rock','abundance':5,'density':5}]"
+        }
+    },
+    {
+        "model": "game.terrain_details",
+        "pk": "forest",
+        "fields": {
+            "land_type": "hostile",
+            "description": "a dense forest",
+            "creatures": "goblin",
+            "terrain_textures": "[{'name':'background-land','color':'#599259','condition':'none'},{'name':'tree','abundance':50,'density':5},{'name':'rock','abundance':5,'density':5}]"
+        }
+    },
+    {
+        "model": "game.terrain_details",
+        "pk": "land",
+        "fields": {
+            "land_type": "hostile",
+            "description": "a grassy plain",
+            "creatures": "goblin",
+            "terrain_textures": "[{'name':'background-land','color':'#669966','condition':'none'},{'name':'grass','abundance':150,'density':5},{'name':'rock','abundance':5,'density':5}]"
+        }
+    },
+    {
+        "model": "game.terrain_details",
+        "pk": "mountain",
+        "fields": {
+            "land_type": "hostile",
+            "description": "a rugged mountain",
+            "creatures": "goblin",
+            "terrain_textures": "[{'name':'background-land','color':'#977c53','condition':'none'},{'name':'boulder','density':6,'abundance':10},{'name':'rock','abundance':5,'density':5},{'name':'stone','abundance':30,'density':5}]"
+        }
+    },
+    {
+        "model": "game.terrain_details",
+        "pk": "ocean",
+        "fields": {
+            "land_type": "water",
+            "description": "the deep ocean",
+            "creatures": "shark",
+            "terrain_textures": "[{'name':'background-land','color':'#0077be','condition':'drown'}]"
+        }
+    },
+    {
+        "model": "game.terrain_details",
+        "pk": "plain",
+        "fields": {
+            "land_type": "hostile",
+            "description": "a grassy plain",
+            "creatures": "goblin",
+            "terrain_textures": "[{'name':'background-land','color':'#669966','condition':'none'},{'name':'grass','abundance':150,'density':5},{'name':'rock','abundance':5,'density':5}]"
+        }
+    },
+    {
+        "model": "game.terrain_details",
+        "pk": "town",
+        "fields": {
+            "land_type": "civil",
+            "description": "[town]",
+            "creatures": "none",
+            "terrain_textures": "[{'name':'background-land','color':'#968c82','condition':'none'},{'name':'building','density':2,'abundance':5},{'name':'tree','abundance':5,'density':1} ]"
+        }
+    },
+    {
+        "model": "game.bestiary",
+        "pk": "goblin",
+        "fields": {
+            "name": "goblin",
+            "health": 10,
+            "healthMaxVariance": 3,
+            "move": 15,
+            "size": 3,
+            "move_type": "scatter",
+            "render_type": "group",
+            "group_min": 2,
+            "group_max": 6,
+            "color": "#ab3c07",
+            "perception": 40,
+            "attack_type": "swung a rusty spear",
+            "damage": 4,
+            "xp": 1
+        }
+    },
+    {
+        "model": "game.bestiary",
+        "pk": "raider",
+        "fields": {
+            "name": "raider",
+            "health": 10,
+            "healthMaxVariance": 3,
+            "move": 15,
+            "size": 8,
+            "move_type": "scatter",
+            "render_type": "group",
+            "group_min": 3,
+            "group_max": 7,
+            "color": "#a5acaf",
+            "perception": 100,
+            "attack_type": "stabs with a short sword",
+            "damage": 4,
+            "xp": 4
+        }
+    },
+    {
+        "model": "game.bestiary",
+        "pk": "scorpion",
+        "fields": {
+            "name": "scorpion",
+            "health": 10,
+            "healthMaxVariance": 2,
+            "move": 5,
+            "size": 5,
+            "move_type": "search",
+            "render_type": "solo",
+            "group_min": 1,
+            "group_max": 2,
+            "color": "#5C5C5C",
+            "perception": 40,
+            "attack_type": "stings",
+            "damage": 50,
+            "xp": 1
+        }
+    },
+    {
+        "model": "game.bestiary",
+        "pk": "shark",
+        "fields": {
+            "name": "shark",
+            "health": 30,
+            "healthMaxVariance": 10,
+            "move": 35,
+            "size": 20,
+            "move_type": "search",
+            "render_type": "solo",
+            "group_min": 1,
+            "group_max": 2,
+            "color": "#31353F",
+            "perception": 100,
+            "attack_type": "bites",
+            "damage": 15,
+            "xp": 1
+        }
+    },
+    {
+        "model": "game.buildings",
+        "pk": "temple",
+        "fields": {
+            "name": "temple",
+            "shape": "rect",
+            "door": "open",
+            "guards": "none",
+            "messages": "welcome **name**"
+        }
+    },
+    {
+        "model": "game.events",
+        "pk": "bandits",
+        "fields": {
+            "agent_type": "nation",
+            "n_subjects": 0,
+            "n_objects": 1,
+            "event": "bandits have set up camp in the {t} of {o}",
+            "effect_var": "feature",
+            "effect": "0.10",
+            "a_message": "None",
+            "o_message": "Lawless thugs have set up camp out in the {t} of our great nation."
+        }
+    },
+    {
+        "model": "game.events",
+        "pk": "marrage",
+        "fields": {
+            "agent_type": "nation",
+            "n_subjects": 1,
+            "n_objects": 1,
+            "event": "a noble from {o} was married to a noble in {a}",
+            "effect_var": "favor",
+            "effect": "0.30",
+            "a_message": "What a great wedding. So glad the people of {o} are our friends.",
+            "o_message": "What a great wedding. So glad the people of {a} are our friends."
+        }
+    },
+    {
+        "model": "game.events",
+        "pk": "raiders",
+        "fields": {
+            "agent_type": "nation",
+            "n_subjects": 1,
+            "n_objects": 3,
+            "event": "raiders from {a}, plundered {o}",
+            "effect_var": "favor",
+            "effect": "-0.15",
+            "a_message": "Our soldiers are raiding in {o}",
+            "o_message": "Raiders from {a} are plundering our lands!"
+        }
+    },
+    {
+        "model": "game.events",
+        "pk": "temple",
+        "fields": {
+            "agent_type": "nation",
+            "n_subjects": 1,
+            "n_objects": 0,
+            "event": "a great temple was founded in the city of {t} in {a}",
+            "effect_var": "buildings",
+            "effect": "0.00",
+            "a_message": "did you hear about the great temple in {a}",
+            "o_message": "hello"
+        }
+    }
+]

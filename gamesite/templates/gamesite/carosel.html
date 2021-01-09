@@ -1,0 +1,34 @@
+{% load static %}
+<div class="slideshow-container">
+<link rel="stylesheet" type="text/css" href="{% static 'prodweb/carosel/desktop_index.css' %}">
+<div class="slidesContainer" id="slidesContainer">
+{% for c in articles %}
+<div class="mySlides fade" id="widget{{ forloop.counter }}">
+    <div class="numbertext">{{ forloop.counter }} / {{ articles|length }}</div>
+    <h2 class="contentText">
+        <a href="/blog/?article={{ c.link }}">
+            {{ c.title }}
+        </a></p>
+    <div class="contentText">{{ c.subtext }}</div>
+    {% include "prodweb/carosel_widget.html" %}
+</div>
+
+{% endfor %}
+</div>
+<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+</div>
+<br>
+
+<div class="dots" style="text-align:center">
+{% for c in articles %}
+    <span class="dot" onclick="currentSlide({{ forloop.counter }})"></span> 
+{% endfor %}
+
+</div>
+
+<script src="{% static 'prodweb/carosel/carosel_desktop.js' %}"></script>
+<script>
+    console.log({{ notebooks | safe }})
+</script>

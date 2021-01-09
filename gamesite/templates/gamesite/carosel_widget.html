@@ -1,0 +1,15 @@
+{% load static %}
+
+{% if "chartjs" in c %}
+<script>
+var svg = d3.select("#widget{{ forloop.counter }}").append("svg")
+    .attr("width", screen.width + margin.right + margin.left)
+    .attr("height", 300  + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate("
+        + margin.left + "," + margin.top + ")");
+</script>
+
+    <script src="{% static c.chartjs %}"></script>
+{% endif %}
+

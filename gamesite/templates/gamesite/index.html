@@ -1,0 +1,30 @@
+{% load static %}
+<html>
+<head>
+    <title>William Harding's personal blog</title>
+    {% include "prodweb/adsensetag.html" %}
+    {% include "prodweb/gatag.html" %}
+    <link rel="stylesheet" type="text/css" href="{% static 'prodweb/desktop_index.css' %}">
+    <script type="text/javascript" src="{% static 'prodweb/d3.js' %}"></script>
+    <script type="text/javascript" src="{% static 'prodweb/d3_headers.js' %}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <h1 class="titleText">William Harding</h1>
+    <h2 class="titleText">Data analytics and infrastructure specialist</h2>
+    <div id="presentation">
+    <img src="{% static "prodweb/profile.jpg" %}" alt="My image">
+    </div>
+    <p>I build tools and infrastructure, from proof of concept to final delivery, that make sense of unorganized data and enable decision making. In my free time I work on a wide variety of DIY and tech projects. I’m always looking to engage more with the Seattle tech scene.</p>
+<ul class="links">
+    <li class="chtl"><a href="https://sustainablecapitolhill.org/tool-library/">Check out our makerspace at the tool library.</a></li>
+    <li class="github"><a href="https://github.com/BillmanH">I put a lot of code for my side projects on GitHub.</a></li>
+    <li class="game"><a href="http://williamjeffreyharding.com/game/startscreen">I've been working on a game, feel free to make an account and check it out.</a></li>
+</ul>
+    {% include "prodweb/carosel.html" %}
+    <a href="https://policies.google.com/technologies/partner-sites">
+        HOW GOOGLE USES INFORMATION FROM SITES OR APPS THAT USE OUR SERVICES
+    </a>
+    <p>As for me, I'm not using any of your data. Some areas of the site require a login, but that's just so that I can give you custom content. Except for Google Analytics data, I don't look at my users at all. </p>
+</body>
+</html>

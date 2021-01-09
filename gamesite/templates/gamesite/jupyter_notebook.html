@@ -1,0 +1,90 @@
+{% load static %}
+{% static "prodweb/notebooks/" as baseUrl %}
+<head>
+    {% include "prodweb/gatag.html" %}
+    {% include "prodweb/adsensetag.html" %}
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+</head>
+<a href="https://twitter.com/Billmanh?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @TwitterDev</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script>
+  function code_toggle() {
+    if (code_shown){
+      $('div.input').hide('500');
+      $('#codeToggleButton').val('Show Code')
+    } else {
+      $('div.input').show('500');
+      $('#codeToggleButton').val('Hide Code')
+    }
+    code_shown = !code_shown
+  }
+
+  $( document ).ready(function(){
+    code_shown=false;
+    $('div.input').hide()
+  });
+</script>
+<form action="javascript:code_toggle()"><input type="submit" id="codeToggleButton" value="Show Code"></form>
+{% include article %}
+
+<div class="bizcard">
+    
+<table>
+    <tr>
+            <td class="button" style="border-color: #4c5764;border: 2px solid #45b7af;padding: 10px;text-align: center;">
+                <a style="display: block;color: #ffffff;font-size: 12px;text-decoration: none;text-transform: uppercase;" href="/">Main page</a>
+            </td>
+            <td class="button" style="background-color: #4ecdc4;border-color: #4c5764;border: 2px solid #45b7af;padding: 10px;text-align: center;" >
+                    <a style="display: block;color: #ffffff;font-size: 12px;text-decoration: none;text-transform: uppercase;" href="mailto:william.jeffrey.harding@gmail.com?subject=RE: Data Analytics Beerware">
+            Email</a>
+            </td>
+        <td class="button" style="background-color: #0084BF;border-color: #4c5764;border: 2px solid #45b7af;padding: 10px;text-align: center;">
+            <a style="display: block;color: #ffffff;font-size: 12px;text-decoration: none;text-transform: uppercase;" href="http://www.linkedin.com/in/hardingwilliam">
+            LinkedIn
+            </a>
+        </td>
+                <td class="button" style="background-color: #0077A3;border-color: #4c5764;border: 2px solid #45b7af;padding: 10px;text-align: center;">
+                        <a style="display: block;color: #ffffff;font-size: 12px;text-decoration: none;text-transform: uppercase;" href="https://twitter.com/BillmanH">
+                        Twitter
+                        </a>
+                </td>
+                <td class="button" style="background-color: #24292e;border-color: #4c5764;border: 2px solid #45b7af;padding: 10px;text-align: center;">
+                        <a style="display: block;color: #ffffff;font-size: 12px;text-decoration: none;text-transform: uppercase;" href="https://github.com/BillmanH">
+                        Github
+                        </a>
+                </td>
+    </tr>
+</table>
+</div>
+<style>
+@media only screen and (min-width: 240px) and (max-width: 520px), only screen and (min-device-width: 240px) and (max-device-width: 520px) and (orientation:portrait){
+    #codeToggleButton {
+        height: 100;
+        z-index: 100;
+        position: fixed;
+        bottom: 120px;
+    }
+}
+
+#codeToggleButton {
+    z-index: 100;
+    position: fixed;
+    bottom: 120px;
+}
+
+.button {
+    background-color: #4ecdc4;
+    border-color: #45b7af;
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px;
+}
+// Style anchor tags inside the button td
+.button a {
+    color: #ffffff;
+    display: block;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+</style>

@@ -97,7 +97,14 @@ db.sqlite3
 *.map
 .ipynb_checkpoints
 notebooks/.ipynb_checkpoints
+*.ipynb_checkpoints*
 
 migrations_old/*
+migrations/*
 
 *settings*.py
+
+
+static*
+db.sqlite3*
+dsadventure/migrations/*
