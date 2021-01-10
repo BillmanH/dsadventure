@@ -15,6 +15,11 @@ cp gamesite/TEMPLATE.bak gamesite/settings.py
 
 * Add your domain to the settings under `ALLOWED_HOSTS`
 
+* create two fiels (or remove them from the templates)
+```
+touch gamesite/templates/gamesite/adsensetag.html
+touch gamesite/templates/gamesite/gatag.html
+```
 * Migrate the data and static files.
 ```
 python manage.py makemigrations
