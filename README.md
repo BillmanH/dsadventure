@@ -1,19 +1,21 @@
 # Internal Dev Web Environment. 
 
 ## Set it up
-Clone the repository:
+* Clone the repository:
 
 ```
 git clone https://github.com/BillmanH/dsadventure.git
 ```
 
-Install the settings file:
+* Install the settings file:
 
 ```
 cp gamesite/TEMPLATE.bak gamesite/settings.py
 ```
 
-Migrate:
+* Add your domain to the settings under `ALLOWED_HOSTS`
+
+* Migrate the data and static files.
 ```
 python manage.py makemigrations
 python manage.py migrate
