@@ -14,7 +14,7 @@ def test_connection():
 
 
 def get_notebooks_as_content():
-    notebooks = os.listdir("gamesite/templates/prodweb/notebooks/")
+    notebooks = os.listdir("gamesite/templates/gamesite/notebooks/")
     context = []
     for note in notebooks:
         if ".html" not in note:
