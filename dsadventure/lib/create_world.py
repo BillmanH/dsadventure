@@ -16,10 +16,12 @@ def the_first_age(default_params):
     world.brownian_rainfall()
     world.build_df_features()
     # once df_features is created you can do more fine-tuned details.
-    world.df_features['terrain'] = world.df_features.apply(
-        lambda x: w.set_ecology(x, landscape), axis=1)
+    world.df_features["terrain"] = world.df_features.apply(
+        lambda x: w.set_ecology(x, landscape), axis=1
+    )
     world.year = 1000
     return world
+
 
 # the second age (and after) require a world object and modify it
 
@@ -38,14 +40,15 @@ def the_second_age(world, default_params, c=c):
     [nations.appoint_ruler(world, n, people) for n in world.nations]
     return world
 
+
 # params for culture and world should be set. the only thing here is to unravle the events that create the people, buildings and adventure.
 
 
 def the_third_age(world):
     all_events = events.pass_through_time(world)
-    world.df_features['visited'] = 0
-    world.df_features['aware'] = 0
-    world.df_features['turn_last_visited'] = 0
+    world.df_features["visited"] = 0
+    world.df_features["aware"] = 0
+    world.df_features["turn_last_visited"] = 0
     world = events.add_chaos_to_world(world)
     return world, all_events
 
