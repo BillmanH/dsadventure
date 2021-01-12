@@ -26,6 +26,13 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py collectstatic
 ```
+In my case I had to sync the databases with `python manage.py migrate --run-syncdb`
+
+* load the data into your database: 
+```
+python manage.py loaddata game.json
+```
+These are just the default values. You can make them whatever you want. 
 
 then run:
 `serve`

@@ -1,6 +1,6 @@
 [
     {
-        "model": "game.terrain_items",
+        "model": "dsadventure.terrain_items",
         "pk": "background-land",
         "fields": {
             "hexcolor": "#599259",
@@ -16,7 +16,7 @@
         }
     },
     {
-        "model": "game.terrain_items",
+        "model": "dsadventure.terrain_items",
         "pk": "boulder",
         "fields": {
             "hexcolor": "#7B7B7B",
@@ -32,7 +32,7 @@
         }
     },
     {
-        "model": "game.terrain_items",
+        "model": "dsadventure.terrain_items",
         "pk": "building",
         "fields": {
             "hexcolor": "#a5a5a5",
@@ -48,7 +48,7 @@
         }
     },
     {
-        "model": "game.terrain_items",
+        "model": "dsadventure.terrain_items",
         "pk": "grass",
         "fields": {
             "hexcolor": "#006400",
@@ -64,7 +64,7 @@
         }
     },
     {
-        "model": "game.terrain_items",
+        "model": "dsadventure.terrain_items",
         "pk": "lake",
         "fields": {
             "hexcolor": "#008D97",
@@ -80,7 +80,7 @@
         }
     },
     {
-        "model": "game.terrain_items",
+        "model": "dsadventure.terrain_items",
         "pk": "land",
         "fields": {
             "hexcolor": "#599259",
@@ -96,7 +96,7 @@
         }
     },
     {
-        "model": "game.terrain_items",
+        "model": "dsadventure.terrain_items",
         "pk": "rock",
         "fields": {
             "hexcolor": "#5A4D41",
@@ -112,7 +112,7 @@
         }
     },
     {
-        "model": "game.terrain_items",
+        "model": "dsadventure.terrain_items",
         "pk": "sand",
         "fields": {
             "hexcolor": "#000000",
@@ -128,7 +128,7 @@
         }
     },
     {
-        "model": "game.terrain_items",
+        "model": "dsadventure.terrain_items",
         "pk": "stone",
         "fields": {
             "hexcolor": "#8e877f",
@@ -144,7 +144,7 @@
         }
     },
     {
-        "model": "game.terrain_items",
+        "model": "dsadventure.terrain_items",
         "pk": "tree",
         "fields": {
             "hexcolor": "#1e5603",
@@ -160,7 +160,7 @@
         }
     },
     {
-        "model": "game.terrain_details",
+        "model": "dsadventure.terrain_details",
         "pk": "desert",
         "fields": {
             "land_type": "dry",
@@ -170,7 +170,7 @@
         }
     },
     {
-        "model": "game.terrain_details",
+        "model": "dsadventure.terrain_details",
         "pk": "forest",
         "fields": {
             "land_type": "hostile",
@@ -180,7 +180,7 @@
         }
     },
     {
-        "model": "game.terrain_details",
+        "model": "dsadventure.terrain_details",
         "pk": "land",
         "fields": {
             "land_type": "hostile",
@@ -190,7 +190,7 @@
         }
     },
     {
-        "model": "game.terrain_details",
+        "model": "dsadventure.terrain_details",
         "pk": "mountain",
         "fields": {
             "land_type": "hostile",
@@ -200,7 +200,7 @@
         }
     },
     {
-        "model": "game.terrain_details",
+        "model": "dsadventure.terrain_details",
         "pk": "ocean",
         "fields": {
             "land_type": "water",
@@ -210,7 +210,7 @@
         }
     },
     {
-        "model": "game.terrain_details",
+        "model": "dsadventure.terrain_details",
         "pk": "plain",
         "fields": {
             "land_type": "hostile",
@@ -220,7 +220,7 @@
         }
     },
     {
-        "model": "game.terrain_details",
+        "model": "dsadventure.terrain_details",
         "pk": "town",
         "fields": {
             "land_type": "civil",
@@ -230,7 +230,7 @@
         }
     },
     {
-        "model": "game.bestiary",
+        "model": "dsadventure.bestiary",
         "pk": "goblin",
         "fields": {
             "name": "goblin",
@@ -250,7 +250,7 @@
         }
     },
     {
-        "model": "game.bestiary",
+        "model": "dsadventure.bestiary",
         "pk": "raider",
         "fields": {
             "name": "raider",
@@ -270,7 +270,7 @@
         }
     },
     {
-        "model": "game.bestiary",
+        "model": "dsadventure.bestiary",
         "pk": "scorpion",
         "fields": {
             "name": "scorpion",
@@ -290,7 +290,7 @@
         }
     },
     {
-        "model": "game.bestiary",
+        "model": "dsadventure.bestiary",
         "pk": "shark",
         "fields": {
             "name": "shark",
@@ -310,7 +310,7 @@
         }
     },
     {
-        "model": "game.buildings",
+        "model": "dsadventure.buildings",
         "pk": "temple",
         "fields": {
             "name": "temple",
@@ -321,7 +321,7 @@
         }
     },
     {
-        "model": "game.events",
+        "model": "dsadventure.events",
         "pk": "bandits",
         "fields": {
             "agent_type": "nation",
@@ -335,7 +335,7 @@
         }
     },
     {
-        "model": "game.events",
+        "model": "dsadventure.events",
         "pk": "marrage",
         "fields": {
             "agent_type": "nation",
@@ -349,7 +349,7 @@
         }
     },
     {
-        "model": "game.events",
+        "model": "dsadventure.events",
         "pk": "raiders",
         "fields": {
             "agent_type": "nation",
@@ -363,7 +363,7 @@
         }
     },
     {
-        "model": "game.events",
+        "model": "dsadventure.events",
         "pk": "temple",
         "fields": {
             "agent_type": "nation",
